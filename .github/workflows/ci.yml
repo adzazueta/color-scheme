@@ -1,0 +1,183 @@
+name: CI
+
+on:
+  pull_request:
+    # No edited: the title check lives in pr-title.yml, so description edits
+    # do not re-run the full CI.
+    types: [opened, reopened, synchronize]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions: {}
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: true
+      - run: vp check
+
+  test:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24, 26]
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: ${{ matrix.node }}
+          cache: true
+      - name: Test
+        if: ${{ !(matrix.node == 24 && matrix.os == 'ubuntu-24.04') }}
+        run: vp test --project node
+      - name: Test with coverage
+        if: ${{ matrix.node == 24 && matrix.os == 'ubuntu-24.04' }}
+        run: vp test --project node --coverage
+      - name: Coverage summary
+        if: ${{ matrix.node == 24 && matrix.os == 'ubuntu-24.04' }}
+        shell: node {0}
+        run: |
+          const fs = require("node:fs");
+          const total = JSON.parse(fs.readFileSync("coverage/coverage-summary.json", "utf8")).total;
+          const rows = ["lines", "statements", "functions", "branches"].map(
+            (key) => `| ${key} | ${total[key].pct}% | ${total[key].covered} / ${total[key].total} |`,
+          );
+          const markdown = [
+            "### Coverage (Node 24, ubuntu-24.04)",
+            "",
+            "| Metric | Covered | Count |",
+            "| --- | --- | --- |",
+            ...rows,
+            "",
+          ].join("\n");
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+
+  browser:
+    name: browser
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: true
+      - run: vp exec playwright install --with-deps chromium firefox webkit
+      - run: vp test --project browser
+
+  pack:
+    name: pack
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: true
+      - run: vp pack
+      # Specification 6.5: the bundle size is measured and shown in the summary, without a limit.
+      - name: Bundle size summary
+        shell: node {0}
+        run: |
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const zlib = require("node:zlib");
+          // Default sort: UTF-16 code unit order, so the rows keep a fixed order.
+          const files = fs
+            .readdirSync("dist", { recursive: true })
+            .map((name) => path.join("dist", name))
+            .filter((file) => fs.statSync(file).isFile())
+            .sort();
+          let totalSize = 0;
+          let totalGzip = 0;
+          const rows = files.map((file) => {
+            const content = fs.readFileSync(file);
+            const gzip = zlib.gzipSync(content).length;
+            totalSize += content.length;
+            totalGzip += gzip;
+            return `| ${file} | ${content.length} | ${gzip} |`;
+          });
+          const markdown = [
+            "### Bundle size",
+            "",
+            "| File | Size (bytes) | Gzip (bytes) |",
+            "| --- | --- | --- |",
+            ...rows,
+            `| Total | ${totalSize} | ${totalGzip} |`,
+            "",
+          ].join("\n");
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+
+  workflows:
+    name: workflows
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: actionlint
+        uses: docker://rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667
+      - name: zizmor
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          version: 1.30.1
+          advanced-security: false
+
+  changeset:
+    name: changeset
+    if: >-
+      github.event_name == 'pull_request'
+      && github.event.pull_request.user.login != 'dependabot[bot]'
+      && !(github.event.pull_request.head.repo.full_name == github.repository
+      && startsWith(github.head_ref, 'changeset-release/'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: true
+      - name: Require a changeset when src/ or package.json changes
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: vp exec changeset status --since="origin/$BASE_REF"

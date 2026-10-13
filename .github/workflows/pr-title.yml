@@ -1,0 +1,34 @@
+name: PR title
+
+on:
+  pull_request:
+    # edited: re-check the title when it is fixed. Description edits, such as
+    # the Jira link, only re-run this job.
+    types: [opened, edited, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  pr-title:
+    name: pr-title
+    if: >-
+      github.event_name == 'pull_request'
+      && github.event.pull_request.user.login != 'dependabot[bot]'
+      && !(github.event.pull_request.head.repo.full_name == github.repository
+      && startsWith(github.head_ref, 'changeset-release/'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions: {}
+    steps:
+      - name: Check that the title starts with an ADZE key
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$PR_TITLE" =~ ^ADZE-[0-9]+\  ]]; then
+            echo "::error::The pull request title must start with an ADZE key, for example 'ADZE-12 Configure tsconfig.json'."
+            exit 1
+          fi
