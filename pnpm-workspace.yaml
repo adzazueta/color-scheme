@@ -1,5 +1,9 @@
-# Other protections (install scripts blocked, 24-hour minimumReleaseAge,
-# blockExoticSubdeps) are pnpm 11 defaults.
+# Versions published less than 24 hours earlier are not installed. Setting
+# minimumReleaseAge explicitly (1440 minutes is also pnpm 11's default) makes it
+# strict: pnpm fails instead of falling back to a newer version.
+# Other protections (install scripts blocked, blockExoticSubdeps) are pnpm 11
+# defaults.
+minimumReleaseAge: 1440
 runtimeOnFail: ignore
 saveExact: true
 trustPolicy: no-downgrade
