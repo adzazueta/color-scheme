@@ -1,0 +1,352 @@
+name: Release
+
+# Ecosystem Decisions 7.4 and 7.5:
+# - Every push to main opens or updates the "Version Packages" pull request.
+# - When the version in package.json is not on npm yet (the version pull request
+#   was merged), the tarball is built, staged with `npm stage publish`, and
+#   published after the maintainer approves it on npmjs.com.
+# Changesets does not support staged publishing, so publishing, tagging, and the
+# GitHub Release are written here instead of using its publish script.
+#
+# npm refuses to run inside this repository (devEngines.packageManager is pnpm),
+# so every npm command runs outside the checkout.
+
+on:
+  push:
+    branches: [main]
+
+# One release at a time. Runs queue instead of being cancelled, so a run that is
+# waiting for the npm approval is never interrupted.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions: {}
+
+env:
+  PACKAGE_NAME: "@adzazueta/color-scheme"
+
+jobs:
+  # Opens or updates the "Version Packages" pull request. The GitHub App token
+  # makes CI run on that pull request (the default GITHUB_TOKEN would not
+  # trigger workflows). Commits are created through the GitHub API, so GitHub
+  # signs them (the default branch ruleset requires signed commits).
+  version:
+    name: version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: false
+      - id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          commit-message: Version Packages
+          pr-title: Version Packages
+          pr-base-branch: main
+
+  # Decides whether this commit has to be published: it does when the version in
+  # package.json is not on npm yet and is not the initial 0.0.0.
+  check:
+    name: check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.decide.outputs.version }}
+      publish: ${{ steps.decide.outputs.publish }}
+      tag: ${{ steps.decide.outputs.tag }}
+      prerelease: ${{ steps.decide.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - id: decide
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./package.json').version")"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Unexpected version '$version' in package.json."
+            exit 1
+          fi
+          # Maintainer decision (ADZE-87): the initial version 0.0.0 is never
+          # published. main keeps it until the first version pull request is
+          # merged, and it is not on npm, so without this rule every push to main
+          # would try to stage it.
+          if [[ "$version" == "0.0.0" ]]; then
+            echo "$PACKAGE_NAME@$version is the initial version, which is never published. Nothing to publish."
+            {
+              echo "version=$version"
+              echo "publish=false"
+              echo "tag=latest"
+              echo "prerelease=false"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ "$version" == *-* ]]; then
+            prerelease=true
+            tag=next
+          else
+            prerelease=false
+            tag=latest
+          fi
+
+          # Outside the checkout: npm refuses to run in this repository.
+          cd "$RUNNER_TEMP"
+          if published="$(npm view "$PACKAGE_NAME@$version" version 2>npm-view.err)"; then
+            echo "$PACKAGE_NAME@$published is already on npm. Nothing to publish."
+            publish=false
+          elif grep -q 'E404' npm-view.err; then
+            echo "$PACKAGE_NAME@$version is not on npm yet. It will be published."
+            publish=true
+          else
+            cat npm-view.err
+            echo "::error::Could not query the npm registry."
+            exit 1
+          fi
+
+          {
+            echo "version=$version"
+            echo "publish=$publish"
+            echo "tag=$tag"
+            echo "prerelease=$prerelease"
+          } >> "$GITHUB_OUTPUT"
+
+  # Installs, builds, and packs. It has no publish permission and uploads the
+  # tarball that the publish job stages. The smoke test (ADZE-110) is added here.
+  build:
+    name: build
+    needs: check
+    if: needs.check.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: voidzero-dev/setup-vp@3754dd7dbdb32bd8f6d28b6043de13ad3a75f21f # v1.21.1
+        with:
+          node-version: 24
+          cache: false
+      - name: Build
+        run: vp pack
+      - name: Create the tarball
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/tarball"
+          vp pm pack --pack-destination "$RUNNER_TEMP/tarball"
+          expected="$RUNNER_TEMP/tarball/adzazueta-color-scheme-$VERSION.tgz"
+          if [ ! -f "$expected" ] || [ "$(find "$RUNNER_TEMP/tarball" -type f | wc -l)" -ne 1 ]; then
+            echo "::error::Expected exactly one tarball named adzazueta-color-scheme-$VERSION.tgz."
+            ls -l "$RUNNER_TEMP/tarball"
+            exit 1
+          fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tarball
+          path: ${{ runner.temp }}/tarball/adzazueta-color-scheme-${{ needs.check.outputs.version }}.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  # Stages the tarball on npm with OIDC (the trusted publisher only allows
+  # staging, from this workflow, in the npm environment). It installs no
+  # dependencies and never runs repository code.
+  publish:
+    name: publish
+    needs: [check, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: npm
+    permissions:
+      contents: none
+      id-token: write
+    steps:
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Require npm 11.15.0 or later
+        run: |
+          npm --version
+          if [ "$(printf '%s\n' 11.15.0 "$(npm --version)" | sort -V | head -n 1)" != "11.15.0" ]; then
+            echo "::error::npm stage publish needs npm 11.15.0 or later."
+            exit 1
+          fi
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: tarball
+          path: ${{ runner.temp }}/tarball
+      - name: Stage on npm
+        working-directory: ${{ runner.temp }}/tarball
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+          DIST_TAG: ${{ needs.check.outputs.tag }}
+        run: |
+          set -uo pipefail
+          # A version that is staged but not approved yet stays unpublished, so a
+          # later push to main gets here again. Staged versions share the unique
+          # version index with published ones, so npm rejects the second attempt.
+          # OIDC tokens cannot run `npm stage list`, so that rejection is
+          # recognised by its message and treated as "already staged".
+          if npm stage publish "./adzazueta-color-scheme-$VERSION.tgz" --tag "$DIST_TAG" 2>stage.err; then
+            echo "Staged $PACKAGE_NAME@$VERSION with dist-tag $DIST_TAG."
+          else
+            cat stage.err
+            if grep -qiE 'previously published|already (exists|staged)|E409|EPUBLISHCONFLICT' stage.err; then
+              echo "::warning::$PACKAGE_NAME@$VERSION is already staged. Waiting for its approval."
+            else
+              echo "::error::npm stage publish failed."
+              exit 1
+            fi
+          fi
+
+  # Waits for the approval on npmjs.com, then tags the built commit and creates
+  # the GitHub Release. If the approval comes after the wait, re-run this job
+  # from GitHub (Re-run failed jobs). It is not in the npm environment and has
+  # no id-token permission.
+  release:
+    name: release
+    needs: [check, publish]
+    runs-on: ubuntu-24.04
+    # Up to 30 minutes of waiting for the approval, plus the checkout and the
+    # release itself.
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Wait for the approval on npmjs.com
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+        run: |
+          # Outside the checkout: npm refuses to run in this repository.
+          cd "$RUNNER_TEMP"
+          for attempt in $(seq 1 60); do
+            if live="$(npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null)" && [ "$live" = "$VERSION" ]; then
+              echo "$PACKAGE_NAME@$VERSION is live on npm."
+              exit 0
+            fi
+            echo "Attempt $attempt of 60: $PACKAGE_NAME@$VERSION is not live yet. Waiting for the approval on npmjs.com."
+            sleep 30
+          done
+          echo "::error::$PACKAGE_NAME@$VERSION was not approved within 30 minutes. Approve it on npmjs.com, then re-run this job from GitHub."
+          exit 1
+      - name: Create the tag and the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.check.outputs.version }}
+          PRERELEASE: ${{ needs.check.outputs.prerelease }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          tag="v$VERSION"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "The GitHub Release $tag already exists."
+            exit 0
+          fi
+
+          # The changelog section of this version, up to the next version heading.
+          notes="$RUNNER_TEMP/release-notes.md"
+          awk -v heading="## $VERSION" '
+            $0 == heading { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md > "$notes"
+          if ! grep -q '[^[:space:]]' "$notes"; then
+            echo "::error::CHANGELOG.md has no entry for $VERSION."
+            exit 1
+          fi
+
+          args=(--repo "$GITHUB_REPOSITORY" --target "$COMMIT" --title "$tag" --notes-file "$notes")
+          if [ "$PRERELEASE" = "true" ]; then
+            args+=(--prerelease)
+          else
+            args+=(--latest)
+          fi
+          gh release create "$tag" "${args[@]}"
+
+  # Installs the live version from npm in an empty project and checks it.
+  verify:
+    name: verify
+    needs: [check, release]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions: {}
+    steps:
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Install from npm in an empty project
+        working-directory: ${{ runner.temp }}
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+        run: |
+          mkdir verify
+          cd verify
+          node -e '
+            const { PACKAGE_NAME, VERSION } = process.env;
+            const manifest = { name: "verify", private: true, dependencies: { [PACKAGE_NAME]: VERSION } };
+            require("node:fs").writeFileSync("package.json", JSON.stringify(manifest));
+          '
+          # The registry can take a moment to serve a version that just went live.
+          for attempt in 1 2 3 4 5; do
+            if npm install; then
+              exit 0
+            fi
+            echo "Attempt $attempt failed. Retrying in 20 seconds."
+            sleep 20
+          done
+          echo "::error::Could not install $PACKAGE_NAME@$VERSION from npm."
+          exit 1
+      - name: Import the package
+        working-directory: ${{ runner.temp }}/verify
+        run: |
+          node --input-type=module -e '
+            const mod = await import(process.env.PACKAGE_NAME);
+            if (Object.keys(mod).length === 0) {
+              throw new Error("The package has no exports.");
+            }
+            console.log("Exports:", Object.keys(mod).join(", "));
+          '
+      - name: Verify signatures and provenance
+        working-directory: ${{ runner.temp }}/verify
+        run: npm audit signatures
+      - name: Check the dist-tags
+        working-directory: ${{ runner.temp }}
+        env:
+          VERSION: ${{ needs.check.outputs.version }}
+          DIST_TAG: ${{ needs.check.outputs.tag }}
+        run: |
+          npm view "$PACKAGE_NAME" dist-tags --json | tee dist-tags.json
+          node -e '
+            const tags = JSON.parse(require("node:fs").readFileSync("dist-tags.json", "utf8"));
+            const { VERSION, DIST_TAG } = process.env;
+            if (tags[DIST_TAG] !== VERSION) {
+              throw new Error("Dist-tag " + DIST_TAG + " is " + tags[DIST_TAG] + ", expected " + VERSION + ".");
+            }
+            // What latest points to is checked at the first publish (ADZE-112).
+            console.log("Dist-tags are correct: " + DIST_TAG + " -> " + VERSION + ".");
+          '
