@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/core": "0.18.5",
+    "@changesets/cli": "3.0.3",
     "@vitest/browser-playwright": "5.0.1",
     "@vitest/coverage-v8": "5.0.1",
     "playwright": "1.63.0",
