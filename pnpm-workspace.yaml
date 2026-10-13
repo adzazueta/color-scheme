@@ -1,0 +1,6 @@
+# Other protections (install scripts blocked, 24-hour minimumReleaseAge,
+# blockExoticSubdeps) are pnpm 11 defaults.
+runtimeOnFail: ignore
+saveExact: true
+trustPolicy: no-downgrade
+allowBuilds: {}
