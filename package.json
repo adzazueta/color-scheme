@@ -1,4 +1,21 @@
 {
+  "name": "@adzazueta/color-scheme",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adzazueta/color-scheme.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "vite-plus": "1.0.0"
   },
@@ -13,5 +30,8 @@
       "version": "^24.0.0",
       "onFail": "ignore"
     }
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
