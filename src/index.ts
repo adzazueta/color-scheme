@@ -1,3 +1,5 @@
+export { ColorSchemeError } from "@/errors.js";
+export type { ColorSchemeErrorCode } from "@/errors.js";
 export type {
   ColorExtractorResult,
   ColorScheme,
