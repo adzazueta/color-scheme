@@ -13,7 +13,7 @@ Repository of the npm package `@adzazueta/color-scheme`. It turns seed colors in
 
 - One short branch per task, named with its task key (for example, `ADZE-83-tsconfig`), and a pull request into `main`. Never push to `main` directly.
 - Pull request titles start with the task key, for example `ADZE-83 Configure tsconfig.json with TypeScript 7`. With squash merging, the title becomes the commit message.
-- A pull request that touches `src/` or `package.json` includes a changeset. Changes that users do not notice use `changeset --empty`. During 0.x, breaking changes are `minor`, never `major`.
+- A pull request that touches `src/` or `package.json` includes a changeset. Changes that users do not notice use `changeset --empty`; run `vp fmt` on the new file, or the pre-commit hook rejects it. During 0.x, breaking changes are `minor`, never `major`.
 - Never merge the "Version Packages" pull request and never publish to npm. Only the maintainer does that.
 - Change repository settings (rulesets, environments, Actions, and security features) only after the maintainer confirms exactly what will change.
 - Workflows: read-only permissions by default, actions pinned by commit SHA, and no untrusted input, such as a pull request title, inline in a script.
