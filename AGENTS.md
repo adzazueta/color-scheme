@@ -22,6 +22,7 @@ Repository of the npm package `@adzazueta/color-scheme`. It turns seed colors in
 
 - The package specification is the contract. Do not add features that are not in it, and do not change its behavior without a decision from the maintainer. If something is missing, ask.
 - ESM only, TypeScript 7 in strict mode with `isolatedDeclarations`, Node 22.12 or later.
+- Import from `src/` with the `@/` alias (`@/contrast.js`), keeping the `.js` extension. Relative imports are fine inside the same folder.
 - No runtime or optional dependencies. The package does not depend on other `@adzazueta/*` packages, not even for types: the `color-extractor` adapter describes the result it reads with its own types.
 - The package is pure computation: no DOM, file system, or network.
 - Every role is a lowercase `#rrggbb` hex color in sRGB.
