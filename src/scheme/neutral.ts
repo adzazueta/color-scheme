@@ -87,6 +87,39 @@ export const SURFACE_CONTAINER_STEP_LIGHT = -0.02;
 export const SURFACE_CONTAINER_STEP_DARK = 0.03;
 
 /**
+ * Oklab lightness of a built light-mode container, relative to the surface: the Oklab lightness of
+ * the 8-bit light-mode `surface` plus this offset. Unit: Oklab lightness; negative is darker. A
+ * parameter of the specification, section 4.1.
+ *
+ * A built container is an accent or status container that the package makes rather than takes
+ * from a seed: `primaryContainer` or `secondaryContainer` when the seed is the accent role itself,
+ * the `primaryContainer` of an achromatic `primary`, and the four status containers. Accent and
+ * status containers share it, so every built container sits at the same lightness.
+ *
+ * -0.1 is five times {@link SURFACE_CONTAINER_STEP_LIGHT}: two steps (0.04, two just noticeable
+ * differences) beyond `surfaceContainerHigh`, so a container with little or no chroma stands apart
+ * from the four surfaces about as far as a seed container must (`SEED_CONTAINER_MIN_DISTANCE` in
+ * `accent.ts`); rounding to 8 bits can bring it to 0.037. It is relative because a light neutral
+ * seed can be the surface at any lightness from {@link LIGHT_SURFACE_MIN_LIGHTNESS} to 1: a fixed
+ * lightness would fall among the surfaces of a darker one, and on a surface of 0.9 a container at
+ * 0.9 would be the surface itself. On the surface of {@link SURFACE_LIGHTNESS_LIGHT} it gives about
+ * 0.88, a little darker than Material 3's container tone 90 (0.91 for a gray).
+ */
+export const CONTAINER_LIGHTNESS_OFFSET_LIGHT = -0.1;
+
+/**
+ * Oklab lightness of a built dark-mode container (see {@link CONTAINER_LIGHTNESS_OFFSET_LIGHT}),
+ * shared by the accent and status containers. Unit: Oklab lightness, 0 to 1. A parameter of the
+ * specification, section 4.1.
+ *
+ * About Material 3's container tone 30 (0.40 for a gray): a deep shade, lighter than every
+ * dark-mode surface, as in Material 3. The dark-mode surface always has
+ * {@link SURFACE_LIGHTNESS_DARK}, so a fixed value keeps the same distance from the surfaces: 0.11
+ * above `surfaceContainerHigh` (0.29).
+ */
+export const CONTAINER_LIGHTNESS_DARK = 0.4;
+
+/**
  * Oklab lightness that the search for the light-mode `onSurface` starts from. Unit: Oklab
  * lightness, 0 to 1. A parameter of the specification, section 4.1.
  *

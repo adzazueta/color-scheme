@@ -87,11 +87,16 @@ export interface PairReport {
 /**
  * How a given seed appears in one mode. A seed appears exactly as given when
  * it meets its role's contrast; otherwise `primary` and `secondary` have
- * their lightness adjusted by the minimum needed, keeping their hue. The
- * `neutral` seed appears exactly only in light mode, when it is light and
- * within the chroma cap of the surfaces; a light seed above the cap keeps its
- * lightness, with its chroma capped. Otherwise `surface` takes the mode's
- * surface lightness, with the seed's hue and capped chroma.
+ * their lightness adjusted by the minimum needed, keeping their hue. There
+ * are two exceptions: an achromatic `primary` appears exactly only when it
+ * is already near black in light mode or near white in dark mode, and
+ * otherwise becomes that near-black or near-white gray; and a seed in
+ * `primaryContainer` or `secondaryContainer` that is too close to the
+ * surfaces has its lightness moved by the minimum needed to stand apart from
+ * them. The `neutral` seed appears exactly only in light mode, when it is
+ * light and within the chroma cap of the surfaces; a light seed above the
+ * cap keeps its lightness, with its chroma capped. Otherwise `surface` takes
+ * the mode's surface lightness, with the seed's hue and capped chroma.
  */
 export interface SeedAdjustment {
   /** Name of the seed. */
@@ -111,11 +116,17 @@ export interface SeedAdjustment {
    * Oklab lightness of the role's color minus that of the seed, from -1 to 1:
    * negative when the seed was darkened, positive when it was lightened, and 0
    * when it appears exactly. For `primary` and `secondary` it is the minimum
-   * adjustment needed. For `neutral` it is not: it is the distance from the
-   * seed to the mode's surface lightness, or close to 0 when a light seed
-   * above the chroma cap keeps its lightness. Gamut mapping, and the chroma
-   * cap of the surfaces, can also lower chroma, which this value does not
-   * measure, so it can be 0, or close to it, while `exact` is `false`.
+   * adjustment needed. In `primaryContainer` or `secondaryContainer`, that is
+   * the minimum needed, toward the accent side (darker in light mode, lighter
+   * in dark mode), to stand apart from `surface` and its three containers;
+   * for an achromatic `primary`, the minimum needed to reach the near-black
+   * or near-white accent, not to meet contrast. For `neutral` it is not: it
+   * is the distance from the seed to the mode's surface lightness, or close
+   * to 0 when a light seed above the chroma cap keeps its lightness. Gamut
+   * mapping, the chroma cap of the surfaces, and the gray of an achromatic
+   * `primary`, which drops the seed's faint chroma, can also lower chroma,
+   * which this value does not measure, so it can be 0, or close to it, while
+   * `exact` is `false`.
    */
   readonly lightnessShift: number;
 }
