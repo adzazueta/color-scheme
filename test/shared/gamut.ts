@@ -39,7 +39,8 @@ export function registerGamutTests(): void {
       // wrong branch, which gives dozens.
       expect(maxStep).toBeLessThanOrEqual(1);
       expect(differing).toBeLessThanOrEqual(10);
-    });
+      // About a second in Node, and 5.4 s under coverage on CI, past the 5-second default.
+    }, 60_000);
 
     it("mapOklabToSrgbGamut matches the Color.js linear result, except for a few points", () => {
       let differing = 0;

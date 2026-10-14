@@ -1,4 +1,3 @@
-import Color from "colorjs.io";
 import { describe, expect, it } from "vite-plus/test";
 import { ColorSchemeError } from "@/errors.js";
 import * as root from "@/index.js";
@@ -7,9 +6,21 @@ import { deriveSeeds } from "@/scheme/derive.js";
 import { findOrThrow } from "@/scheme/search.js";
 import { normalizeSeeds } from "@/seeds.js";
 import type { ColorScheme, Role, Seeds } from "@/types.js";
+import { thrownBy } from "./helpers.js";
+import {
+  COLORJS_CONTRAST_TOLERANCE,
+  contrast,
+  guaranteeFailures,
+  measure,
+  MIN_LIGHTNESS_DIFFERENCE,
+  MODES,
+  PAIRS,
+  REPORT_LIGHTNESS_TOLERANCE,
+} from "./scheme-checks.js";
 
-// The expected roles, pairs, and minimums are written out here from the specification (sections
-// 3.1, 5.2, and 5.3), not read from the package, and every measure uses Color.js.
+// The expected roles, pairs, and minimums are written out from the specification (sections 3.1,
+// 5.2, and 5.3), here and in `scheme-checks.ts`, not read from the package, and every measure uses
+// Color.js.
 
 /** The 34 roles, in the order of `Role`. */
 const ROLES: readonly Role[] = [
@@ -49,56 +60,13 @@ const ROLES: readonly Role[] = [
   "onInfoContainer",
 ];
 
-/** Minimum Oklab lightness difference of a text pair (5.3), a parameter of algorithm version 1. */
-const MIN_LIGHTNESS_DIFFERENCE = 0.3;
-
-/** Color.js and the package compute WCAG luminance with slightly different weights. */
-const CONTRAST_TOLERANCE = 0.002;
-
-/** The Oklab lightness of Color.js and that of the package differ by about 1e-8. */
-const LIGHTNESS_TOLERANCE = 1e-7;
-
-interface ExpectedPair {
-  readonly foreground: Role;
-  readonly background: Role;
-  readonly minContrast: number;
-  readonly minLightnessDifference: number | null;
-}
-
-/** The 31 guaranteed pairs of 5.2, sorted by foreground and then by background, in `Role` order. */
-const PAIRS: readonly ExpectedPair[] = (() => {
-  const pairs: ExpectedPair[] = [];
-  const add = (foreground: string, background: string, minContrast: number): void => {
-    pairs.push({
-      foreground: foreground as Role,
-      background: background as Role,
-      minContrast,
-      minLightnessDifference: foreground.startsWith("on") ? MIN_LIGHTNESS_DIFFERENCE : null,
-    });
-  };
-  for (const surface of [
-    "surface",
-    "surfaceContainerLow",
-    "surfaceContainer",
-    "surfaceContainerHigh",
-  ]) {
-    add("onSurface", surface, 7);
-    add("onSurfaceVariant", surface, 4.5);
-    add("outline", surface, 3);
-  }
-  add("onInverseSurface", "inverseSurface", 4.5);
-  for (const name of ["primary", "secondary", "error", "warning", "success", "info"]) {
-    const on = `on${name.charAt(0).toUpperCase()}${name.slice(1)}`;
-    add(name, "surface", 3);
-    add(on, name, 4.5);
-    add(`${on}Container`, `${name}Container`, 4.5);
-  }
-  const order = (role: Role): number => ROLES.indexOf(role);
-  return pairs.sort(
-    (x, y) =>
-      order(x.foreground) - order(y.foreground) || order(x.background) - order(y.background),
-  );
-})();
+/** The 31 guaranteed pairs of 5.2 as `ModeReport` lists them, with their minimums. */
+const REPORTED_PAIRS = PAIRS.map(({ foreground, background, minContrast, isText }) => ({
+  foreground,
+  background,
+  minContrast,
+  minLightnessDifference: isText ? MIN_LIGHTNESS_DIFFERENCE : null,
+}));
 
 /** Seeds for the spot checks: the examples of the specification and a few hard cases. */
 const SPOT_SEEDS: readonly Seeds[] = [
@@ -125,34 +93,7 @@ const SPOT_SEEDS: readonly Seeds[] = [
   { primary: "#F00", secondary: "#0A0", neutral: "#FFF" },
 ];
 
-const MODES = ["light", "dark"] as const;
 const SEED_NAMES = ["primary", "secondary", "neutral"] as const;
-
-/** WCAG 2.1 contrast of two hex colors, from Color.js. */
-function contrast(a: string, b: string): number {
-  return new Color(a).contrast(new Color(b), "WCAG21");
-}
-
-/** Oklab lightness of a hex color, from Color.js. */
-function lightness(hex: string): number {
-  return new Color(hex).to("oklab").coords[0] ?? Number.NaN;
-}
-
-/** Oklab chroma of a hex color, from Color.js. */
-function chroma(hex: string): number {
-  const [, a, b] = new Color(hex).to("oklab").coords;
-  return Math.sqrt((a ?? Number.NaN) ** 2 + (b ?? Number.NaN) ** 2);
-}
-
-/** The error thrown by a call, or `undefined` when it returns. */
-function thrownBy(call: () => unknown): unknown {
-  try {
-    call();
-  } catch (error) {
-    return error;
-  }
-  return undefined;
-}
 
 export function registerCreateTests(): void {
   describe("createColorScheme: result", () => {
@@ -284,7 +225,7 @@ export function registerCreateTests(): void {
 
   describe("createColorScheme: report", () => {
     it("lists every guaranteed pair, with its minimums, in the order of ModeReport", () => {
-      expect(PAIRS).toHaveLength(31);
+      expect(REPORTED_PAIRS).toHaveLength(31);
       for (const seeds of SPOT_SEEDS) {
         const scheme = createColorScheme(seeds);
         for (const mode of MODES) {
@@ -294,7 +235,7 @@ export function registerCreateTests(): void {
             minContrast: pair.minContrast,
             minLightnessDifference: pair.minLightnessDifference,
           }));
-          expect(pairs).toEqual(PAIRS);
+          expect(pairs).toEqual(REPORTED_PAIRS);
           expect(Object.keys(scheme.report[mode].pairs[0]!)).toEqual([
             "foreground",
             "background",
@@ -315,13 +256,13 @@ export function registerCreateTests(): void {
             const foreground = scheme[mode][pair.foreground];
             const background = scheme[mode][pair.background];
             expect(Math.abs(pair.contrast - contrast(foreground, background))).toBeLessThan(
-              CONTRAST_TOLERANCE,
+              COLORJS_CONTRAST_TOLERANCE,
             );
             expect(
               Math.abs(
-                pair.lightnessDifference - Math.abs(lightness(foreground) - lightness(background)),
+                pair.lightnessDifference - Math.abs(measure(foreground).L - measure(background).L),
               ),
-            ).toBeLessThan(LIGHTNESS_TOLERANCE);
+            ).toBeLessThan(REPORT_LIGHTNESS_TOLERANCE);
           }
         }
       }
@@ -362,8 +303,8 @@ export function registerCreateTests(): void {
             expect(adjustment.exact).toBe(color === seed);
             if (adjustment.exact) expect(adjustment.lightnessShift).toBe(0);
             expect(
-              Math.abs(adjustment.lightnessShift - (lightness(color) - lightness(seed))),
-            ).toBeLessThan(LIGHTNESS_TOLERANCE);
+              Math.abs(adjustment.lightnessShift - (measure(color).L - measure(seed).L)),
+            ).toBeLessThan(REPORT_LIGHTNESS_TOLERANCE);
           }
         }
       }
@@ -427,32 +368,13 @@ export function registerCreateTests(): void {
       // A light neutral above the chroma cap keeps its lightness, with less chroma.
       const yellow = createColorScheme({ primary: "#6750a4", neutral: "#ffeb99" });
       expect(Math.abs(moved(yellow, "light", "neutral", "surface"))).toBeLessThan(0.005);
-      expect(chroma(yellow.light.surface)).toBeLessThan(chroma("#ffeb99") / 2);
+      expect(measure(yellow.light.surface).chroma).toBeLessThan(measure("#ffeb99").chroma / 2);
     });
   });
 
   describe("createColorScheme: guarantee, spot check", () => {
     it.each(SPOT_SEEDS)("meets every pair in both modes, measured with Color.js: %o", (seeds) => {
-      const scheme = createColorScheme(seeds);
-      const failures: string[] = [];
-      for (const mode of MODES) {
-        for (const pair of PAIRS) {
-          const foreground = scheme[mode][pair.foreground];
-          const background = scheme[mode][pair.background];
-          const measured = contrast(foreground, background);
-          const name = `${mode} ${pair.foreground} ${foreground} on ${pair.background} ${background}`;
-          if (!(measured >= pair.minContrast)) {
-            failures.push(`${name}: contrast ${measured} < ${pair.minContrast}`);
-          }
-          if (pair.minLightnessDifference !== null) {
-            const difference = Math.abs(lightness(foreground) - lightness(background));
-            if (!(difference >= pair.minLightnessDifference)) {
-              failures.push(`${name}: lightness difference ${difference}`);
-            }
-          }
-        }
-      }
-      expect(failures).toEqual([]);
+      expect(guaranteeFailures(createColorScheme(seeds))).toEqual([]);
     });
   });
 
