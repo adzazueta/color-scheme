@@ -104,6 +104,16 @@ export const REFERENCE_COLORS: readonly Srgb[] = [
   { r: 118, g: 118, b: 118 },
 ];
 
+/** The error thrown by a call, or `undefined` when it returns. */
+export function thrownBy(call: () => unknown): unknown {
+  try {
+    call();
+  } catch (error) {
+    return error;
+  }
+  return undefined;
+}
+
 /** Formats an 8-bit color as `#rrggbb`. */
 export function formatHex(color: Srgb): string {
   const channel = (value: number): string => value.toString(16).padStart(2, "0");

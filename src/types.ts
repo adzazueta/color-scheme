@@ -86,7 +86,8 @@ export interface PairReport {
 
 /**
  * How a given seed appears in one mode. A seed appears exactly as given when
- * it meets its role's contrast; otherwise `primary` and `secondary` have
+ * it meets its role's contrast, with the small margin that the construction
+ * adds to every contrast minimum; otherwise `primary` and `secondary` have
  * their lightness adjusted by the minimum needed, keeping their hue. There
  * are two exceptions: an achromatic `primary` appears exactly only when it
  * is already near black in light mode or near white in dark mode, and
