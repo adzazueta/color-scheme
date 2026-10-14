@@ -120,6 +120,25 @@ export const CONTAINER_LIGHTNESS_OFFSET_LIGHT = -0.1;
 export const CONTAINER_LIGHTNESS_DARK = 0.4;
 
 /**
+ * Oklab lightness of the built containers of one mode: the accent containers that the package
+ * makes rather than takes from a seed, and the four status containers. In light mode it is the
+ * Oklab lightness of the 8-bit `surface` plus {@link CONTAINER_LIGHTNESS_OFFSET_LIGHT}; in dark
+ * mode it is {@link CONTAINER_LIGHTNESS_DARK}.
+ *
+ * Uses only basic arithmetic and the deterministic Oklab conversion.
+ *
+ * @param surface - The mode's `surface`, from {@link buildNeutralRoles}.
+ * @param mode - The mode.
+ * @returns The lightness: about 0.8 to 0.9 in light mode, depending on the surface, and 0.4 in dark
+ *   mode.
+ */
+export function builtContainerLightness(surface: Srgb, mode: "light" | "dark"): number {
+  return mode === "light"
+    ? srgbToOklab(surface.r, surface.g, surface.b).L + CONTAINER_LIGHTNESS_OFFSET_LIGHT
+    : CONTAINER_LIGHTNESS_DARK;
+}
+
+/**
  * Oklab lightness that the search for the light-mode `onSurface` starts from. Unit: Oklab
  * lightness, 0 to 1. A parameter of the specification, section 4.1.
  *

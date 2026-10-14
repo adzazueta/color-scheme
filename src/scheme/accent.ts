@@ -8,11 +8,7 @@ import {
   ACHROMATIC_ACCENT_LIGHTNESS_LIGHT,
   type SchemeSeeds,
 } from "@/scheme/derive.js";
-import {
-  CONTAINER_LIGHTNESS_DARK,
-  CONTAINER_LIGHTNESS_OFFSET_LIGHT,
-  type NeutralRole,
-} from "@/scheme/neutral.js";
+import { builtContainerLightness, type NeutralRole } from "@/scheme/neutral.js";
 import { requirementOf, type RoleRequirement, type SeedAdjustmentInput } from "@/scheme/report.js";
 import { findOrThrow, LIGHTNESS_STEP } from "@/scheme/search.js";
 
@@ -293,8 +289,7 @@ export function buildAccentRoles(
       oklabOf(surfaces.surfaceContainer),
       oklabOf(surfaces.surfaceContainerHigh),
     ],
-    builtLightness:
-      mode === "light" ? surfaceLab.L + CONTAINER_LIGHTNESS_OFFSET_LIGHT : CONTAINER_LIGHTNESS_DARK,
+    builtLightness: builtContainerLightness(surface, mode),
   };
   const primary = buildFamily(PRIMARY, seeds.achromatic, context);
   const secondary = buildFamily(SECONDARY, false, context);
