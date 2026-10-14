@@ -11,3 +11,4 @@ export type {
   SeedAdjustment,
   Seeds,
 } from "@/types.js";
+export { createColorScheme } from "@/scheme/create.js";

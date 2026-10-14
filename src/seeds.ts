@@ -46,6 +46,18 @@ function normalizeHex(name: string, value: unknown): string {
 }
 
 /**
+ * Names the seeds at the end of an error message, so a failure after validation can be reproduced:
+ * `Seeds: primary #6750a4, secondary not given, neutral #fff8e1.` A given seed is its lowercase
+ * `#rrggbb` hex color, and an omitted one is "not given". Every error that names the seeds uses
+ * it, so their messages stay identical.
+ *
+ * @param seeds - The normalized seeds.
+ */
+export function formatSeeds(seeds: NormalizedSeeds): string {
+  return `Seeds: primary ${seeds.primary}, secondary ${seeds.secondary ?? "not given"}, neutral ${seeds.neutral ?? "not given"}.`;
+}
+
+/**
  * Validates the seeds and returns them normalized: each given seed as a lowercase `#rrggbb` hex
  * color (a `#RGB` seed is expanded), and an omitted seed as `undefined`. JavaScript callers can
  * pass anything, so the input is not trusted to match the `Seeds` type.
@@ -64,7 +76,8 @@ function normalizeHex(name: string, value: unknown): string {
  * properties, non-enumerable properties, and symbol keys are ignored. Error messages name the
  * seed and never echo the value; an unknown name is quoted, cut to 40 characters.
  *
- * @throws ColorSchemeError with code `INVALID_INPUT`.
+ * @throws ColorSchemeError with code `INVALID_INPUT`. An error thrown while reading the input, such
+ *   as from a getter or a proxy, propagates unchanged; `createColorScheme` wraps it.
  */
 export function normalizeSeeds(input: unknown): NormalizedSeeds {
   if (typeof input !== "object" || input === null || Array.isArray(input)) {
