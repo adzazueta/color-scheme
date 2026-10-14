@@ -14,6 +14,17 @@ import type { Srgb } from "@/color/types.js";
 export const CONTRAST_MARGIN = 0.005;
 
 /**
+ * Margin added to the minimum Oklab lightness difference of text pairs that the construction aims
+ * for: the search is asked for the minimum plus 0.001. A parameter of the specification, section
+ * 4.1.
+ *
+ * The Oklab lightness of this package and that of tools such as Color.js differ by up to about
+ * 1e-8, because of the published matrices, so a color right at the minimum could read just below
+ * it there. The guarantee and the final verification stay the minimum, without the margin.
+ */
+export const LIGHTNESS_MARGIN = 0.001;
+
+/**
  * Distance in Oklab lightness between consecutive candidates of {@link findLightness}, 2^-9. A
  * parameter of the specification, section 4.1.
  *
@@ -51,8 +62,8 @@ export interface LightnessSearch {
    */
   readonly minContrast: number;
   /**
-   * Minimum Oklab lightness difference from every background, from 0 to 1, for text pairs.
-   * Omitted or `undefined`: no minimum.
+   * Minimum Oklab lightness difference from every background, from 0 to 1, for text pairs: the
+   * minimum of the lightness rule plus {@link LIGHTNESS_MARGIN}. Omitted or `undefined`: no minimum.
    */
   readonly minLightnessDifference?: number | undefined;
   /**
