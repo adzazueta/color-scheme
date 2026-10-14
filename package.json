@@ -24,6 +24,7 @@
     "@changesets/cli": "3.0.3",
     "@vitest/browser-playwright": "5.0.3",
     "@vitest/coverage-v8": "5.0.3",
+    "colorjs.io": "0.7.1",
     "playwright": "1.63.0",
     "publint": "0.3.25",
     "typescript": "7.0.2",
