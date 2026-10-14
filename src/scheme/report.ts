@@ -2,6 +2,7 @@ import { ColorSchemeError } from "@/errors.js";
 import { contrastRatio, lightnessDifference } from "@/color/contrast.js";
 import { srgbToOklabInto } from "@/color/oklab.js";
 import type { Srgb } from "@/color/types.js";
+import { CONTRAST_MARGIN, LIGHTNESS_MARGIN } from "@/scheme/search.js";
 import type { NormalizedSeeds } from "@/seeds.js";
 import type { ModeReport, PairReport, Role, SeedAdjustment } from "@/types.js";
 
@@ -82,6 +83,47 @@ export const GUARANTEED_PAIRS: readonly GuaranteedPair[] = [
   pair("onInfo", "info", 4.5),
   pair("onInfoContainer", "infoContainer", 4.5),
 ];
+
+/** The minimums that the search for one foreground role aims for, from {@link requirementOf}. */
+export interface RoleRequirement {
+  /** The role's WCAG 2.2 minimum plus `CONTRAST_MARGIN`, such as 4.505. */
+  readonly minContrast: number;
+  /**
+   * For a text role, {@link MIN_LIGHTNESS_DIFFERENCE} plus `LIGHTNESS_MARGIN`; `undefined` for
+   * the others.
+   */
+  readonly minLightnessDifference: number | undefined;
+}
+
+/**
+ * The minimums that the search for a foreground role aims for, read from
+ * {@link GUARANTEED_PAIRS}: the highest WCAG 2.2 minimum among the role's pairs (they are all
+ * equal) plus `CONTRAST_MARGIN` and, for a text role, {@link MIN_LIGHTNESS_DIFFERENCE} plus
+ * `LIGHTNESS_MARGIN`. Its fields can be passed to `findLightness` as they are.
+ *
+ * @param foreground - A role that is the foreground of at least one guaranteed pair.
+ * @throws {ColorSchemeError} `PROCESSING_FAILED` when the role has no guaranteed pair, such as
+ *   `outlineVariant` or a background role: a bug in the caller.
+ */
+export function requirementOf(foreground: Role): RoleRequirement {
+  let minContrast = 0;
+  let isText = false;
+  let found = false;
+  for (const guaranteed of GUARANTEED_PAIRS) {
+    if (guaranteed.foreground === foreground) {
+      found = true;
+      if (guaranteed.minContrast > minContrast) minContrast = guaranteed.minContrast;
+      if (guaranteed.isText) isText = true;
+    }
+  }
+  if (!found) {
+    throw new ColorSchemeError("PROCESSING_FAILED", `${foreground} has no guaranteed pair.`);
+  }
+  return {
+    minContrast: minContrast + CONTRAST_MARGIN,
+    minLightnessDifference: isText ? MIN_LIGHTNESS_DIFFERENCE + LIGHTNESS_MARGIN : undefined,
+  };
+}
 
 /** The color of every role in one mode, as 8-bit sRGB. */
 export type ModeColors = Readonly<Record<Role, Srgb>>;

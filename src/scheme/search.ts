@@ -1,6 +1,9 @@
+import { ColorSchemeError } from "@/errors.js";
 import { contrastRatio, lightnessDifference } from "@/color/contrast.js";
 import { oklabToSrgb } from "@/color/gamut.js";
 import type { Srgb } from "@/color/types.js";
+import type { SchemeSeed, SchemeSeeds } from "@/scheme/derive.js";
+import type { Role } from "@/types.js";
 
 /**
  * Margin added to every WCAG 2.2 contrast minimum that the construction aims for: the search is
@@ -184,6 +187,39 @@ export function findLightness(search: LightnessSearch): LightnessMatch | null {
     }
   }
   return null;
+}
+
+/**
+ * Runs {@link findLightness} for one role of one mode, and throws instead of returning `null`.
+ * The role construction modules design their searches so that a result always exists, so a
+ * missing one is a bug, reported rather than turned into an inaccessible color.
+ *
+ * @param role - The role being searched for, named in the error.
+ * @param mode - The mode being built, named in the error.
+ * @param seeds - The seeds used, from `deriveSeeds`, named in the error so the failure can be
+ *   reproduced.
+ * @param search - The start, hue, backgrounds, and minimums.
+ * @returns The match of {@link findLightness}.
+ * @throws {ColorSchemeError} `PROCESSING_FAILED`, with a message that names the role, the mode,
+ *   and the seeds as lowercase hex, a derived seed as "not given", like the input.
+ */
+export function findOrThrow(
+  role: Role,
+  mode: "light" | "dark",
+  seeds: SchemeSeeds,
+  search: LightnessSearch,
+): LightnessMatch {
+  const match = findLightness(search);
+  if (match !== null) return match;
+  throw new ColorSchemeError(
+    "PROCESSING_FAILED",
+    `No ${role} color meets its minimums in ${mode} mode. Seeds: primary ${seeds.primary.hex}, secondary ${given(seeds.secondary)}, neutral ${given(seeds.neutral)}.`,
+  );
+}
+
+/** A seed as the input gave it: its hex when given, "not given" when derived. */
+function given(seed: SchemeSeed): string {
+  return seed.source === "given" ? seed.hex : "not given";
 }
 
 /**
