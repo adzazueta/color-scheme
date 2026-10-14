@@ -27,6 +27,9 @@ const config: ViteUserConfig = defineConfig({
           name: "node",
           environment: "node",
           include: ["test/node/**/*.test.ts"],
+          // Only `vp test bench` reads this (`vp run bench` locally, the `pack` job in CI): `vp test`
+          // never runs benchmarks, so they stay out of the tests and of coverage.
+          benchmark: { include: ["bench/**/*.bench.ts"] },
         },
       },
       {
@@ -60,6 +63,15 @@ const config: ViteUserConfig = defineConfig({
   },
   staged: {
     "*": "vp check --no-error-on-unmatched-pattern",
+  },
+  run: {
+    tasks: {
+      // Times the built package, so it builds first.
+      bench: {
+        command: 'vp pack && vp test bench --project "node (bench)" --reporter verbose',
+        cache: false,
+      },
+    },
   },
 });
 

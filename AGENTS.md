@@ -8,6 +8,7 @@ Repository of the npm package `@adzazueta/color-scheme`. It turns seed colors in
 - `vp check`: format, lint, and type check.
 - `vp test`: run tests.
 - `vp pack`: build the package.
+- `vp run bench`: build `dist/` and time `createColorScheme` on the seeds in `bench/seeds.ts`. CI runs the benchmarks once in the `pack` job and shows the times in the summary, without a limit.
 
 ## Branches, pull requests, and releases
 
