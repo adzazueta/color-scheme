@@ -86,9 +86,12 @@ export interface PairReport {
 
 /**
  * How a given seed appears in one mode. A seed appears exactly as given when
- * it meets its role's contrast and, for `neutral`, is within the chroma cap
- * of the surfaces. Otherwise its lightness is adjusted by the minimum needed,
- * keeping its hue.
+ * it meets its role's contrast; otherwise `primary` and `secondary` have
+ * their lightness adjusted by the minimum needed, keeping their hue. The
+ * `neutral` seed appears exactly only in light mode, when it is light and
+ * within the chroma cap of the surfaces; a light seed above the cap keeps its
+ * lightness, with its chroma capped. Otherwise `surface` takes the mode's
+ * surface lightness, with the seed's hue and capped chroma.
  */
 export interface SeedAdjustment {
   /** Name of the seed. */
@@ -107,9 +110,12 @@ export interface SeedAdjustment {
   /**
    * Oklab lightness of the role's color minus that of the seed, from -1 to 1:
    * negative when the seed was darkened, positive when it was lightened, and 0
-   * when it appears exactly. Gamut mapping, and the chroma cap of the
-   * surfaces, can also lower chroma, which this value does not measure, so it
-   * can be 0, or close to it, while `exact` is `false`.
+   * when it appears exactly. For `primary` and `secondary` it is the minimum
+   * adjustment needed. For `neutral` it is not: it is the distance from the
+   * seed to the mode's surface lightness, or close to 0 when a light seed
+   * above the chroma cap keeps its lightness. Gamut mapping, and the chroma
+   * cap of the surfaces, can also lower chroma, which this value does not
+   * measure, so it can be 0, or close to it, while `exact` is `false`.
    */
   readonly lightnessShift: number;
 }
