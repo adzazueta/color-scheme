@@ -30,6 +30,10 @@ jobs:
           node-version: 24
           cache: true
       - run: vp check
+      # Type checks src/ alone: test dependencies such as Color.js load the DOM types into the
+      # whole program, and src/ must stay free of the DOM.
+      - name: Type check src/ without the DOM
+        run: vp exec tsc -p tsconfig.src.json
 
   test:
     runs-on: ${{ matrix.os }}
