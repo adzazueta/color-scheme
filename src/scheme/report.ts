@@ -3,7 +3,7 @@ import { contrastRatio, lightnessDifference } from "@/color/contrast.js";
 import { srgbToOklabInto } from "@/color/oklab.js";
 import type { Srgb } from "@/color/types.js";
 import { CONTRAST_MARGIN, LIGHTNESS_MARGIN } from "@/scheme/search.js";
-import type { NormalizedSeeds } from "@/seeds.js";
+import { formatSeeds, type NormalizedSeeds } from "@/seeds.js";
 import type { ModeReport, PairReport, Role, SeedAdjustment } from "@/types.js";
 
 /**
@@ -241,6 +241,6 @@ export function verifyReports(light: ModeReport, dark: ModeReport, seeds: Normal
   if (failures.length === 0) return;
   throw new ColorSchemeError(
     "PROCESSING_FAILED",
-    `The scheme failed its accessibility verification (${failures.join("; ")}). Seeds: primary ${seeds.primary}, secondary ${seeds.secondary ?? "not given"}, neutral ${seeds.neutral ?? "not given"}.`,
+    `The scheme failed its accessibility verification (${failures.join("; ")}). ${formatSeeds(seeds)}`,
   );
 }

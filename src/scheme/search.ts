@@ -3,6 +3,7 @@ import { contrastRatio, lightnessDifference } from "@/color/contrast.js";
 import { oklabToSrgb } from "@/color/gamut.js";
 import type { Srgb } from "@/color/types.js";
 import type { SchemeSeed, SchemeSeeds } from "@/scheme/derive.js";
+import { formatSeeds } from "@/seeds.js";
 import type { Role } from "@/types.js";
 
 /**
@@ -213,13 +214,17 @@ export function findOrThrow(
   if (match !== null) return match;
   throw new ColorSchemeError(
     "PROCESSING_FAILED",
-    `No ${role} color meets its minimums in ${mode} mode. Seeds: primary ${seeds.primary.hex}, secondary ${given(seeds.secondary)}, neutral ${given(seeds.neutral)}.`,
+    `No ${role} color meets its minimums in ${mode} mode. ${formatSeeds({
+      primary: seeds.primary.hex,
+      secondary: given(seeds.secondary),
+      neutral: given(seeds.neutral),
+    })}`,
   );
 }
 
-/** A seed as the input gave it: its hex when given, "not given" when derived. */
-function given(seed: SchemeSeed): string {
-  return seed.source === "given" ? seed.hex : "not given";
+/** A seed as the input gave it: its hex when given, `undefined` when derived. */
+function given(seed: SchemeSeed): string | undefined {
+  return seed.source === "given" ? seed.hex : undefined;
 }
 
 /**
