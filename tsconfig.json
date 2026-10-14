@@ -16,5 +16,5 @@
     "skipLibCheck": true,
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src", "test", "vite.config.ts"]
+  "include": ["src", "test", "bench", "vite.config.ts"]
 }

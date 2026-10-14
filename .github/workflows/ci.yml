@@ -142,6 +142,55 @@ jobs:
             "",
           ].join("\n");
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+      # Specification 6.4 and 10.1: benchmark times of the built package in the summary, as
+      # information only and without a limit, because shared runners are too noisy to compare times.
+      # Slow times never fail the job; an error, such as a seed that throws, does.
+      - name: Benchmarks
+        run: >-
+          vp test bench --project "node (bench)" --reporter verbose --reporter json
+          --outputFile.json="$RUNNER_TEMP/bench.json"
+      - name: Benchmark summary
+        shell: node {0}
+        run: |
+          const fs = require("node:fs");
+          const os = require("node:os");
+          const path = require("node:path");
+          const report = JSON.parse(
+            fs.readFileSync(path.join(process.env.RUNNER_TEMP, "bench.json"), "utf8"),
+          );
+          const ms = (value) => value.toFixed(3);
+          const cell = (text) => String(text).replace(/\|/g, "\\|");
+          const rows = [];
+          for (const file of report.testResults) {
+            for (const test of file.assertionResults) {
+              // A sample of the whole set computes every seed; its times are divided by their number.
+              const schemes = test.meta?.schemesPerSample ?? 1;
+              for (const benchmark of test.benchmarks ?? []) {
+                for (const task of benchmark.tasks) {
+                  const { mean, p99, max, samplesCount } = task.latency;
+                  rows.push(
+                    `| ${cell(test.title)} | ${cell(task.name)} | ${ms(mean / schemes)} | ${ms(p99 / schemes)} | ${ms(max / schemes)} | ${samplesCount} |`,
+                  );
+                }
+              }
+            }
+          }
+          if (rows.length === 0) throw new Error("The benchmark report has no results.");
+          const cpus = os.cpus();
+          const markdown = [
+            "### Benchmarks",
+            "",
+            "Milliseconds per scheme, as information only: shared runners are too noisy to compare times.",
+            "Each sample of the whole set computes every seed, so its times are divided by their number.",
+            "",
+            "| Case | Seeds | Mean (ms) | p99 (ms) | Max (ms) | Samples |",
+            "| --- | --- | --- | --- | --- | --- |",
+            ...rows,
+            "",
+            `${cpus[0]?.model ?? "Unknown CPU"} (${cpus.length} cores), ${os.platform()} ${os.release()} (${os.arch()}), Node ${process.version}.`,
+            "",
+          ].join("\n");
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
 
   workflows:
     name: workflows
