@@ -12,3 +12,4 @@ export type {
   Seeds,
 } from "@/types.js";
 export { createColorScheme } from "@/scheme/create.js";
+export { toDesignTokens } from "@/tokens.js";
