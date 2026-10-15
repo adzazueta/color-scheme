@@ -19,14 +19,6 @@ export const ACHROMATIC_CHROMA = 0.02;
 export const SECONDARY_CHROMA_RATIO = 0.6;
 
 /**
- * Oklab lightness of a derived `secondary` in a chromatic scheme, as a multiple of the `primary`
- * lightness. Unit: ratio. 1 is the primary's own lightness: the construction adjusts lightness
- * for contrast anyway, so the derived seed does not impose a different one, and it appears in its
- * role or container with the same fidelity as the primary.
- */
-export const SECONDARY_LIGHTNESS_RATIO = 1;
-
-/**
  * Oklab chroma of a derived `neutral`, capped at the `primary` chroma so it never gains chroma.
  * Unit: Oklab chroma. 0.02 is a faint tint of the primary's hue, enough to feel related to the
  * cover and low enough for surfaces and text. The cap never applies while this value equals
@@ -86,9 +78,10 @@ export interface SchemeSeeds {
 /**
  * Returns the three seeds used. Given seeds come back unchanged and marked `given`. A missing
  * `secondary` is derived from `primary` with its hue and {@link SECONDARY_CHROMA_RATIO} of its
- * chroma, at lightness {@link SECONDARY_LIGHTNESS_RATIO} times the primary's. A missing `neutral`
- * has the primary's hue, chroma {@link NEUTRAL_CHROMA} (never more than the primary's), and
- * lightness {@link NEUTRAL_LIGHTNESS}.
+ * chroma, at the primary's lightness: the construction adjusts lightness for contrast anyway, so
+ * the derived seed does not impose a different one, and it appears in its role or container with
+ * the same fidelity as the primary. A missing `neutral` has the primary's hue, chroma
+ * {@link NEUTRAL_CHROMA} (never more than the primary's), and lightness {@link NEUTRAL_LIGHTNESS}.
  *
  * Derived colors are built in Oklab by scaling the primary's a and b, which keeps the hue without
  * trigonometry, then gamut mapped and rounded to 8 bits. The hue of a derived color can differ
@@ -113,7 +106,7 @@ export function deriveSeeds(seeds: NormalizedSeeds): SchemeSeeds {
     seeds.secondary !== undefined
       ? { hex: seeds.secondary, source: "given" }
       : {
-          hex: derive(L * SECONDARY_LIGHTNESS_RATIO, a, b, achromatic ? 0 : SECONDARY_CHROMA_RATIO),
+          hex: derive(L, a, b, achromatic ? 0 : SECONDARY_CHROMA_RATIO),
           source: "derived",
         };
 

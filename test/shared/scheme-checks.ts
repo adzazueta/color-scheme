@@ -97,9 +97,6 @@ export const ACHROMATIC_ACCENT: Readonly<Record<Mode, string>> = {
 /** Fraction of the primary's chroma that a derived `secondary` keeps (`SECONDARY_CHROMA_RATIO`). */
 export const SECONDARY_CHROMA_RATIO = 0.6;
 
-/** Oklab lightness of a derived `secondary`, times the primary's (`SECONDARY_LIGHTNESS_RATIO`). */
-export const SECONDARY_LIGHTNESS_RATIO = 1;
-
 /** Oklab chroma of a derived `neutral`, at most the primary's (`NEUTRAL_CHROMA`). */
 export const NEUTRAL_CHROMA = 0.02;
 
@@ -1090,10 +1087,9 @@ export function fidelityFailures(
 
 /**
  * The seeds that `deriveSeeds` allows for a primary, replayed with Color.js: a `secondary` at the
- * primary's lightness times {@link SECONDARY_LIGHTNESS_RATIO} with its a and b times
- * {@link SECONDARY_CHROMA_RATIO}, and a `neutral` at {@link NEUTRAL_LIGHTNESS} with its a and b
- * scaled to {@link NEUTRAL_CHROMA}, never more than the primary's. An achromatic primary gives the
- * grays at those lightnesses.
+ * primary's lightness with its a and b times {@link SECONDARY_CHROMA_RATIO}, and a `neutral` at
+ * {@link NEUTRAL_LIGHTNESS} with its a and b scaled to {@link NEUTRAL_CHROMA}, never more than the
+ * primary's. An achromatic primary gives the grays at those lightnesses.
  */
 function derivedOptions(
   primary: Measure,
@@ -1107,7 +1103,7 @@ function derivedOptions(
       : 1;
   return {
     secondary: colorJsMappedOptions(
-      primary.L * SECONDARY_LIGHTNESS_RATIO,
+      primary.L,
       primary.a * secondaryScale,
       primary.b * secondaryScale,
     ),

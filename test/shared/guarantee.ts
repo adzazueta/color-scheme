@@ -34,7 +34,6 @@ import {
   ON_ACCENT_CONTAINER_LIGHTNESS,
   ON_ACCENT_LIGHTNESS,
   SECONDARY_CHROMA_RATIO,
-  SECONDARY_LIGHTNESS_RATIO,
   SEED_CONTAINER_MIN_DISTANCE,
   seedFailures,
   standsApart,
@@ -160,7 +159,6 @@ export function registerGuaranteeTests(): void {
       expect(status.STATUS_CONTAINER_DARK.chroma).toBe(STATUS_CONTAINER_CHROMA.dark);
       expect(derive.ACHROMATIC_CHROMA).toBe(ACHROMATIC_CHROMA);
       expect(derive.SECONDARY_CHROMA_RATIO).toBe(SECONDARY_CHROMA_RATIO);
-      expect(derive.SECONDARY_LIGHTNESS_RATIO).toBe(SECONDARY_LIGHTNESS_RATIO);
       expect(derive.NEUTRAL_CHROMA).toBe(NEUTRAL_CHROMA);
       expect(derive.NEUTRAL_LIGHTNESS).toBe(NEUTRAL_LIGHTNESS);
       expect(colorJsMapped(derive.ACHROMATIC_ACCENT_LIGHTNESS_LIGHT, 0, 0)).toBe(
