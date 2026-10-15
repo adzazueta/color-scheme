@@ -19,9 +19,10 @@ import type { ColorScheme, ModeReport, Role, Roles, Seeds } from "@/types.js";
  * `color-extractor`. It changes whenever any output color can change, so the same seeds with the
  * same version give exactly the same scheme.
  *
- * `"1-draft"` until the parameters of version 1 are approved; then `"1"`.
+ * Version 1 is the first frozen algorithm, with the parameter values approved in the
+ * specification, section 4.1.
  */
-export const ALGORITHM_VERSION: string = "1-draft";
+export const ALGORITHM_VERSION: string = "1";
 
 /** The roles and the report of one mode. */
 interface ModeResult {
