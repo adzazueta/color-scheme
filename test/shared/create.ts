@@ -101,9 +101,13 @@ export function registerCreateTests(): void {
       expect(root.createColorScheme).toBe(createColorScheme);
     });
 
-    it("is, with ColorSchemeError, the only runtime export of the package root", () => {
+    it("has only ColorSchemeError, createColorScheme, and toDesignTokens as runtime exports of the package root", () => {
       // ALGORITHM_VERSION stays internal: the version is read from `meta.algorithmVersion`.
-      expect(Object.keys(root)).toEqual(["ColorSchemeError", "createColorScheme"]);
+      expect(Object.keys(root)).toEqual([
+        "ColorSchemeError",
+        "createColorScheme",
+        "toDesignTokens",
+      ]);
     });
 
     it("has schemaVersion 1 and its fields in the order of ColorScheme", () => {
