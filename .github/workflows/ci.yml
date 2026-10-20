@@ -191,6 +191,26 @@ jobs:
             "",
           ].join("\n");
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+      - name: Create the tarball
+        run: |
+          mkdir -p "$RUNNER_TEMP/tarball"
+          vp pm pack --pack-destination "$RUNNER_TEMP/tarball"
+          if [ "$(find "$RUNNER_TEMP/tarball" -maxdepth 1 -type f -name '*.tgz' | wc -l)" -ne 1 ]; then
+            echo "::error::Expected exactly one tarball."
+            ls -l "$RUNNER_TEMP/tarball"
+            exit 1
+          fi
+      # Specification 10.1: the smoke test runs on exactly Node.js 22.12.0. These steps come last:
+      # setup-node puts Node.js 22.12.0 first on the PATH, and the benchmarks and their summary above
+      # must run on Node.js 24 from setup-vp.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.12.0
+          package-manager-cache: false
+      - name: Smoke test on Node.js 22.12.0
+        env:
+          SMOKE_EXPECTED_NODE: 22.12.0
+        run: node scripts/smoke.mjs "$RUNNER_TEMP"/tarball/*.tgz
 
   workflows:
     name: workflows
