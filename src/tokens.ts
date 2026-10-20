@@ -1,5 +1,6 @@
 import { parseHex } from "@/color/hex.js";
 import { ColorSchemeError } from "@/errors.js";
+import { inputError, isRecord, readOwn } from "@/input.js";
 import type { ColorScheme, DesignTokens, Role } from "@/types.js";
 
 /**
@@ -61,15 +62,6 @@ interface Snapshot {
   readonly scheme: boolean;
   readonly light: ModeValues | null;
   readonly dark: ModeValues | null;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-/** The value of an own enumerable key, as `normalizeSeeds` counts keys; inherited keys are absent. */
-function readOwn(object: Record<string, unknown>, key: string): unknown {
-  return Object.prototype.propertyIsEnumerable.call(object, key) ? object[key] : undefined;
 }
 
 function readMode(value: unknown): ModeValues | null {
@@ -137,8 +129,8 @@ function buildDocument(mode: Mode, values: ModeValues | null): DesignTokens {
  * @throws {ColorSchemeError} `INVALID_INPUT` when `scheme` is not a valid scheme: not an object (an
  *   array is not), a missing or non-object `light` or `dark`, or a role that is missing or not a lowercase `#rrggbb`
  *   hex color. The checks run in a fixed order, so the same input always gives the same error.
- *   Also when the scheme cannot be read, such as an object whose getter or proxy throws, even
- *   with a `ColorSchemeError`: the message is then "The scheme could not be read." and the
+ *   Also when the scheme cannot be read, such as an object whose getter or proxy throws, including
+ *   a caller's `ColorSchemeError`: the message is then "The scheme could not be read." and the
  *   original error is the `cause`.
  */
 export function toDesignTokens(scheme: ColorScheme): { light: DesignTokens; dark: DesignTokens } {
@@ -155,7 +147,7 @@ export function toDesignTokens(scheme: ColorScheme): { light: DesignTokens; dark
         }
       : { scheme: false, light: null, dark: null };
   } catch (error) {
-    throw new ColorSchemeError("INVALID_INPUT", "The scheme could not be read.", { cause: error });
+    throw inputError(error, "The scheme could not be read.");
   }
   if (!snapshot.scheme) throw invalid("The scheme must be an object.");
   return {

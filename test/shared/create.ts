@@ -101,11 +101,12 @@ export function registerCreateTests(): void {
       expect(root.createColorScheme).toBe(createColorScheme);
     });
 
-    it("has only ColorSchemeError, createColorScheme, and toDesignTokens as runtime exports of the package root", () => {
+    it("shares the package root only with the other public functions and ColorSchemeError", () => {
       // ALGORITHM_VERSION stays internal: the version is read from `meta.algorithmVersion`.
       expect(Object.keys(root)).toEqual([
         "ColorSchemeError",
         "createColorScheme",
+        "seedsFromColorExtractor",
         "toDesignTokens",
       ]);
     });
@@ -417,6 +418,24 @@ export function registerCreateTests(): void {
       expect((error as ColorSchemeError).message).toBe("The seeds could not be read.");
       expect((error as ColorSchemeError).cause).toBe(cause);
     });
+
+    it.each(["primary", "secondary", "neutral"])(
+      "wraps a caller's ColorSchemeError from a %s getter",
+      (name) => {
+        const cause = new ColorSchemeError("INVALID_INPUT", "The caller's own error.");
+        const seeds = Object.defineProperty({ primary: "#fff" }, name, {
+          enumerable: true,
+          get(): never {
+            throw cause;
+          },
+        });
+        const error = thrownBy(() => createColorScheme(seeds)) as ColorSchemeError;
+        expect(error).toBeInstanceOf(ColorSchemeError);
+        expect(error.code).toBe("INVALID_INPUT");
+        expect(error.message).toBe("The seeds could not be read.");
+        expect(error.cause).toBe(cause);
+      },
+    );
 
     it("gives INVALID_INPUT, with the original as cause, for a proxy that throws", () => {
       const cause = new RangeError("ownKeys failure");

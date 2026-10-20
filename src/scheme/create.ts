@@ -1,4 +1,5 @@
 import { ColorSchemeError } from "@/errors.js";
+import { inputError } from "@/input.js";
 import { formatHex } from "@/color/hex.js";
 import { buildAccentRoles } from "@/scheme/accent.js";
 import { deriveSeeds, type SchemeSeed, type SchemeSeeds } from "@/scheme/derive.js";
@@ -74,7 +75,8 @@ interface ModeResult {
  * @throws {ColorSchemeError} `INVALID_INPUT` when the seeds are invalid: not an object, an unknown
  *   seed name, a missing `primary`, or a value that is not an opaque `#RRGGBB` or `#RGB` hex color.
  *   The checks run in a fixed order, so the same input always gives the same error. Also when the
- *   seeds cannot be read, such as an object whose getter or proxy throws: the message is then
+ *   seeds cannot be read, such as an object whose getter or proxy throws, including a
+ *   caller's `ColorSchemeError`: the message is then
  *   "The seeds could not be read." and the original error is the `cause`.
  * @throws {ColorSchemeError} `PROCESSING_FAILED`, instead of returning an inaccessible scheme, when
  *   no color meets a role's minimums or the scheme fails its accessibility verification, and for
@@ -83,14 +85,13 @@ interface ModeResult {
  *   can be reproduced.
  */
 export function createColorScheme(seeds: Seeds): ColorScheme {
-  // Validation errors propagate unchanged. Any other error while reading the input, such as from
-  // a getter or a proxy, is `INVALID_INPUT`; only failures after validation are `PROCESSING_FAILED`.
+  // Marked input reads become INVALID_INPUT, including the caller's own ColorSchemeError.
+  // The package's validation errors retain their codes and messages.
   let normalized: NormalizedSeeds;
   try {
     normalized = normalizeSeeds(seeds);
   } catch (error) {
-    if (error instanceof ColorSchemeError) throw error;
-    throw new ColorSchemeError("INVALID_INPUT", "The seeds could not be read.", { cause: error });
+    throw inputError(error, "The seeds could not be read.");
   }
   try {
     return create(normalized);
