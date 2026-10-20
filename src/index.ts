@@ -12,4 +12,5 @@ export type {
   Seeds,
 } from "@/types.js";
 export { createColorScheme } from "@/scheme/create.js";
+export { seedsFromColorExtractor } from "@/adapter.js";
 export { toDesignTokens } from "@/tokens.js";

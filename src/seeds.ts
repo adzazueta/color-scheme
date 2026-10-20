@@ -1,4 +1,5 @@
 import { ColorSchemeError } from "@/errors.js";
+import { isRecord, kindOf, readInput, readOwn } from "@/input.js";
 
 /** Seeds after validation: every given seed is a lowercase `#rrggbb` hex color. */
 export interface NormalizedSeeds {
@@ -17,17 +18,10 @@ function invalidInput(message: string): ColorSchemeError {
   return new ColorSchemeError("INVALID_INPUT", message);
 }
 
-/** Names the kind of a value for error messages, without echoing the value. */
-function describe(value: unknown): string {
-  if (value === null) return "null";
-  if (Array.isArray(value)) return "an array";
-  return `type ${typeof value}`;
-}
-
 /** Validates one seed value and returns it as a lowercase `#rrggbb` hex color. */
 function normalizeHex(name: string, value: unknown): string {
   if (typeof value !== "string") {
-    throw invalidInput(`Seed "${name}" must be a hex color string, received ${describe(value)}.`);
+    throw invalidInput(`Seed "${name}" must be a hex color string, received ${kindOf(value)}.`);
   }
   if (HEX_WITH_ALPHA.test(value)) {
     throw invalidInput(
@@ -77,14 +71,15 @@ export function formatSeeds(seeds: NormalizedSeeds): string {
  * seed and never echo the value; an unknown name is quoted, cut to 40 characters.
  *
  * @throws ColorSchemeError with code `INVALID_INPUT`. An error thrown while reading the input, such
- *   as from a getter or a proxy, propagates unchanged; `createColorScheme` wraps it.
+ *   as from a getter or a proxy, becomes an internal read marker; `createColorScheme` wraps its cause,
+ *   including when the caller threw a `ColorSchemeError`.
  */
 export function normalizeSeeds(input: unknown): NormalizedSeeds {
-  if (typeof input !== "object" || input === null || Array.isArray(input)) {
-    throw invalidInput(`Seeds must be an object, received ${describe(input)}.`);
+  if (!isRecord(input)) {
+    throw invalidInput(`Seeds must be an object, received ${kindOf(input)}.`);
   }
-  const seeds = input as Record<string, unknown>;
-  const keys = Object.keys(seeds);
+  const seeds = input;
+  const keys = readInput(() => Object.keys(seeds));
 
   const unknown = keys.filter((key) => !SEED_NAMES.includes(key)).sort();
   const firstUnknown = unknown[0];
@@ -94,13 +89,13 @@ export function normalizeSeeds(input: unknown): NormalizedSeeds {
     );
   }
 
-  const primary = keys.includes("primary") ? seeds["primary"] : undefined;
+  const primary = keys.includes("primary") ? readOwn(seeds, "primary") : undefined;
   if (primary === undefined) {
     throw invalidInput('Seed "primary" is required.');
   }
 
-  const secondary = keys.includes("secondary") ? seeds["secondary"] : undefined;
-  const neutral = keys.includes("neutral") ? seeds["neutral"] : undefined;
+  const secondary = keys.includes("secondary") ? readOwn(seeds, "secondary") : undefined;
+  const neutral = keys.includes("neutral") ? readOwn(seeds, "neutral") : undefined;
   return {
     primary: normalizeHex("primary", primary),
     secondary: secondary === undefined ? undefined : normalizeHex("secondary", secondary),

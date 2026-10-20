@@ -3,9 +3,10 @@
  *
  * - `INVALID_INPUT`: the seeds are invalid (wrong format, alpha, missing `primary`, or an unknown
  *   name) or cannot be read (a getter or proxy that throws, with the original error as `cause`),
- *   or a `color-extractor` result cannot be read by the adapter, or a scheme passed to
- *   `toDesignTokens` is not a valid scheme or cannot be read.
- * - `UNSUPPORTED_SCHEMA`: the adapter receives a result with a `schemaVersion` other than 1.
+ *   or a `color-extractor` result passed to `seedsFromColorExtractor` is not a valid result or cannot be read,
+ *   or a scheme passed to `toDesignTokens` is not a valid scheme or cannot be read.
+ * - `UNSUPPORTED_SCHEMA`: `seedsFromColorExtractor` receives a result with a numeric `schemaVersion`
+ *   other than 1. A non-number is `INVALID_INPUT`.
  * - `NO_COLORS`: the `color-extractor` result has no colors. It is a normal case, such as a
  *   transparent cover, so applications can tell it apart from a real error.
  * - `PROCESSING_FAILED`: an unexpected failure, including a scheme that fails its verification.

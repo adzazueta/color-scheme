@@ -438,7 +438,7 @@ export function registerTokensTests(): void {
     });
 
     it("reports a ColorSchemeError thrown by the input's own getter as could not be read", () => {
-      const failure = new ColorSchemeError("NO_COLORS", "The caller's own error.");
+      const failure = new ColorSchemeError("INVALID_INPUT", "The caller's own error.");
       const input = {
         get light(): never {
           throw failure;
