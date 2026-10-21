@@ -211,14 +211,26 @@ jobs:
         env:
           VERSION: ${{ needs.check.outputs.version }}
           DIST_TAG: ${{ needs.check.outputs.tag }}
+          # Temporary, for the first publish only (Ecosystem Decisions, section 7.5): npm
+          # configures a trusted publisher only for a package that exists, so the first
+          # version is staged with a one-day stage-only token from this environment's
+          # secret. Without the secret, npm authenticates with OIDC. ADZE-113 removes it.
+          NPM_BOOTSTRAP_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
         run: |
           set -uo pipefail
+          if [ -n "${NPM_BOOTSTRAP_TOKEN:-}" ]; then
+            # npm expands the variable when it reads the file, so the token is never
+            # written to disk. npm tries OIDC first and falls back to this token.
+            printf '%s\n' "//registry.npmjs.org/:_authToken=\${NPM_BOOTSTRAP_TOKEN}" > "$RUNNER_TEMP/bootstrap.npmrc"
+            export NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/bootstrap.npmrc"
+            echo "Staging with the first-publish token."
+          fi
           # A version that is staged but not approved yet stays unpublished, so a
           # later push to main gets here again. Staged versions share the unique
           # version index with published ones, so npm rejects the second attempt.
           # OIDC tokens cannot run `npm stage list`, so that rejection is
           # recognised by its message and treated as "already staged".
-          if npm stage publish "./adzazueta-color-scheme-$VERSION.tgz" --tag "$DIST_TAG" 2>stage.err; then
+          if npm stage publish "./adzazueta-color-scheme-$VERSION.tgz" --tag "$DIST_TAG" --provenance 2>stage.err; then
             echo "Staged $PACKAGE_NAME@$VERSION with dist-tag $DIST_TAG."
           else
             cat stage.err
