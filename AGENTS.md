@@ -9,6 +9,7 @@ Repository of the npm package `@adzazueta/color-scheme`. It turns seed colors in
 - `vp test`: run tests.
 - `vp pack`: build the package.
 - `vp run bench`: build `dist/` and time `createColorScheme` on the seeds in `bench/seeds.ts`. CI runs the benchmarks once in the `pack` job and shows the times in the summary, without a limit.
+- `vp run eval`: evaluate the external color-extractor covers, generate public and local visual reports, and record benchmarks (needs `../color-extractor-eval` or `COLOR_EXTRACTOR_EVAL_DIR`).
 
 ## Branches, pull requests, and releases
 
