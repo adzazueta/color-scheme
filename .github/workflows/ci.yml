@@ -110,6 +110,14 @@ jobs:
           node-version: 24
           cache: true
       - run: vp pack
+      # Specification 10.1: stable version pull requests need the current algorithm's report.
+      # The script exempts prereleases; the branch name is used only in the condition, never a script.
+      - name: Require the evaluation report (stable version pull requests)
+        if: >-
+          github.event_name == 'pull_request'
+          && github.event.pull_request.head.repo.full_name == github.repository
+          && startsWith(github.head_ref, 'changeset-release/')
+        run: node scripts/check-report.mjs
       # Specification 6.5: the bundle size is measured and shown in the summary, without a limit.
       - name: Bundle size summary
         shell: node {0}
