@@ -4,6 +4,7 @@ import { playwright } from "vite-plus/test/browser-playwright";
 // Annotated (not exported inline) so a plain `tsc --noEmit` accepts it under `isolatedDeclarations`.
 const config: ViteUserConfig = defineConfig({
   resolve: { tsconfigPaths: true },
+  server: { open: "/lab/" },
   pack: {
     entry: { index: "src/index.ts" },
     format: "esm",
