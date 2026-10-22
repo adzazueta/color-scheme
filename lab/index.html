@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Color scheme lab</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <p class="eyebrow">@adzazueta/color-scheme</p>
+      <h1>Color scheme lab</h1>
+      <p>Explore a seed in light and dark. Inspect every role and its accessibility report.</p>
+    </header>
+    <main>
+      <section class="panel inputs" aria-labelledby="inputs-title">
+        <div class="section-heading">
+          <h2 id="inputs-title">Start with color</h2>
+          <p>Use #RGB or #RRGGBB. Leave optional seeds empty to derive them.</p>
+        </div>
+        <form id="seeds-form" novalidate>
+          <div class="seed-fields">
+            <div class="seed-field">
+              <label for="primary">Primary <span>required</span></label>
+              <div class="color-input">
+                <input
+                  id="primary"
+                  name="primary"
+                  type="text"
+                  value="#6750a4"
+                  spellcheck="false"
+                  autocomplete="off"
+                  aria-required="true"
+                />
+                <input
+                  id="primary-picker"
+                  type="color"
+                  value="#6750a4"
+                  aria-label="Pick primary color"
+                />
+              </div>
+            </div>
+            <div class="seed-field">
+              <label for="secondary">Secondary <span>optional</span></label>
+              <div class="color-input">
+                <input
+                  id="secondary"
+                  name="secondary"
+                  type="text"
+                  placeholder="Derived from primary"
+                  spellcheck="false"
+                  autocomplete="off"
+                />
+                <input
+                  id="secondary-picker"
+                  type="color"
+                  value="#625b71"
+                  aria-label="Pick secondary color"
+                />
+              </div>
+            </div>
+            <div class="seed-field">
+              <label for="neutral">Neutral <span>optional</span></label>
+              <div class="color-input">
+                <input
+                  id="neutral"
+                  name="neutral"
+                  type="text"
+                  placeholder="Derived from primary"
+                  spellcheck="false"
+                  autocomplete="off"
+                />
+                <input
+                  id="neutral-picker"
+                  type="color"
+                  value="#f5f2f7"
+                  aria-label="Pick neutral color"
+                />
+              </div>
+            </div>
+          </div>
+          <button type="submit">Generate scheme</button>
+        </form>
+        <div id="drop-zone" class="drop-zone">
+          <label for="cover"
+            >Or drop a cover here
+            <span>JPEG, PNG, WebP, or AVIF · processed in your browser</span></label
+          >
+          <input id="cover" type="file" accept="image/jpeg,image/png,image/webp,image/avif" />
+        </div>
+        <p id="extraction-status" role="status"></p>
+        <ul
+          id="extracted-colors"
+          class="extracted-colors"
+          aria-label="Extracted colors and coverage"
+        ></ul>
+        <p id="error" class="error-message" role="alert" hidden></p>
+      </section>
+      <section id="output" hidden aria-label="Generated color scheme">
+        <div class="output-heading">
+          <div>
+            <h2>One scheme, two modes</h2>
+            <p id="algorithm"></p>
+          </div>
+          <div class="downloads" aria-label="Download design tokens">
+            <button id="download-light" type="button">Download light.tokens.json</button>
+            <button id="download-dark" type="button">Download dark.tokens.json</button>
+          </div>
+        </div>
+        <ul id="used-seeds" class="used-seeds" aria-label="Seeds used"></ul>
+        <div id="modes" class="modes"></div>
+      </section>
+    </main>
+    <footer>Local browser lab · WCAG 2.2 contrast on final 8-bit colors · No cover uploads</footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

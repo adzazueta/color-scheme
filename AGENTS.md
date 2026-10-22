@@ -5,6 +5,7 @@ Repository of the npm package `@adzazueta/color-scheme`. It turns seed colors in
 ## Commands (Vite+)
 
 - `vp install`: install dependencies.
+- `vp dev`: open the browser lab at `/lab/`.
 - `vp check`: format, lint, and type check.
 - `vp test`: run tests.
 - `vp pack`: build the package.
