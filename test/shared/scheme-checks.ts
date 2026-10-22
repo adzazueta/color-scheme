@@ -25,7 +25,7 @@ export const MODES: readonly ["light", "dark"] = ["light", "dark"];
 /** A mode of a scheme. */
 export type Mode = "light" | "dark";
 
-/** Minimum Oklab lightness difference of a text pair (5.3), a parameter of algorithm version 1. */
+/** Minimum Oklab lightness difference of a text pair (5.3), a parameter of algorithm version 2. */
 export const MIN_LIGHTNESS_DIFFERENCE = 0.3;
 
 /**
@@ -82,6 +82,9 @@ export const ON_ACCENT_CONTAINER_LIGHTNESS: Readonly<Record<Mode, number>> = {
 /** Highest Oklab chroma of the accent text roles (`ON_ACCENT_CHROMA_CAP`). */
 export const ON_ACCENT_CHROMA_CAP = 0.08;
 
+/** Construction target of accent text, distinct from the unchanged 4.5:1 guarantee. */
+export const ON_ACCENT_TARGET_CONTRAST = 6;
+
 /** Oklab chroma of the status containers (`STATUS_CONTAINER_LIGHT` and `_DARK`). */
 export const STATUS_CONTAINER_CHROMA: Readonly<Record<Mode, number>> = { light: 0.04, dark: 0.07 };
 
@@ -95,7 +98,7 @@ export const ACHROMATIC_ACCENT: Readonly<Record<Mode, string>> = {
 };
 
 /** Fraction of the primary's chroma that a derived `secondary` keeps (`SECONDARY_CHROMA_RATIO`). */
-export const SECONDARY_CHROMA_RATIO = 0.6;
+export const SECONDARY_CHROMA_RATIO = 0.35;
 
 /** Oklab chroma of a derived `neutral`, at most the primary's (`NEUTRAL_CHROMA`). */
 export const NEUTRAL_CHROMA = 0.02;
@@ -547,7 +550,7 @@ export function guaranteeFailures(scheme: ColorScheme): string[] {
 
 /** How often each fidelity rule decided, to show that a set of seeds exercises all of them. */
 export interface FidelityTally {
-  /** An accent seed that meets 3:1 plus the margin on `surface`, so it is `X` exactly. */
+  /** An accent seed meeting surface and 6:1 text conditions, so it is `X` exactly. */
   accent: number;
   /** An accent seed that misses it and stands apart from the surfaces: `XContainer` exactly. */
   container: number;
@@ -735,9 +738,65 @@ function candidateFailure(
     fail(`${role} is ${actual}, which misses the minimums of its search`);
   }
   const previous = optionsAt(order[index - 1] ?? Number.NaN);
-  if (index > 0 && meets(previous)) {
+  // Adjacent nominal lightnesses can round to the same 8-bit hex. They are indistinguishable
+  // in the returned scheme, so a previous candidate with that same hex cannot disprove it.
+  if (index > 0 && meets(previous) && !previous.includes(actual)) {
     fail(`${role} is ${actual}, but the candidate before it, ${previous.join(" or ")}, meets it`);
   }
+}
+
+/** Whether either text extreme meets the accent construction target and lightness rule. */
+export function allowsAccentText(hex: string): Verdict {
+  const verdicts = ["#000000", "#ffffff"].map((text) =>
+    allOf([
+      atLeast(
+        contrast(text, hex),
+        ON_ACCENT_TARGET_CONTRAST + CONTRAST_MARGIN,
+        COLORJS_CONTRAST_TOLERANCE,
+      ),
+      atLeast(
+        lightnessDifference(text, hex),
+        MIN_LIGHTNESS_DIFFERENCE + LIGHTNESS_MARGIN,
+        OKLAB_TOLERANCE,
+      ),
+    ]),
+  );
+  return verdicts.includes("yes") ? "yes" : verdicts.includes("unsure") ? "unsure" : "no";
+}
+
+/**
+ * Replay version 2's two-stage built accent: first the original 3:1 search, then only outward
+ * candidates until both surface contrast and text feasibility hold. Color.js judges every final
+ * 8-bit candidate; the existing uncertainty bands allow only matrix/rounding differences.
+ */
+function builtAccentFailure(
+  role: Role,
+  actual: string,
+  search: OracleSearch,
+  tally: FidelityTally,
+  fail: (message: string) => void,
+): void {
+  const first = searchOracle(search);
+  const allowed: string[] = [];
+  let unsure = first.unsure;
+  for (const match of first.matches) {
+    for (let step = 0; ; step++) {
+      const L = match.L + (search.prefer === "darker" ? -step : step) * LIGHTNESS_STEP;
+      const options = step === 0 ? [match.hex] : colorJsMappedOptions(L, search.a, search.b);
+      const verdicts = options.map((hex) =>
+        allOf([searchVerdict(hex, search), allowsAccentText(hex)]),
+      );
+      options.forEach((hex, i) => {
+        if (verdicts[i] !== "no") allowed.push(hex);
+      });
+      if (verdicts.includes("unsure") || verdicts.some((verdict) => verdict !== verdicts[0]))
+        unsure = true;
+      if (verdicts.every((verdict) => verdict === "yes") || L <= 0 || L >= 1) break;
+    }
+  }
+  if (unsure) tally.unsureSearches++;
+  if (!allowed.includes(actual))
+    fail(`${role} is ${actual}, but its outward 6:1 search gives ${allowed.join(" or ")}`);
 }
 
 /** The roles of an accent family. */
@@ -761,12 +820,14 @@ const FAMILIES = {
  *
  * - When the seed is `XContainer` (exactly or moved), `X` is the first candidate of a search that
  *   starts {@link ACCENT_CONTAINER_GAP} beyond the container's lightness, toward the accent side,
- *   with the family's hue, for 3:1 plus the margin on `surface`.
+ *   with the family's hue, for 3:1 plus the margin on `surface`, then walks only outward until
+ *   the accent also permits 6:1 text and the lightness rule, with construction margins.
  * - Otherwise `XContainer` is built: the family's hue at the built container lightness.
  * - `onX` and `onXContainer` keep the family's hue, with its chroma capped at
  *   {@link ON_ACCENT_CHROMA_CAP}, and are searched on `X` and `XContainer` from their documented
- *   starts, for 4.5:1 and the lightness rule, each plus its margin. `onX` is replayed in full only
- *   when `fullTextSearch` is set, and otherwise checked with {@link candidateFailure}.
+ *   starts, for 6:1 on X and 4.5:1 on its container, with the lightness rule and margins.
+ *   `onX` is replayed in full only when `fullTextSearch` is set, and otherwise checked with
+ *   {@link candidateFailure}.
  */
 function accentFamilyFailures(
   scheme: ColorScheme,
@@ -787,7 +848,7 @@ function accentFamilyFailures(
 
   if (seedIsContainer) {
     const gap = light ? -ACCENT_CONTAINER_GAP : ACCENT_CONTAINER_GAP;
-    searchFailure(
+    builtAccentFailure(
       name,
       roles[name],
       {
@@ -821,6 +882,7 @@ function accentFamilyFailures(
   };
   const onAccentSearch: OracleSearch = {
     ...text,
+    minContrast: ON_ACCENT_TARGET_CONTRAST + CONTRAST_MARGIN,
     start: ON_ACCENT_LIGHTNESS[mode],
     backgrounds: [roles[name]],
     prefer: light ? "lighter" : "darker",
@@ -879,9 +941,10 @@ function adjustmentFailures(
 
 /**
  * Checks the fidelity of a `primary` or `secondary` seed, given or derived, in one mode (the
- * `SeedAdjustment` TSDoc): a seed that meets 3:1 plus the margin on `surface` is `X` exactly; one
- * that misses it is `XContainer` exactly when it stands apart from the surfaces, and otherwise a
- * moved container, which keeps its a and b and moves by the minimum (see {@link movedContainers}).
+ * `SeedAdjustment` TSDoc): a seed that meets 3:1 on `surface` and allows 6:1 text with the
+ * lightness rule, each plus its margin, is `X` exactly; otherwise it is `XContainer` exactly when
+ * it stands apart from the surfaces, and otherwise a moved container, which keeps its a and b and
+ * moves by the minimum (see {@link movedContainers}).
  * Then the rest of the family (see {@link accentFamilyFailures}).
  */
 function accentFidelity(
@@ -895,21 +958,20 @@ function accentFidelity(
   const roles = scheme[mode];
   const seed = scheme.seeds[name].hex;
   const container = FAMILIES[name].container;
-  const meets = atLeast(
-    contrast(seed, roles.surface),
-    3 + CONTRAST_MARGIN,
-    COLORJS_CONTRAST_TOLERANCE,
-  );
+  const meets = allOf([
+    atLeast(contrast(seed, roles.surface), 3 + CONTRAST_MARGIN, COLORJS_CONTRAST_TOLERANCE),
+    allowsAccentText(seed),
+  ]);
   const isAccent = roles[name] === seed;
   if (meets === "yes" || (meets === "unsure" && isAccent)) {
-    if (!isAccent) fail(`meets 3:1 on surface ${roles.surface}, but ${name} is ${roles[name]}`);
+    if (!isAccent) fail(`meets surface and 6:1 text conditions, but ${name} is ${roles[name]}`);
     if (meets === "unsure") tally.ambiguous++;
     else tally.accent++;
     adjustmentFailures(scheme, mode, name, name, fail);
     accentFamilyFailures(scheme, mode, name, false, false, fullTextSearch, tally, fail);
     return;
   }
-  if (meets === "no" && isAccent) fail(`misses 3:1 on surface ${roles.surface}, but is ${name}`);
+  if (meets === "no" && isAccent) fail(`misses surface or 6:1 text conditions, but is ${name}`);
 
   const apart = standsApart(seed, mode, roles);
   const actual = roles[container];

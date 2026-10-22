@@ -20,10 +20,10 @@ import type { ColorScheme, ModeReport, Role, Roles, Seeds } from "@/types.js";
  * `color-extractor`. It changes whenever any output color can change, so the same seeds with the
  * same version give exactly the same scheme.
  *
- * Version 1 is the first frozen algorithm, with the parameter values approved in the
- * specification, section 4.1.
+ * Version 2 targets 6:1 text on accents, leaves vivid adapter neutrals out, and derives a softer
+ * secondary, with the parameter values approved in the specification, section 4.1.
  */
-export const ALGORITHM_VERSION: string = "1";
+export const ALGORITHM_VERSION: string = "2";
 
 /** The roles and the report of one mode. */
 interface ModeResult {
@@ -49,20 +49,21 @@ interface ModeResult {
  * fidelity yields. `report` lists every pair with its measured contrast and lightness difference.
  *
  * **Fidelity to the seeds.** In each mode, a `primary` or `secondary` seed that meets 3:1 on
- * `surface`, with a small margin, is that role exactly. One that does not is its container (`primaryContainer` or
+ * `surface` and allows text at 6:1 with the lightness rule, each with its construction margin, is
+ * that role exactly. One that does not is its container (`primaryContainer` or
  * `secondaryContainer`) exactly, unless it is too close to the surfaces: then only its lightness
  * moves, by the minimum needed to stand apart from them, keeping its hue. The role itself is then
- * built from the seed's hue, darker in light mode and lighter in dark mode, to meet 3:1: a very
- * light seed, such as a yellow, stays as the light-mode container while `primary` darkens. An
- * achromatic `primary`, such as black or a gray, gives neutral accents instead: `primary` is near
- * black in light mode and near white in dark mode, and the seed appears exactly only when it is
- * already that dark or that light. A light `neutral` seed, such as a cream, is the light-mode
- * `surface` exactly when its chroma is within the cap of the surfaces; above the cap, `surface`
- * keeps the seed's lightness, with its chroma capped. Otherwise, and always in dark mode, the
- * surfaces take the mode's own lightness, with the seed's hue and capped chroma. The status colors
- * (`error`, `warning`, `success`, and `info`) have fixed hues; only their lightness and chroma
- * adapt to each mode's surfaces. `report` lists how each given seed appears in each mode, and by
- * how much its lightness moved.
+ * built from the seed's hue, darker in light mode and lighter in dark mode, to meet 3:1 and allow
+ * text at 6:1: a very light seed, such as a yellow, stays as the light-mode container while
+ * `primary` darkens. An achromatic `primary`, such as black or a gray, gives neutral accents
+ * instead: `primary` is near black in light mode and near white in dark mode, and the seed appears
+ * exactly only when it is already that dark or that light. A light `neutral` seed, such as a cream,
+ * is the light-mode `surface` exactly when its chroma is within the cap of the surfaces; above the
+ * cap, `surface` keeps the seed's lightness, with its chroma capped. Otherwise, and always in dark
+ * mode, the surfaces take the mode's own lightness, with the seed's hue and capped chroma. The
+ * status colors (`error`, `warning`, `success`, and `info`) have fixed hues; only their lightness
+ * and chroma adapt to each mode's surfaces. `report` lists how each given seed appears in each
+ * mode, and by how much its lightness moved.
  *
  * **Determinism.** The same seeds give exactly the same scheme in every supported environment, any
  * supported Node version or any browser, for the same `meta.algorithmVersion`, which changes

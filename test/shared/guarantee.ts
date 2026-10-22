@@ -31,6 +31,7 @@ import {
   NEUTRAL_LIGHTNESS,
   newTally,
   ON_ACCENT_CHROMA_CAP,
+  ON_ACCENT_TARGET_CONTRAST,
   ON_ACCENT_CONTAINER_LIGHTNESS,
   ON_ACCENT_LIGHTNESS,
   SECONDARY_CHROMA_RATIO,
@@ -141,7 +142,7 @@ export function registerGuaranteeTests(): void {
       }
     });
 
-    it("use the parameters of algorithm version 1, as the package does", () => {
+    it("use the parameters of algorithm version 2, as the package does", () => {
       expect(search.CONTRAST_MARGIN).toBe(CONTRAST_MARGIN);
       expect(search.LIGHTNESS_MARGIN).toBe(LIGHTNESS_MARGIN);
       expect(search.LIGHTNESS_STEP).toBe(LIGHTNESS_STEP);
@@ -152,6 +153,7 @@ export function registerGuaranteeTests(): void {
       expect(accent.ON_ACCENT_LIGHTNESS_DARK).toBe(ON_ACCENT_LIGHTNESS.dark);
       expect(accent.ON_ACCENT_CONTAINER_LIGHTNESS_LIGHT).toBe(ON_ACCENT_CONTAINER_LIGHTNESS.light);
       expect(accent.ON_ACCENT_CONTAINER_LIGHTNESS_DARK).toBe(ON_ACCENT_CONTAINER_LIGHTNESS.dark);
+      expect(accent.ON_ACCENT_TARGET_CONTRAST).toBe(ON_ACCENT_TARGET_CONTRAST);
       expect(accent.ON_ACCENT_CHROMA_CAP).toBe(ON_ACCENT_CHROMA_CAP);
       expect(neutral.CONTAINER_LIGHTNESS_OFFSET_LIGHT).toBe(CONTAINER_LIGHTNESS_OFFSET_LIGHT);
       expect(neutral.CONTAINER_LIGHTNESS_DARK).toBe(CONTAINER_LIGHTNESS_DARK);

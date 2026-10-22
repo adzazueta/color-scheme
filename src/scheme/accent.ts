@@ -10,7 +10,7 @@ import {
 } from "@/scheme/derive.js";
 import { builtContainerLightness, type NeutralRole } from "@/scheme/neutral.js";
 import { requirementOf, type RoleRequirement, type SeedAdjustmentInput } from "@/scheme/report.js";
-import { findOrThrow, LIGHTNESS_STEP } from "@/scheme/search.js";
+import { CONTRAST_MARGIN, findOrThrow, LIGHTNESS_STEP, noColor } from "@/scheme/search.js";
 
 /**
  * Lowest Oklab distance, √(ΔL² + Δa² + Δb²) on the 8-bit colors, between a seed that is its
@@ -18,7 +18,7 @@ import { findOrThrow, LIGHTNESS_STEP } from "@/scheme/search.js";
  * `surfaceContainerHigh`. Unit: Oklab distance (deltaEOK). A parameter of the specification,
  * section 4.1.
  *
- * A seed that misses 3:1 on `surface` is its container exactly only when it stands apart from the
+ * A seed that cannot be its accent is its container exactly only when it stands apart from the
  * surfaces: at least this far from each of them, and not on the wrong side of `surface` (lighter in
  * light mode, darker in dark mode). Otherwise its lightness moves toward the accent side by the
  * minimum needed (see {@link buildAccentRoles}). 0.04 is two just noticeable differences, twice the
@@ -45,11 +45,27 @@ export const SEED_CONTAINER_MIN_DISTANCE = 0.04;
 export const ACCENT_CONTAINER_GAP = 0.1;
 
 /**
+ * Construction target for text on `primary` and `secondary`, including an achromatic primary.
+ * Unit: WCAG 2.2 contrast ratio, from 1 to 21. A parameter of the specification, section 4.1.
+ * The search adds `CONTRAST_MARGIN`; the reported guaranteed minimum stays 4.5:1.
+ *
+ * On the 54 dev evaluation covers, version 1's 4.5:1 target gave median accent text contrasts of
+ * about 4.53–4.55; 6:1 raises them to about 6.02–6.30, with no verification failures. It improves
+ * text contrast while keeping more seeds exactly as accents than 7:1 (in dev, 15 light-mode
+ * primary seeds remain accents at 6:1, versus 8 at 7:1). A seed unable to carry this text
+ * becomes its container; a built accent moves farther from the surface until it can. Near black
+ * in light mode or near white in dark mode always allows it, together with 3:1 on the surface
+ * and the lightness rule, so failure is an internal invariant violation. Changing this value
+ * changes `algorithmVersion`.
+ */
+export const ON_ACCENT_TARGET_CONTRAST = 6;
+
+/**
  * Oklab lightness that the search for the light-mode `onPrimary` and `onSecondary` starts from.
  * Unit: Oklab lightness, 0 to 1. A parameter of the specification, section 4.1.
  *
  * 1 is white, Material 3's tone 100. The light-mode accent is dark enough for 3:1 on the
- * surface, so white text meets 4.5:1 and the lightness rule on most accents; on a mid accent where
+ * surface and allows 6:1 text. White text also meets the lightness rule on most accents; where
  * it does not, the search goes darker, to the lightest dark text that meets them.
  */
 export const ON_ACCENT_LIGHTNESS_LIGHT = 1;
@@ -59,7 +75,7 @@ export const ON_ACCENT_LIGHTNESS_LIGHT = 1;
  * Unit: Oklab lightness, 0 to 1. A parameter of the specification, section 4.1.
  *
  * About Material 3's tone 20: dark text on the light accent of dark mode. On a mid accent where
- * no dark text reaches 4.5:1, the search reaches the closest light text that does.
+ * dark text misses the target, the search reaches the closest light text that meets it.
  */
 export const ON_ACCENT_LIGHTNESS_DARK = 0.31;
 
@@ -95,6 +111,10 @@ export const ON_ACCENT_CONTAINER_LIGHTNESS_DARK = 0.91;
  * affect accessibility: white and black, the ends of every search, have no chroma.
  */
 export const ON_ACCENT_CHROMA_CAP = 0.08;
+
+/** The two endpoint candidates of every text search, independent of hue. */
+const BLACK: Srgb = { r: 0, g: 0, b: 0 };
+const WHITE: Srgb = { r: 255, g: 255, b: 255 };
 
 /** The eight accent roles, in the order of `Role`. */
 export type AccentRole =
@@ -221,8 +241,9 @@ interface FamilyColors {
  * surfaces to be a container:
  *
  * - When S meets the minimum of `X` on `surface` (3:1 plus the contrast margin, from
- *   `requirementOf`), `X` is S. `XContainer` is built: S's Oklab a and b at the built container
- *   lightness of `neutral.ts`, the 8-bit `surface`'s Oklab lightness plus
+ *   `requirementOf`) and allows `onX` at 6:1 plus the margin and the lightness rule, `X` is S.
+ *   `XContainer` is built: S's Oklab a and b at the built container lightness of `neutral.ts`,
+ *   the 8-bit `surface`'s Oklab lightness plus
  *   `CONTAINER_LIGHTNESS_OFFSET_LIGHT` in light mode and `CONTAINER_LIGHTNESS_DARK` in dark mode.
  * - Otherwise, S is `XContainer`, which has no minimum on `surface`, when it stands apart from the
  *   four surfaces: not on the wrong side of `surface` (lighter in light mode, darker in dark mode),
@@ -233,10 +254,13 @@ interface FamilyColors {
  *   moves. When S does not stand apart, `XContainer` keeps S's a and b, and its lightness moves
  *   toward the accent side (darker in light mode, lighter in dark mode) by the minimum needed:
  *   candidates `LIGHTNESS_STEP` apart, each judged on its final 8-bit color, until one stands
- *   apart. `X` keeps S's a and b and is found with `findOrThrow` from
- *   {@link ACCENT_CONTAINER_GAP} beyond the container's lightness, toward the accent side.
+ *   apart. `X` keeps S's a and b. Its search starts with `findOrThrow` from
+ *   {@link ACCENT_CONTAINER_GAP} beyond the container's lightness, toward the accent side. From
+ *   that first 3:1 match, candidates move farther from the surface by `LIGHTNESS_STEP` until
+ *   one both meets 3:1 and allows 6:1 text with the lightness rule, each plus its margin. Every
+ *   candidate is judged on its final 8-bit color.
  *
- * A seed that meets 3:1 on both surfaces, such as a mid red, is `X` in both modes.
+ * A seed is `X` in both modes only when it meets the surface and text conditions in both.
  *
  * **Achromatic `primary`.** When `seeds.achromatic` is `true`, the primary family is neutral:
  * near black in light mode and near white in dark mode (specification, section 4), at
@@ -250,11 +274,12 @@ interface FamilyColors {
  *
  * **Text.** `onX` and `onXContainer` keep S's hue, with its chroma capped at
  * {@link ON_ACCENT_CHROMA_CAP} (no chroma for the achromatic primary). They are found with
- * `findOrThrow` on `X` and `XContainer`, aiming for the minimums of `requirementOf` (4.5:1 and the
- * lightness rule, each plus its margin), from {@link ON_ACCENT_LIGHTNESS_LIGHT} or
+ * `findOrThrow` on `X` at {@link ON_ACCENT_TARGET_CONTRAST} and on `XContainer` at 4.5:1,
+ * with the lightness rule and each construction margin, from {@link ON_ACCENT_LIGHTNESS_LIGHT} or
  * {@link ON_ACCENT_LIGHTNESS_DARK} and from {@link ON_ACCENT_CONTAINER_LIGHTNESS_LIGHT} or
  * {@link ON_ACCENT_CONTAINER_LIGHTNESS_DARK}: the start when it meets the minimums, and otherwise
- * the closest lightness that does, on either side. Black or white always meets them.
+ * the closest lightness that does, on either side. Placement ensures black or white meets
+ * the text conditions. The pair report still guarantees 4.5:1 for both text roles.
  *
  * Every built color is converted with `oklabToSrgb`, which applies the gamut mapping and rounds to
  * 8 bits, so the hue of a built color can drift slightly from the seed's. Uses only basic
@@ -268,8 +293,9 @@ interface FamilyColors {
  *   are): `surface` and its three containers.
  * @returns The eight colors, and how each given accent seed appears, for the report.
  * @throws {ColorSchemeError} `PROCESSING_FAILED`, naming the role, the mode, and the seeds, when no
- *   lightness meets a role's minimums. Black or white always meets them, so this never happens: it
- *   would be a bug.
+ *   lightness meets a role's minimums. Near-black or near-white accents always permit 6:1 text
+ *   and meet 3:1 on the mode's surface; their opposite text extreme also meets the lightness
+ *   rule. Failure is therefore an internal invariant violation, a bug.
  */
 export function buildAccentRoles(
   seeds: SchemeSeeds,
@@ -338,53 +364,66 @@ function buildFamily(family: Family, achromatic: boolean, context: Context): Fam
   const a = achromatic ? 0 : seed.a;
   const b = achromatic ? 0 : seed.b;
 
-  // Whether the seed can be `X` itself; an achromatic primary also has to be near black or near
-  // white already.
+  // Text keeps the family's hue, with its chroma capped; black and white are still candidates.
+  const chroma = Math.sqrt(a * a + b * b);
+  const scale = chroma <= ON_ACCENT_CHROMA_CAP ? 1 : ON_ACCENT_CHROMA_CAP / chroma;
+  const textA = a * scale;
+  const textB = b * scale;
+  const textRequirement: RoleRequirement = {
+    minContrast: ON_ACCENT_TARGET_CONTRAST + CONTRAST_MARGIN,
+    minLightnessDifference: family.onAccentRequirement.minLightnessDifference,
+  };
+  // The extremes maximize both contrast and lightness distance on their side of any sRGB
+  // background. A text search always tries them, regardless of its hue or start, so testing
+  // them decides existence without replaying hundreds of candidates for an impossible search.
+  const allowsText = (color: Srgb): boolean =>
+    meets(BLACK, color, textRequirement) || meets(WHITE, color, textRequirement);
+
+  // An achromatic primary also has to be near black or near white already.
   const inAccent =
     meets(seedColor, surface, family.accentRequirement) &&
+    allowsText(seedColor) &&
     (!achromatic ||
       (light ? seed.L <= parameters.achromaticBound : seed.L >= parameters.achromaticBound));
 
-  let accent: Srgb;
-  let container: Srgb;
-  if (inAccent || achromatic) {
-    accent = inAccent
-      ? seedColor
-      : findOrThrow(family.accent, mode, seeds, {
-          start: parameters.achromaticAccent,
-          a: 0,
-          b: 0,
-          backgrounds: [surface],
-          minContrast: family.accentRequirement.minContrast,
-          minLightnessDifference: family.accentRequirement.minLightnessDifference,
-          prefer: parameters.accentSide,
-        }).color;
-    container = oklabToSrgb(context.builtLightness, a, b);
-  } else {
-    container = seedContainer(seedColor, seed, light, context.surfaceLabs);
-    const gap = light ? -ACCENT_CONTAINER_GAP : ACCENT_CONTAINER_GAP;
-    accent = findOrThrow(family.accent, mode, seeds, {
-      start: oklabOf(container).L + gap,
+  const builtAccent = (start: number): Srgb => {
+    const first = findOrThrow(family.accent, mode, seeds, {
+      start,
       a,
       b,
       backgrounds: [surface],
       minContrast: family.accentRequirement.minContrast,
       minLightnessDifference: family.accentRequirement.minLightnessDifference,
       prefer: parameters.accentSide,
-    }).color;
+    });
+    if (allowsText(first.color)) return first.color;
+    for (let step = 1; ; step++) {
+      const L = first.L + (light ? -step : step) * LIGHTNESS_STEP;
+      const candidate = oklabToSrgb(L, a, b);
+      if (meets(candidate, surface, family.accentRequirement) && allowsText(candidate)) {
+        return candidate;
+      }
+      if (light ? L <= 0 : L >= 1) return noColor(family.accent, mode, seeds);
+    }
+  };
+
+  let accent: Srgb;
+  let container: Srgb;
+  if (inAccent || achromatic) {
+    accent = inAccent ? seedColor : builtAccent(parameters.achromaticAccent);
+    container = oklabToSrgb(context.builtLightness, a, b);
+  } else {
+    container = seedContainer(seedColor, seed, light, context.surfaceLabs);
+    const gap = light ? -ACCENT_CONTAINER_GAP : ACCENT_CONTAINER_GAP;
+    accent = builtAccent(oklabOf(container).L + gap);
   }
 
-  // Text keeps the family's hue, with its chroma capped.
-  const chroma = Math.sqrt(a * a + b * b);
-  const scale = chroma <= ON_ACCENT_CHROMA_CAP ? 1 : ON_ACCENT_CHROMA_CAP / chroma;
-  const textA = a * scale;
-  const textB = b * scale;
   const onAccent = findOrThrow(family.onAccent, mode, seeds, {
     start: parameters.onAccent,
     a: textA,
     b: textB,
     backgrounds: [accent],
-    minContrast: family.onAccentRequirement.minContrast,
+    minContrast: textRequirement.minContrast,
     minLightnessDifference: family.onAccentRequirement.minLightnessDifference,
     prefer: parameters.onAccentSide,
   }).color;

@@ -8,6 +8,13 @@ export const SEEDS: readonly ["primary", "secondary", "neutral"] = [
   "secondary",
   "neutral",
 ];
+export const ACCENT_SEEDS: readonly ["primary", "secondary"] = ["primary", "secondary"];
+export const SOURCES: readonly ["given", "derived"] = ["given", "derived"];
+export type AccentSeed = (typeof ACCENT_SEEDS)[number];
+export type Source = (typeof SOURCES)[number];
+export type Placement = "exactX" | "exactContainer" | "moved";
+export type AccentPlacement = Readonly<Record<AccentSeed, Readonly<Record<Mode, Placement>>>>;
+
 export type Mode = (typeof MODES)[number];
 export type Seed = SeedAdjustment["seed"];
 export type SetName = "dev" | "test";
@@ -22,6 +29,7 @@ export interface CoverResult {
   readonly colors: ColorExtractorResult["colors"];
   readonly scheme: ColorScheme;
   readonly neutralTheme: boolean;
+  readonly placement: AccentPlacement;
   readonly verificationFailures: readonly VerificationFailure[];
 }
 
@@ -31,8 +39,18 @@ export interface Fidelity {
   readonly averageAbsoluteLightnessShift: number | null;
 }
 
+export interface PlacementCounts {
+  readonly total: number;
+  readonly exactX: number;
+  readonly exactContainer: number;
+  readonly moved: number;
+}
+
 export interface Summary {
   readonly covers: number;
+  readonly placement: Readonly<
+    Record<AccentSeed, Readonly<Record<Mode, Readonly<Record<Source, PlacementCounts>>>>>
+  >;
   readonly fidelity: Readonly<Record<Seed, Readonly<Record<Mode, Fidelity>>>>;
   readonly sources: Readonly<Record<Seed, { readonly given: number; readonly derived: number }>>;
   readonly neutralThemes: number;
@@ -56,7 +74,7 @@ export interface ReportHeader {
 }
 
 export interface Report {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
   readonly set: SetName;
   readonly header: ReportHeader;
   readonly summary: Summary;
@@ -96,6 +114,14 @@ export function verifyScheme(scheme: ColorScheme): VerificationFailure[] {
   return failures;
 }
 
+/** Classify the final hex: accent first, then its container, otherwise moved. */
+export function placementOf(scheme: ColorScheme, seed: AccentSeed, mode: Mode): Placement {
+  const hex = scheme.seeds[seed].hex;
+  if (scheme[mode][seed] === hex) return "exactX";
+  if (scheme[mode][`${seed}Container`] === hex) return "exactContainer";
+  return "moved";
+}
+
 /** Keep paths outside this model: only neutral ids and extracted color data enter public reports. */
 export function buildCover(
   id: string,
@@ -109,6 +135,16 @@ export function buildCover(
     colors: result.colors.map(({ hex, coverage }) => ({ hex: hex.toLowerCase(), coverage })),
     scheme,
     neutralTheme: Math.hypot(primary[1]!, primary[2]!) < ACHROMATIC_CHROMA,
+    placement: {
+      primary: {
+        light: placementOf(scheme, "primary", "light"),
+        dark: placementOf(scheme, "primary", "dark"),
+      },
+      secondary: {
+        light: placementOf(scheme, "secondary", "light"),
+        dark: placementOf(scheme, "secondary", "dark"),
+      },
+    },
     verificationFailures: verifyScheme(scheme),
   };
 }
@@ -128,11 +164,37 @@ function fidelity(covers: readonly CoverResult[], seed: Seed, mode: Mode): Fidel
   };
 }
 
+/** Count every accent seed exactly once in its own source and mode. */
+function placementCounts(
+  covers: readonly CoverResult[],
+  seed: AccentSeed,
+  mode: Mode,
+  source: Source,
+): PlacementCounts {
+  const counts = { total: 0, exactX: 0, exactContainer: 0, moved: 0 };
+  for (const cover of covers) {
+    if (cover.scheme.seeds[seed].source !== source) continue;
+    counts.total++;
+    counts[cover.placement[seed][mode]]++;
+  }
+  return counts;
+}
+
 /** Given seeds alone measure preservation of the cover's own colors; derived seeds are counted. */
 export function summarize(covers: readonly CoverResult[]): Summary {
   const modes = (seed: Seed): Readonly<Record<Mode, Fidelity>> => ({
     light: fidelity(covers, seed, "light"),
     dark: fidelity(covers, seed, "dark"),
+  });
+  const placements = (seed: AccentSeed): Summary["placement"][AccentSeed] => ({
+    light: {
+      given: placementCounts(covers, seed, "light", "given"),
+      derived: placementCounts(covers, seed, "light", "derived"),
+    },
+    dark: {
+      given: placementCounts(covers, seed, "dark", "given"),
+      derived: placementCounts(covers, seed, "dark", "derived"),
+    },
   });
   const sources = (seed: Seed): { given: number; derived: number } => {
     const given = covers.filter((cover) => cover.scheme.seeds[seed].source === "given").length;
@@ -140,6 +202,7 @@ export function summarize(covers: readonly CoverResult[]): Summary {
   };
   return {
     covers: covers.length,
+    placement: { primary: placements("primary"), secondary: placements("secondary") },
     fidelity: {
       primary: modes("primary"),
       secondary: modes("secondary"),
@@ -173,5 +236,5 @@ export function buildReport(
       throw new Error("Mixed algorithm versions.");
     }
   }
-  return { schemaVersion: 1, set, header, summary: summarize(sorted), covers: sorted };
+  return { schemaVersion: 2, set, header, summary: summarize(sorted), covers: sorted };
 }

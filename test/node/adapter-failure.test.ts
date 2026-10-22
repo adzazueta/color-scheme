@@ -13,6 +13,8 @@ const fault = vi.hoisted(() => ({
   thrown: undefined as unknown,
   /** Calls to `srgbToOklab`. */
   calls: 0,
+  /** Synthetic chroma for the exact inclusive-boundary test, not a conversion oracle. */
+  chroma: undefined as number | undefined,
 }));
 
 vi.mock(import("@/color/oklab.js"), async (importOriginal) => {
@@ -22,6 +24,7 @@ vi.mock(import("@/color/oklab.js"), async (importOriginal) => {
     srgbToOklab: (...args: Parameters<typeof original.srgbToOklab>) => {
       fault.calls++;
       if (fault.thrown !== undefined) throw fault.thrown;
+      if (fault.chroma !== undefined) return { L: 0.5, a: fault.chroma, b: 0 };
       return original.srgbToOklab(...args);
     },
   };
@@ -31,6 +34,7 @@ vi.mock(import("@/color/oklab.js"), async (importOriginal) => {
 beforeEach(() => {
   fault.thrown = undefined;
   fault.calls = 0;
+  fault.chroma = undefined;
 });
 
 const RESULT: ColorExtractorResult = {
@@ -58,9 +62,18 @@ describe("seedsFromColorExtractor: failures after validation (spec 7.5)", () => 
     expect(seedsFromColorExtractor(RESULT)).toEqual({
       primary: "#c8102e",
       secondary: "#1f4e9c",
-      neutral: "#1f4e9c",
     });
-    expect(fault.calls).toBe(2);
+    expect(fault.calls).toBe(3);
+  });
+
+  it("includes the neutral at exactly the cap and omits it immediately above", () => {
+    // Real 8-bit boundary colors are measured with Color.js in shared/adapter.ts. This synthetic
+    // conversion result isolates <= from < at exactly 0.04, which a real hex need not attain.
+    const result = { schemaVersion: 1, colors: [{ hex: "#6750a4", coverage: 1 }] };
+    fault.chroma = 0.04;
+    expect(seedsFromColorExtractor(result)).toEqual({ primary: "#6750a4", neutral: "#6750a4" });
+    fault.chroma = 0.04 + Number.EPSILON;
+    expect(seedsFromColorExtractor(result)).toEqual({ primary: "#6750a4" });
   });
 
   it("wraps an unexpected error as PROCESSING_FAILED, with the original as cause", () => {

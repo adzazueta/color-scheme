@@ -8,7 +8,7 @@ import type { ModeReport, PairReport, Role, SeedAdjustment } from "@/types.js";
 
 /**
  * Minimum Oklab lightness difference of a text pair (specification 5.3), a parameter of
- * algorithm version 1 (section 4.1). A text pair is a pair whose foreground is an `on…` role.
+ * algorithm version 2 (section 4.1). A text pair is a pair whose foreground is an `on…` role.
  *
  * The guarantee is absolute (5.4), so the value must be one that black or white can always meet
  * together with the contrast minimum. Over all 16,777,216 8-bit backgrounds, the largest value

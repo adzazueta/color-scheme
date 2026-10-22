@@ -4,6 +4,7 @@ import {
   buildCover,
   buildReport,
   summarize,
+  placementOf,
   verifyScheme,
   type CoverResult,
   type ReportHeader,
@@ -11,7 +12,7 @@ import {
 import { renderHtml, renderJson, renderMarkdown, table } from "../../../eval/lib/render.js";
 
 const header: ReportHeader = {
-  algorithmVersion: "1",
+  algorithmVersion: "2",
   packageVersion: "0.1.0-next.0",
   commit: "abc123",
   generatedAt: "2026-10-21T00:00:00.000Z",
@@ -43,6 +44,7 @@ describe("evaluation reports", () => {
     };
     const row = buildCover("dev-017", extraction, createColorScheme({ primary: "#ff0000" }));
     const report = buildReport("dev", header, [row, cover("dev-002")]);
+    expect(report.schemaVersion).toBe(2);
     expect(report.covers.map((c) => c.id)).toEqual(["dev-002", "dev-017"]);
     expect(row.colors).toEqual([{ hex: "#ff0000", coverage: 0.6 }]);
     expect(renderJson(report)).not.toMatch(/private|secret|path/);
@@ -92,6 +94,109 @@ describe("evaluation reports", () => {
     expect(summarize([]).fidelity.primary.light.averageAbsoluteLightnessShift).toBeNull();
   });
 
+  test("placement counts all three cases independently by accent, mode, and source", () => {
+    const schemes = ["given", "derived"].flatMap((source) =>
+      ["exactX", "exactContainer", "moved"].map((placement) => {
+        const base = createColorScheme({ primary: "#6750a4", secondary: "#386a20" });
+        const roles = {
+          ...base.light,
+          primary: "#111111",
+          primaryContainer: "#222222",
+          secondary: "#333333",
+          secondaryContainer: "#444444",
+        };
+        if (placement === "exactX") {
+          roles.primary = base.seeds.primary.hex;
+          roles.secondary = base.seeds.secondary.hex;
+        }
+        if (placement === "exactContainer") {
+          roles.primaryContainer = base.seeds.primary.hex;
+          roles.secondaryContainer = base.seeds.secondary.hex;
+        }
+        return {
+          ...base,
+          seeds: {
+            ...base.seeds,
+            primary: { ...base.seeds.primary, source: source as "given" | "derived" },
+            secondary: { ...base.seeds.secondary, source: source as "given" | "derived" },
+          },
+          light: roles,
+          dark: roles,
+        };
+      }),
+    );
+    const covers = schemes.map((scheme, index) =>
+      buildCover(
+        `dev-00${index + 1}`,
+        { schemaVersion: 1, colors: [{ hex: "#6750a4", coverage: 1 }] },
+        scheme,
+      ),
+    );
+    const summary = summarize(covers);
+    for (const seed of ["primary", "secondary"] as const) {
+      for (const mode of ["light", "dark"] as const) {
+        for (const source of ["given", "derived"] as const) {
+          expect(summary.placement[seed][mode][source]).toEqual({
+            total: 3,
+            exactX: 1,
+            exactContainer: 1,
+            moved: 1,
+          });
+          expect(summarize([]).placement[seed][mode][source]).toEqual({
+            total: 0,
+            exactX: 0,
+            exactContainer: 0,
+            moved: 0,
+          });
+        }
+      }
+    }
+    const base = schemes[0]!;
+    expect(
+      placementOf(
+        { ...base, light: { ...base.light, primaryContainer: base.seeds.primary.hex } },
+        "primary",
+        "light",
+      ),
+    ).toBe("exactX");
+    // Modes are classified independently, without using adjustment.exact or the source.
+    const split = {
+      ...base,
+      dark: { ...base.dark, primary: "#111111", primaryContainer: base.seeds.primary.hex },
+    };
+    expect(placementOf(split, "primary", "light")).toBe("exactX");
+    expect(placementOf(split, "primary", "dark")).toBe("exactContainer");
+    const splitSummary = summarize([
+      buildCover("dev-001", { schemaVersion: 1, colors: [{ hex: "#6750a4", coverage: 1 }] }, split),
+    ]);
+    expect(splitSummary.placement.primary.light.given).toEqual({
+      total: 1,
+      exactX: 1,
+      exactContainer: 0,
+      moved: 0,
+    });
+    expect(splitSummary.placement.primary.dark.given).toEqual({
+      total: 1,
+      exactX: 0,
+      exactContainer: 1,
+      moved: 0,
+    });
+    const report = buildReport("dev", header, covers);
+    expect(JSON.parse(renderJson(report)).summary.placement).toEqual(summary.placement);
+    const markdown = renderMarkdown(report);
+    expect(markdown).toContain("Exact X");
+    expect(markdown).toContain("Exact container");
+    expect(markdown).toContain("Moved");
+    const html = renderHtml(
+      report,
+      new Map(covers.map((cover) => [cover.id, "file:///cover.jpg"])),
+    );
+    expect(html).toContain('class="placement-summary"');
+    for (const label of ["exact X", "exact container", "moved"])
+      expect(html).toContain(`<strong>${label}</strong>`);
+    expect(html.match(/class="placement"/g)).toHaveLength(12);
+  });
+
   test("counts neutral themes and verification failures", () => {
     const gray = cover("dev-001", "#808080");
     const summary = summarize([
@@ -121,7 +226,7 @@ describe("evaluation reports", () => {
       "Duplicate",
     );
     expect(() =>
-      buildReport("dev", { ...header, algorithmVersion: "2" }, [cover("dev-001")]),
+      buildReport("dev", { ...header, algorithmVersion: "1" }, [cover("dev-001")]),
     ).toThrow("Mixed");
   });
 
