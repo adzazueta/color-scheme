@@ -12,7 +12,8 @@ import {
 import { renderHtml, renderJson, renderMarkdown, table } from "../../../eval/lib/render.js";
 
 const header: ReportHeader = {
-  algorithmVersion: "2",
+  algorithmVersion: "3",
+  variant: "tonal",
   packageVersion: "0.1.0-next.0",
   commit: "abc123",
   generatedAt: "2026-10-21T00:00:00.000Z",
@@ -228,6 +229,18 @@ describe("evaluation reports", () => {
     expect(() =>
       buildReport("dev", { ...header, algorithmVersion: "1" }, [cover("dev-001")]),
     ).toThrow("Mixed");
+  });
+
+  test("rejects mixed variants even at the same algorithm version", () => {
+    const fidelity = buildCover(
+      "dev-001",
+      { schemaVersion: 1, colors: [{ hex: "#6750a4", coverage: 1 }] },
+      createColorScheme({ primary: "#6750a4" }, { variant: "fidelity" }),
+    );
+    expect(() => buildReport("dev", header, [fidelity])).toThrow("Mixed scheme variants");
+    expect(buildReport("dev", { ...header, variant: "fidelity" }, [fidelity]).header.variant).toBe(
+      "fidelity",
+    );
   });
 
   test("Markdown contains fidelity, all roles, seeds, coverage, and adjustments deterministically", () => {

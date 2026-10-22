@@ -85,6 +85,16 @@ export const ON_ACCENT_CHROMA_CAP = 0.08;
 /** Construction target of accent text, distinct from the unchanged 4.5:1 guarantee. */
 export const ON_ACCENT_TARGET_CONTRAST = 6;
 
+/** Version 3 tonal starts and pre-gamut caps, independently specified. */
+export const TONAL_ACCENT_LIGHTNESS: Readonly<Record<Mode, number>> = {
+  light: 56 / 116,
+  dark: 96 / 116,
+};
+export const TONAL_CHROMA_CAP: Readonly<Record<"primary" | "secondary", number>> = {
+  primary: 0.16,
+  secondary: 0.1,
+};
+
 /** Oklab chroma of the status containers (`STATUS_CONTAINER_LIGHT` and `_DARK`). */
 export const STATUS_CONTAINER_CHROMA: Readonly<Record<Mode, number>> = { light: 0.04, dark: 0.07 };
 
@@ -872,6 +882,25 @@ function accentFamilyFailures(
     }
   }
 
+  accentTextFailures(scheme, mode, name, achromatic, fullTextSearch, tally, fail);
+}
+
+/** Existing text searches, replayed independently for either variant. */
+function accentTextFailures(
+  scheme: ColorScheme,
+  mode: Mode,
+  name: "primary" | "secondary",
+  achromatic: boolean,
+  fullTextSearch: boolean,
+  tally: FidelityTally,
+  fail: (message: string) => void,
+): void {
+  const roles = scheme[mode];
+  const light = mode === "light";
+  const family = FAMILIES[name];
+  const seed = measure(scheme.seeds[name].hex);
+  const a = achromatic ? 0 : seed.a;
+  const b = achromatic ? 0 : seed.b;
   const chroma = Math.sqrt(a * a + b * b);
   const scale = chroma <= ON_ACCENT_CHROMA_CAP ? 1 : ON_ACCENT_CHROMA_CAP / chroma;
   const text = {
@@ -1143,6 +1172,97 @@ export function fidelityFailures(
     }
     accentFidelity(scheme, mode, "secondary", full, tally, failFor("secondary"));
     neutralFidelity(scheme, mode, tally, failFor("neutral"));
+  }
+  return failures.map((failure) => `${failure} (${seedsLabel(scheme)})`);
+}
+
+/**
+ * Independent Color.js replay of tonal construction. Every nominal candidate is visited from
+ * the fixed tone outward until both surface and possible-text constraints certainly pass.
+ * Only threshold ambiguity and conversion rounding ties already documented above permit more
+ * than one first candidate; they never weaken a guaranteed pair. Container matching pins its
+ * built lightness, seed hue and pre-gamut chroma cap simultaneously. Text searches and seed
+ * adjustments are checked separately, including the unchanged achromatic and neutral rules.
+ */
+export function tonalFailures(
+  scheme: ColorScheme,
+  tally: FidelityTally = newTally(),
+  options: { readonly fullTextSearch?: boolean } = {},
+): string[] {
+  const primaryChroma = measure(scheme.seeds.primary.hex).chroma;
+  if (Math.abs(primaryChroma - ACHROMATIC_CHROMA) <= OKLAB_TOLERANCE) {
+    const gray = tonalFailuresFor(scheme, true, newTally(), options);
+    const chromatic = tonalFailuresFor(scheme, false, newTally(), options);
+    tally.ambiguous++;
+    return gray.length === 0 || chromatic.length === 0 ? [] : [...gray, ...chromatic];
+  }
+  return tonalFailuresFor(scheme, primaryChroma < ACHROMATIC_CHROMA, tally, options);
+}
+
+function tonalFailuresFor(
+  scheme: ColorScheme,
+  gray: boolean,
+  tally: FidelityTally,
+  options: { readonly fullTextSearch?: boolean },
+): string[] {
+  const failures: string[] = [];
+  const primary = measure(scheme.seeds.primary.hex);
+  for (const mode of MODES) {
+    const roles = scheme[mode];
+    for (const name of ["primary", "secondary"] as const) {
+      const fail = (message: string): void => {
+        failures.push(`${mode} ${name}: ${message}`);
+      };
+      if (name === "primary" && gray) {
+        achromaticFidelity(scheme, mode, options.fullTextSearch === true, tally, fail);
+        continue;
+      }
+      const derived = name === "secondary" && scheme.seeds.secondary.source === "derived";
+      const direction = derived ? primary : measure(scheme.seeds[name].hex);
+      const requested =
+        derived && gray
+          ? 0
+          : Math.min(
+              direction.chroma * (derived ? SECONDARY_CHROMA_RATIO : 1),
+              TONAL_CHROMA_CAP[name],
+            );
+      const factor = direction.chroma > 0 ? requested / direction.chroma : 0;
+      const a = direction.a * factor;
+      const b = direction.b * factor;
+      const allowed: string[] = [];
+      for (let step = 0; ; step++) {
+        const L = TONAL_ACCENT_LIGHTNESS[mode] + (mode === "light" ? -step : step) * LIGHTNESS_STEP;
+        const candidates = colorJsMappedOptions(L, a, b);
+        const verdicts = candidates.map((hex) =>
+          allOf([
+            atLeast(contrast(hex, roles.surface), 3 + CONTRAST_MARGIN, COLORJS_CONTRAST_TOLERANCE),
+            allowsAccentText(hex),
+          ]),
+        );
+        candidates.forEach((hex, index) => {
+          if (verdicts[index] !== "no") allowed.push(hex);
+        });
+        if (verdicts.includes("unsure")) tally.unsureSearches++;
+        if (verdicts.every((verdict) => verdict === "yes") || L <= 0 || L >= 1) break;
+      }
+      if (!allowed.includes(roles[name]))
+        fail(
+          `not the first outward tone candidate: ${roles[name]} (expected ${allowed.join(" or ")})`,
+        );
+      const container = FAMILIES[name].container;
+      if (
+        !colorJsMappedOptions(builtContainerLightness(mode, roles), a, b).includes(roles[container])
+      ) {
+        fail(`${container} misses built lightness, capped chroma or seed hue`);
+      }
+      if (contrast(roles[name], roles[FAMILIES[name].onAccent]) < ON_ACCENT_TARGET_CONTRAST)
+        fail("accent text misses 6:1");
+      if (derived && gray && (!isGray(roles.secondary) || !isGray(roles.secondaryContainer)))
+        fail("derived gray secondary gained chroma");
+      adjustmentFailures(scheme, mode, name, name, fail);
+      accentTextFailures(scheme, mode, name, false, options.fullTextSearch === true, tally, fail);
+    }
+    neutralFidelity(scheme, mode, tally, (message) => failures.push(`${mode} neutral: ${message}`));
   }
   return failures.map((failure) => `${failure} (${seedsLabel(scheme)})`);
 }

@@ -20,6 +20,9 @@ import {
   contrast,
   deltaEOK,
   fidelityFailures,
+  tonalFailures,
+  TONAL_ACCENT_LIGHTNESS,
+  TONAL_CHROMA_CAP,
   guaranteeFailures,
   LIGHT_SURFACE_MIN_LIGHTNESS,
   LIGHTNESS_MARGIN,
@@ -142,7 +145,7 @@ export function registerGuaranteeTests(): void {
       }
     });
 
-    it("use the parameters of algorithm version 2, as the package does", () => {
+    it("use the parameters of algorithm version 3, as the package does", () => {
       expect(search.CONTRAST_MARGIN).toBe(CONTRAST_MARGIN);
       expect(search.LIGHTNESS_MARGIN).toBe(LIGHTNESS_MARGIN);
       expect(search.LIGHTNESS_STEP).toBe(LIGHTNESS_STEP);
@@ -155,6 +158,10 @@ export function registerGuaranteeTests(): void {
       expect(accent.ON_ACCENT_CONTAINER_LIGHTNESS_DARK).toBe(ON_ACCENT_CONTAINER_LIGHTNESS.dark);
       expect(accent.ON_ACCENT_TARGET_CONTRAST).toBe(ON_ACCENT_TARGET_CONTRAST);
       expect(accent.ON_ACCENT_CHROMA_CAP).toBe(ON_ACCENT_CHROMA_CAP);
+      expect(accent.TONAL_ACCENT_LIGHTNESS_LIGHT).toBe(TONAL_ACCENT_LIGHTNESS.light);
+      expect(accent.TONAL_ACCENT_LIGHTNESS_DARK).toBe(TONAL_ACCENT_LIGHTNESS.dark);
+      expect(accent.TONAL_PRIMARY_CHROMA_CAP).toBe(TONAL_CHROMA_CAP.primary);
+      expect(accent.TONAL_SECONDARY_CHROMA_CAP).toBe(TONAL_CHROMA_CAP.secondary);
       expect(neutral.CONTAINER_LIGHTNESS_OFFSET_LIGHT).toBe(CONTAINER_LIGHTNESS_OFFSET_LIGHT);
       expect(neutral.CONTAINER_LIGHTNESS_DARK).toBe(CONTAINER_LIGHTNESS_DARK);
       expect(status.STATUS_CONTAINER_LIGHT.chroma).toBe(STATUS_CONTAINER_CHROMA.light);
@@ -198,16 +205,19 @@ export function registerGuaranteeTests(): void {
         ] as const,
     );
     it.each(cases)("meets every pair in both modes, without tolerance: %s", (_, seeds) => {
-      expect(guaranteeFailures(createColorScheme(seeds))).toEqual([]);
+      for (const variant of ["tonal", "fidelity"] as const) {
+        expect(guaranteeFailures(createColorScheme(seeds, { variant }))).toEqual([]);
+      }
     });
   });
 
   describe("fidelity: hand-picked seeds", () => {
+    const createFidelity = (seeds: Seeds) => createColorScheme(seeds, { variant: "fidelity" });
     it("follows the fidelity rules and builds each accent family, and exercises each rule", () => {
       const tally = newTally();
       // Every search replayed in full, `onPrimary` and `onSecondary` too.
       const failures = HAND_PICKED.flatMap((seeds) =>
-        fidelityFailures(createColorScheme(seeds), tally, { fullTextSearch: true }),
+        fidelityFailures(createFidelity(seeds), tally, { fullTextSearch: true }),
       );
       expect(failures).toEqual([]);
       expect(tally.ambiguous).toBe(0);
@@ -233,7 +243,7 @@ export function registerGuaranteeTests(): void {
         { seeds: { primary: "#fffde7" }, mode: "light", role: "primary" },
       ] as const;
       for (const { seeds, mode, role } of cases) {
-        const scheme = createColorScheme(seeds);
+        const scheme = createFidelity(seeds);
         const roles = scheme[mode];
         const seed = scheme.seeds[role].hex;
         const container = roles[`${role}Container` as const];
@@ -254,13 +264,85 @@ export function registerGuaranteeTests(): void {
 
     it("marks each seed as given or derived, and derives the missing ones from primary", () => {
       for (const seeds of HAND_PICKED) {
-        expect(seedFailures(seeds, createColorScheme(seeds))).toEqual([]);
+        expect(seedFailures(seeds, createFidelity(seeds))).toEqual([]);
       }
     });
 
     it("keeps the fixed hue of every status color, and builds its container, in both modes", () => {
       for (const seeds of HAND_PICKED) {
-        expect(statusFailures(createColorScheme(seeds))).toEqual([]);
+        expect(statusFailures(createFidelity(seeds))).toEqual([]);
+      }
+    });
+  });
+  describe("tonal: independent Color.js construction oracle", () => {
+    it("uses the first outward candidate, pre-gamut capped seed chroma/hue, built containers and existing text searches", () => {
+      const tally = newTally();
+      expect(
+        HAND_PICKED.flatMap((seeds) =>
+          tonalFailures(createColorScheme(seeds, { variant: "tonal" }), tally, {
+            fullTextSearch: true,
+          }),
+        ),
+      ).toEqual([]);
+      expect(tally.achromaticExact).toBeGreaterThan(0);
+      expect(tally.achromaticGray).toBeGreaterThan(0);
+      for (const seeds of HAND_PICKED) {
+        const scheme = createColorScheme(seeds);
+        expect(seedFailures(seeds, scheme)).toEqual([]);
+        expect(statusFailures(scheme)).toEqual([]);
+      }
+    });
+
+    it("rejects a later accessible accent, a wrong container chroma, and seed-as-container reports", () => {
+      const scheme = createColorScheme({ primary: "#4185bd" });
+      const seed = measure(scheme.seeds.primary.hex);
+      const later = colorJsMapped(TONAL_ACCENT_LIGHTNESS.light - 0.02, seed.a, seed.b);
+      expect(
+        tonalFailures({ ...scheme, light: { ...scheme.light, primary: later } }).length,
+      ).toBeGreaterThan(0);
+      expect(
+        tonalFailures({
+          ...scheme,
+          light: { ...scheme.light, primaryContainer: scheme.seeds.primary.hex },
+        }).length,
+      ).toBeGreaterThan(0);
+      expect(
+        tonalFailures({
+          ...scheme,
+          report: {
+            ...scheme.report,
+            light: {
+              ...scheme.report.light,
+              adjustments: scheme.report.light.adjustments.map((a) => ({
+                ...a,
+                role: "primaryContainer",
+              })),
+            },
+          },
+        }).length,
+      ).toBeGreaterThan(0);
+    });
+
+    it("changes only accent families and preserves all reported seeds between variants", () => {
+      for (const seeds of HAND_PICKED) {
+        const tonal = createColorScheme(seeds);
+        const fidelity = createColorScheme(seeds, { variant: "fidelity" });
+        expect(tonal.seeds).toEqual(fidelity.seeds);
+        for (const mode of ["light", "dark"] as const) {
+          for (const role of Object.keys(tonal[mode]) as (keyof typeof tonal.light)[]) {
+            if (!/^(?:on)?(?:Primary|Secondary)|^(?:primary|secondary)/.test(role))
+              expect(tonal[mode][role]).toBe(fidelity[mode][role]);
+          }
+          if (measure(tonal.seeds.primary.hex).chroma < ACHROMATIC_CHROMA) {
+            for (const role of [
+              "primary",
+              "onPrimary",
+              "primaryContainer",
+              "onPrimaryContainer",
+            ] as const)
+              expect(tonal[mode][role]).toBe(fidelity[mode][role]);
+          }
+        }
       }
     });
   });

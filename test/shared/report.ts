@@ -74,12 +74,15 @@ export function registerReportTests(): void {
     });
   });
 
-  describe("verifyReports", () => {
+  describe.each(["tonal", "fidelity"] as const)("verifyReports: %s", (variant) => {
     const seeds: NormalizedSeeds = { primary: "#6750a4", secondary: "#386a20", neutral: undefined };
-    const { light, dark } = createColorScheme({
-      primary: seeds.primary,
-      secondary: "#386a20",
-    }).report;
+    const { light, dark } = createColorScheme(
+      {
+        primary: seeds.primary,
+        secondary: "#386a20",
+      },
+      { variant },
+    ).report;
 
     it("accepts the reports of a scheme", () => {
       expect(() => verifyReports(light, dark, seeds)).not.toThrow();

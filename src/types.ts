@@ -13,6 +13,19 @@ export interface Seeds {
 }
 
 /**
+ * How the accent families use the seeds. `"tonal"` uses fixed role lightnesses with the seed's
+ * hue and capped chroma; `"fidelity"` preserves a seed as its accent or container when possible.
+ * Surfaces, status colors, and accessibility guarantees are the same in both variants.
+ */
+export type ColorSchemeVariant = "tonal" | "fidelity";
+
+/** Options for `createColorScheme`. Omitting the options selects the tonal variant. */
+export interface CreateColorSchemeOptions {
+  /** Accent construction. Default: `"tonal"`; `undefined` also selects the default. */
+  variant?: ColorSchemeVariant | undefined;
+}
+
+/**
  * Name of a color role. There are 34 roles, listed here in a fixed order and
  * grouped by family: surfaces, text and borders, inverse, primary, secondary,
  * error, warning, success, and info. Each `onX` role is the color of text and
@@ -85,7 +98,10 @@ export interface PairReport {
 }
 
 /**
- * How a given seed appears in one mode. A seed appears exactly as given when
+ * How a given seed appears in one mode. In the tonal variant, an accent seed is reported on
+ * its `primary` or `secondary` role; `exact` compares that role with the seed, and
+ * `lightnessShift` records their difference without a minimum-move promise. In fidelity,
+ * a seed appears exactly as given when
  * it meets its role's contrast and, for an accent, allows 6:1 text with the
  * lightness rule, each with its construction margin; otherwise `primary` and
  * `secondary` have their lightness adjusted by the minimum needed, keeping their hue. There
@@ -105,7 +121,7 @@ export interface SeedAdjustment {
   /**
    * Role that carries the seed: `primary` or `primaryContainer` for the
    * primary seed, `secondary` or `secondaryContainer` for the secondary seed,
-   * and `surface` for the neutral seed.
+   * and `surface` for the neutral seed. Tonal always reports an accent seed on its `X` role.
    */
   readonly role: Role;
   /**
@@ -116,8 +132,9 @@ export interface SeedAdjustment {
   /**
    * Oklab lightness of the role's color minus that of the seed, from -1 to 1:
    * negative when the seed was darkened, positive when it was lightened, and 0
-   * when it appears exactly. For `primary` and `secondary` it is the minimum
-   * adjustment needed. In `primaryContainer` or `secondaryContainer`, that is
+   * when it appears exactly. In fidelity, for `primary` and `secondary` it is the minimum
+   * adjustment needed. In tonal it is the distance to the built accent, including its tone,
+   * gamut mapping and 8-bit rounding. In `primaryContainer` or `secondaryContainer`, that is
    * the minimum needed, toward the accent side (darker in light mode, lighter
    * in dark mode), to stand apart from `surface` and its three containers;
    * for an achromatic `primary`, the minimum needed to reach the near-black
@@ -187,6 +204,8 @@ export interface ColorScheme {
      * any output color can change.
      */
     readonly algorithmVersion: string;
+    /** Accent construction used for this scheme. */
+    readonly variant: ColorSchemeVariant;
   };
 }
 

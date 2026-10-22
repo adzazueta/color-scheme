@@ -4,7 +4,8 @@ cases 15
 ## primary-only
 input {"primary":"#6750a4"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #6750a4 given
 seed secondary #635d7a derived
 seed neutral #f9f6ff derived
@@ -144,7 +145,8 @@ dark adjustment primary primaryContainer exact true shift 0000000000000000
 ## vivid-red
 input {"primary":"#cc3333"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #cc3333 given
 seed secondary #986560 derived
 seed neutral #fff4f1 derived
@@ -284,7 +286,8 @@ dark adjustment primary primaryContainer exact true shift 0000000000000000
 ## pure-yellow
 input {"primary":"#ffff00"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #ffff00 given
 seed secondary #f7fac0 derived
 seed neutral #f9faeb derived
@@ -424,7 +427,8 @@ dark adjustment primary primary exact true shift 0000000000000000
 ## material-yellow
 input {"primary":"#ffeb3b"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #ffeb3b given
 seed secondary #efeab9 derived
 seed neutral #fbf9ea derived
@@ -564,7 +568,8 @@ dark adjustment primary primary exact true shift 0000000000000000
 ## pale-yellow
 input {"primary":"#fffde7"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #fffde7 given
 seed secondary #fdfcf4 derived
 seed neutral #fbf9ea derived
@@ -704,7 +709,8 @@ dark adjustment primary primary exact true shift 0000000000000000
 ## dark-blue
 input {"primary":"#000033"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #000033 given
 seed secondary #040919 derived
 seed neutral #f2f9ff derived
@@ -844,7 +850,8 @@ dark adjustment primary primaryContainer exact false shift 3fadafa7d4faedcc
 ## black
 input {"primary":"#000000"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #000000 given
 seed secondary #000000 derived
 seed neutral #f8f8f8 derived
@@ -984,7 +991,8 @@ dark adjustment primary primary exact false shift 3fee5f2f57b4bea9
 ## gray
 input {"primary":"#808080"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #808080 given
 seed secondary #808080 derived
 seed neutral #f8f8f8 derived
@@ -1124,7 +1132,8 @@ dark adjustment primary primary exact false shift 3fd65a162e9f6af6
 ## white
 input {"primary":"#ffffff"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #ffffff given
 seed secondary #ffffff derived
 seed neutral #f8f8f8 derived
@@ -1264,7 +1273,8 @@ dark adjustment primary primary exact true shift 0000000000000000
 ## given-secondary
 input {"primary":"#6750a4","secondary":"#f0f0f0"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #6750a4 given
 seed secondary #f0f0f0 given
 seed neutral #f9f6ff derived
@@ -1406,7 +1416,8 @@ dark adjustment secondary secondary exact true shift 0000000000000000
 ## neutral-cream
 input {"primary":"#6750a4","neutral":"#fff8e1"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #6750a4 given
 seed secondary #635d7a derived
 seed neutral #fff8e1 given
@@ -1548,7 +1559,8 @@ dark adjustment neutral surface exact false shift bfe8deb673bf90e6
 ## neutral-gray
 input {"primary":"#6750a4","neutral":"#dedede"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #6750a4 given
 seed secondary #635d7a derived
 seed neutral #dedede given
@@ -1690,7 +1702,8 @@ dark adjustment neutral surface exact false shift bfe669bd45029ce4
 ## neutral-above-cap
 input {"primary":"#6750a4","neutral":"#ffeb99"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #6750a4 given
 seed secondary #635d7a derived
 seed neutral #ffeb99 given
@@ -1832,7 +1845,8 @@ dark adjustment neutral surface exact false shift bfe79c4f2ea895e9
 ## short-hex
 input {"primary":"#F80"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #ff8800 given
 seed secondary #cca285 derived
 seed neutral #fff5ec derived
@@ -1972,7 +1986,8 @@ dark adjustment primary primary exact true shift 0000000000000000
 ## all-seeds
 input {"primary":"#1b6ef3","secondary":"#e8590c","neutral":"#f4f1ea"}
 schemaVersion 1
-algorithmVersion 2
+algorithmVersion 3
+variant fidelity
 seed primary #1b6ef3 given
 seed secondary #e8590c given
 seed neutral #f4f1ea given

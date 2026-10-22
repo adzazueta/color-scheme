@@ -38,10 +38,10 @@ afterEach(() => {
 });
 
 /** The error thrown by `createColorScheme`. */
-function failure(seeds: Seeds): ColorSchemeError {
+function failure(seeds: Seeds, variant: "tonal" | "fidelity"): ColorSchemeError {
   let thrown: unknown;
   try {
-    createColorScheme(seeds);
+    createColorScheme(seeds, { variant });
   } catch (error) {
     thrown = error;
   }
@@ -49,65 +49,69 @@ function failure(seeds: Seeds): ColorSchemeError {
   return thrown as ColorSchemeError;
 }
 
-describe("createColorScheme: failures after validation (spec 7.5 and 7.6)", () => {
-  it("builds the scheme through the replaced module when no fault is set", () => {
-    expect(createColorScheme({ primary: "#6750a4" }).schemaVersion).toBe(1);
-    expect(fault.calls).toBe(2);
-  });
+describe.each(["tonal", "fidelity"] as const)(
+  "createColorScheme %s: failures after validation",
+  (variant) => {
+    const failureFor = (seeds: Seeds) => failure(seeds, variant);
+    it("builds the scheme through the replaced module when no fault is set", () => {
+      expect(createColorScheme({ primary: "#6750a4" }).schemaVersion).toBe(1);
+      expect(fault.calls).toBe(2);
+    });
 
-  it("wraps an unexpected error as PROCESSING_FAILED, with the original as cause", () => {
-    const injected = new TypeError("injected status failure");
-    fault.thrown = injected;
-    const error = failure({ primary: "#6750a4" });
-    expect(error.code).toBe("PROCESSING_FAILED");
-    expect(error.cause).toBe(injected);
-    expect(error.message).toBe(
-      "Color scheme creation failed unexpectedly. Seeds: primary #6750a4, secondary not given, neutral not given.",
-    );
-  });
+    it("wraps an unexpected error as PROCESSING_FAILED, with the original as cause", () => {
+      const injected = new TypeError("injected status failure");
+      fault.thrown = injected;
+      const error = failureFor({ primary: "#6750a4" });
+      expect(error.code).toBe("PROCESSING_FAILED");
+      expect(error.cause).toBe(injected);
+      expect(error.message).toBe(
+        "Color scheme creation failed unexpectedly. Seeds: primary #6750a4, secondary not given, neutral not given.",
+      );
+    });
 
-  it("names the given seeds as lowercase #rrggbb and the derived ones as not given", () => {
-    fault.thrown = new RangeError("injected");
-    expect(failure({ primary: "#ABC", neutral: "#FFF" }).message).toBe(
-      "Color scheme creation failed unexpectedly. Seeds: primary #aabbcc, secondary not given, neutral #ffffff.",
-    );
-    expect(failure({ primary: "#123456", secondary: "#0A0" }).message).toBe(
-      "Color scheme creation failed unexpectedly. Seeds: primary #123456, secondary #00aa00, neutral not given.",
-    );
-  });
+    it("names the given seeds as lowercase #rrggbb and the derived ones as not given", () => {
+      fault.thrown = new RangeError("injected");
+      expect(failureFor({ primary: "#ABC", neutral: "#FFF" }).message).toBe(
+        "Color scheme creation failed unexpectedly. Seeds: primary #aabbcc, secondary not given, neutral #ffffff.",
+      );
+      expect(failureFor({ primary: "#123456", secondary: "#0A0" }).message).toBe(
+        "Color scheme creation failed unexpectedly. Seeds: primary #123456, secondary #00aa00, neutral not given.",
+      );
+    });
 
-  it("wraps a thrown value that is not an Error", () => {
-    fault.thrown = "a string";
-    const error = failure({ primary: "#6750a4" });
-    expect(error.code).toBe("PROCESSING_FAILED");
-    expect(error.cause).toBe("a string");
-  });
+    it("wraps a thrown value that is not an Error", () => {
+      fault.thrown = "a string";
+      const error = failureFor({ primary: "#6750a4" });
+      expect(error.code).toBe("PROCESSING_FAILED");
+      expect(error.cause).toBe("a string");
+    });
 
-  it("passes a ColorSchemeError thrown after validation through unchanged", () => {
-    const injected = new ColorSchemeError(
-      "PROCESSING_FAILED",
-      "No error color meets its minimums.",
-    );
-    fault.thrown = injected;
-    expect(failure({ primary: "#6750a4" })).toBe(injected);
-  });
+    it("passes a ColorSchemeError thrown after validation through unchanged", () => {
+      const injected = new ColorSchemeError(
+        "PROCESSING_FAILED",
+        "No error color meets its minimums.",
+      );
+      fault.thrown = injected;
+      expect(failureFor({ primary: "#6750a4" })).toBe(injected);
+    });
 
-  it("throws PROCESSING_FAILED instead of returning a scheme that fails its verification", () => {
-    fault.inaccessible = true;
-    const error = failure({ primary: "#6750a4", secondary: "#386a20" });
-    expect(error.code).toBe("PROCESSING_FAILED");
-    expect("cause" in error).toBe(false);
-    expect(error.message).toContain("light error on surface: contrast 1 < 3");
-    expect(error.message).toContain("dark error on surface: contrast 1 < 3");
-    expect(error.message).toContain(
-      "Seeds: primary #6750a4, secondary #386a20, neutral not given.",
-    );
-  });
+    it("throws PROCESSING_FAILED instead of returning a scheme that fails its verification", () => {
+      fault.inaccessible = true;
+      const error = failureFor({ primary: "#6750a4", secondary: "#386a20" });
+      expect(error.code).toBe("PROCESSING_FAILED");
+      expect("cause" in error).toBe(false);
+      expect(error.message).toContain("light error on surface: contrast 1 < 3");
+      expect(error.message).toContain("dark error on surface: contrast 1 < 3");
+      expect(error.message).toContain(
+        "Seeds: primary #6750a4, secondary #386a20, neutral not given.",
+      );
+    });
 
-  it("validates the seeds before building any role", () => {
-    fault.thrown = new TypeError("never reached");
-    const error = failure({ primary: "#6750a4", secondary: "#fffa" });
-    expect(error.code).toBe("INVALID_INPUT");
-    expect(fault.calls).toBe(0);
-  });
-});
+    it("validates the seeds before building any role", () => {
+      fault.thrown = new TypeError("never reached");
+      const error = failureFor({ primary: "#6750a4", secondary: "#fffa" });
+      expect(error.code).toBe("INVALID_INPUT");
+      expect(fault.calls).toBe(0);
+    });
+  },
+);

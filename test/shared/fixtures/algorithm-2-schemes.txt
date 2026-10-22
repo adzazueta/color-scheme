@@ -1,0 +1,2114 @@
+digest 1fac5fd922359b56
+cases 15
+
+## primary-only
+input {"primary":"#6750a4"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #6750a4 given
+seed secondary #635d7a derived
+seed neutral #f9f6ff derived
+light surface #f9f6ff
+light surfaceContainerLow #f2eff8
+light surfaceContainer #ece9f2
+light surfaceContainerHigh #e5e2eb
+light onSurface #1b191f
+light onSurfaceVariant #49464d
+light outline #78767e
+light outlineVariant #c3c0c9
+light inverseSurface #312f36
+light onInverseSurface #f3f0f9
+light primary #6750a4
+light onPrimary #ffffff
+light primaryContainer #d9ccff
+light onPrimaryContainer #1e103b
+light secondary #635d7a
+light onSecondary #ffffff
+light secondaryContainer #d8d2f3
+light onSecondaryContainer #1c162e
+light error #b71a18
+light onError #ffffff
+light errorContainer #f0cec8
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4ba
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c7dec7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #17151b
+dark surfaceContainerLow #1e1c22
+dark surfaceContainer #252329
+dark surfaceContainerHigh #2c2a31
+dark onSurface #e2dfe8
+dark onSurfaceVariant #c8c6ce
+dark outline #939199
+dark outlineVariant #49464e
+dark inverseSurface #e2dfe8
+dark onInverseSurface #312f36
+dark primary #917cd4
+dark onPrimary #010009
+dark primaryContainer #6750a4
+dark onPrimaryContainer #e3d9ff
+dark secondary #8c85a4
+dark onSecondary #000000
+dark secondaryContainer #635d7a
+dark onSecondaryContainer #e2dcfe
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40304dfbeafaa1b5 minLightness 3fd3333333333333 lightness 3fe84f2cbd1563d9
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402ea8284cc91327 minLightness 3fd3333333333333 lightness 3fe7a33ff7e5ee85
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d0acb522a5ba9 minLightness 3fd3333333333333 lightness 3fe70f2211837e2a
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b39e7ccc22791 minLightness 3fd3333333333333 lightness 3fe6616c7d1e4ac2
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402157d56a6575f2 minLightness 3fd3333333333333 lightness 3fe281f7f973a053
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40204e02e65f912a minLightness 3fd3333333333333 lightness 3fe1d60b34442aff
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401ee454dda0fe22 minLightness 3fd3333333333333 lightness 3fe141ed4de1baa4
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cf5d541c2df56 minLightness 3fd3333333333333 lightness 3fe09437b97c873c
+light pair outline surface min 4008000000000000 contrast 4010c218dd077e5c minLightness none lightness 3fda18d7eb183a16
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f827acc88ff99 minLightness none lightness 3fd8c0fe60b94f6e
+light pair outline surfaceContainer min 4008000000000000 contrast 400dd99e0fe3fae8 minLightness none lightness 3fd798c293f46eb8
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400bfbcbd845a0b3 minLightness none lightness 3fd63d576b2a07e8
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40277179f7254077 minLightness 3fd3333333333333 lightness 3fe4ccbfa06a5d78
+light pair primary surface min 4008000000000000 contrast 40181d24b4866cfa minLightness none lightness 3fdee11157a1dac1
+light pair onPrimary primary min 4012000000000000 contrast 4019c3d30f9ac77d minLightness 3fd3333333333333 lightness 3fe024b16d7d1d8c
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027888dec199ccf minLightness 3fd3333333333333 lightness 3fe4d7ccd3fd0ef5
+light pair secondary surface min 4008000000000000 contrast 401747303a1a524c minLightness none lightness 3fdee88026f0a31f
+light pair onSecondary secondary min 4012000000000000 contrast 4018df384224592e minLightness 3fd3333333333333 lightness 3fe02868d52481ba
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027fb8e29dc571b minLightness 3fd3333333333333 lightness 3fe50f9a2dbfc7ff
+light pair error surface min 4008000000000000 contrast 4018c4135096f876 minLightness none lightness 3fde94ecbd99e650
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027e336401ada34 minLightness 3fd3333333333333 lightness 3fe51365d8e887ae
+light pair warning surface min 4008000000000000 contrast 4010593010b57121 minLightness none lightness 3fd967fc0162df6a
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027e8fe75af2f05 minLightness 3fd3333333333333 lightness 3fe506a8a22034f0
+light pair success surface min 4008000000000000 contrast 40150f857c9da883 minLightness none lightness 3fde96aa55dc1ada
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028190a814177ee minLightness 3fd3333333333333 lightness 3fe50c6559ff5888
+light pair info surface min 4008000000000000 contrast 4016500b0f7bb901 minLightness none lightness 3fde5d4ebf75aae8
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402b84ae716ecd02 minLightness 3fd3333333333333 lightness 3fe6a6769da1c010
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029a42b46a777e1 minLightness 3fd3333333333333 lightness 3fe5acad63fd5092
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 40279dd27fc824e0 minLightness 3fd3333333333333 lightness 3fe4baca8a8fec70
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025857334c9f8a2 minLightness 3fd3333333333333 lightness 3fe3cbfee3c28187
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40256e475595f7a7 minLightness 3fd3333333333333 lightness 3fe426e24cc7fea2
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f81051c9420d minLightness 3fd3333333333333 lightness 3fe32d1913238f24
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4022646250d23d46 minLightness 3fd3333333333333 lightness 3fe23b3639b62b02
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c2aa9adb53de minLightness 3fd3333333333333 lightness 3fe14c6a92e8c019
+dark pair outline surface min 4008000000000000 contrast 401749ba6086e96d minLightness none lightness 3fdd7232e228c11c
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015b3154584731a minLightness none lightness 3fdb7ea06edfe220
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013fc6b7d736e11 minLightness none lightness 3fd99adabc0519dd
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 4012368090b76ae6 minLightness none lightness 3fd7bd436e6a440a
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40240fe56efaaf28 minLightness 3fd3333333333333 lightness 3fe3278d0ddc6902
+dark pair primary surface min 4008000000000000 contrast 4014d405553ecdb1 minLightness none lightness 3fdc44b1059967de
+dark pair onPrimary primary min 4012000000000000 contrast 401806688ac3d1b9 minLightness 3fd3333333333333 lightness 3fe256e7aae4587f
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40132ed95615de54 minLightness 3fd3333333333333 lightness 3fda366236ca045b
+dark pair secondary surface min 4008000000000000 contrast 4014b82c3468c089 minLightness none lightness 3fdbb3c25e073ee8
+dark pair onSecondary secondary min 4012000000000000 contrast 401806510b49329c minLightness 3fd3333333333333 lightness 3fe446c0a6e55f71
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012d58e6edf6734 minLightness 3fd3333333333333 lightness 3fda89b9f26065c9
+dark pair error surface min 4008000000000000 contrast 4020b9b29c1d4766 minLightness none lightness 3fe24cc3d459c2e8
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024688e53d629d7 minLightness none lightness 3fe3d4d119d2dd42
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 402310f8cea3b625 minLightness none lightness 3fe28cd7549f71c1
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 402232b4f55097db minLightness none lightness 3fe2865f5872a367
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+
+## vivid-red
+input {"primary":"#cc3333"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #cc3333 given
+seed secondary #986560 derived
+seed neutral #fff4f1 derived
+light surface #fff4f1
+light surfaceContainerLow #f8edea
+light surfaceContainer #f2e7e4
+light surfaceContainerHigh #ebe0dd
+light onSurface #201917
+light onSurfaceVariant #4e4543
+light outline #7e7572
+light outlineVariant #c9bfbc
+light inverseSurface #362e2c
+light onInverseSurface #faefec
+light primary #a90013
+light onPrimary #ffffff
+light primaryContainer #cc3333
+light onPrimaryContainer #ffede9
+light secondary #794944
+light onSecondary #ffffff
+light secondaryContainer #986560
+light onSecondaryContainer #fff6f3
+light error #b71a18
+light onError #ffffff
+light errorContainer #efcdc7
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e6d3b9
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c6ddc6
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c3d9f0
+light onInfoContainer #101c28
+dark surface #1b1412
+dark surfaceContainerLow #221b19
+dark surfaceContainer #2a2220
+dark surfaceContainerHigh #312927
+dark onSurface #e9dfdc
+dark onSurfaceVariant #cfc5c2
+dark outline #9a908d
+dark outlineVariant #4e4643
+dark inverseSurface #e9dfdc
+dark onInverseSurface #362e2c
+dark primary #f05651
+dark onPrimary #110000
+dark primaryContainer #cc3333
+dark onPrimaryContainer #ffede9
+dark secondary #b8827d
+dark onSecondary #260002
+dark secondaryContainer #986560
+dark onSecondaryContainer #fff6f4
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40300c088ad2193c minLightness 3fd3333333333333 lightness 3fe81efacdda65d6
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402e2a69e7256e3f minLightness 3fd3333333333333 lightness 3fe772f273625b9c
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402c92357450f5af minLightness 3fd3333333333333 lightness 3fe6debc646a49a8
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402ac732f80114b4 minLightness 3fd3333333333333 lightness 3fe630ea017037cc
+light pair onSurfaceVariant surface min 4012000000000000 contrast 4021408ae42c36fb minLightness 3fd3333333333333 lightness 3fe26f536e478e96
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4020372df9d78a08 minLightness 3fd3333333333333 lightness 3fe1c34b13cf845c
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401eb77f9fecfac1 minLightness 3fd3333333333333 lightness 3fe12f1504d77268
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cca04852ac8ee minLightness 3fd3333333333333 lightness 3fe08142a1dd608c
+light pair outline surface min 4008000000000000 contrast 4010a759b5437a35 minLightness none lightness 3fd9f0610c80ca48
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f4e6239b29892 minLightness none lightness 3fd898505790b5d4
+light pair outline surfaceContainer min 4008000000000000 contrast 400da6becf7849e5 minLightness none lightness 3fd76fe439a091ec
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400bca619fe0547c minLightness none lightness 3fd6143f73ac6e34
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 4027835a00bbfac3 minLightness 3fd3333333333333 lightness 3fe4d2ebf894c25c
+light pair primary surface min 4008000000000000 contrast 401cdf2673de0331 minLightness none lightness 3fe0663d6694b709
+light pair onPrimary primary min 4012000000000000 contrast 401f270edd559f8c minLightness 3fd3333333333333 lightness 3fe133e1ac004705
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401223bb7beb8caf minLightness 3fd3333333333333 lightness 3fd997ffa5ed52ac
+light pair secondary surface min 4008000000000000 contrast 401b521abda69cc7 minLightness none lightness 3fe07c03dde99312
+light pair onSecondary secondary min 4012000000000000 contrast 401d7aa53412569a minLightness 3fd3333333333333 lightness 3fe149a82355230e
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401213b1be4535b5 minLightness 3fd3333333333333 lightness 3fdadb3294ea7bc4
+light pair error surface min 4008000000000000 contrast 40188633dc5f84d7 minLightness none lightness 3fde61f5b61b26ae
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027a787642f8fd7 minLightness 3fd3333333333333 lightness 3fe4fa4d0110e3cc
+light pair warning surface min 4008000000000000 contrast 401030582e9787bd minLightness none lightness 3fd93504f9e41fc8
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ad6c8b74d0de minLightness 3fd3333333333333 lightness 3fe4ed891653d70e
+light pair success surface min 4008000000000000 contrast 4014dae7cfd2e789 minLightness none lightness 3fde63b34e5d5b38
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4027dd43325885c7 minLightness 3fd3333333333333 lightness 3fe4f340c21232fa
+light pair info surface min 4008000000000000 contrast 4016184c9faf7704 minLightness none lightness 3fde2a57b7f6eb46
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 4027ccf8e9b59f2a minLightness 3fd3333333333333 lightness 3fe4f3a2bf322850
+light adjustment primary primaryContainer exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402bc9ca9fa60b0c minLightness 3fd3333333333333 lightness 3fe6c4675810b4a1
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029eab8389187c2 minLightness 3fd3333333333333 lightness 3fe5caf0df9b4f5a
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027d0db15dc0eab minLightness 3fd3333333333333 lightness 3fe4cf2e3d07aa02
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025bc97e7a40921 minLightness 3fd3333333333333 lightness 3fe3e460bb0c772d
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40257f22864c7f89 minLightness 3fd3333333333333 lightness 3fe434ddb2dac663
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40240c87fc94929b minLightness 3fd3333333333333 lightness 3fe33b673a65611c
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40226c7266acf4f8 minLightness 3fd3333333333333 lightness 3fe23fa497d1bbc4
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020d0b21aa8742c minLightness 3fd3333333333333 lightness 3fe154d715d688ef
+dark pair outline surface min 4008000000000000 contrast 40175c82856dca48 minLightness none lightness 3fdd8f346f277aca
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015c9c1fee6f2fd minLightness none lightness 3fdb9c477e3cb03d
+dark pair outline surfaceContainer min 4008000000000000 contrast 401405946f488ab3 minLightness none lightness 3fd9a4c23915658b
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 4012461c6380084b minLightness none lightness 3fd7cf27351effe2
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 402444dc675acb7b minLightness 3fd3333333333333 lightness 3fe34017b3aecbba
+dark pair primary surface min 4008000000000000 contrast 40154f0061741e5b minLightness none lightness 3fdd6d083dd2a020
+dark pair onPrimary primary min 4012000000000000 contrast 40180bfb582e1778 minLightness 3fd3333333333333 lightness 3fe1850ceed25ada
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401223bb7beb8caf minLightness 3fd3333333333333 lightness 3fd997ffa5ed52ac
+dark pair secondary surface min 4008000000000000 contrast 401698ef88e205f0 minLightness none lightness 3fdd6cf0a53e0926
+dark pair onSecondary secondary min 4012000000000000 contrast 40181a01f4fd70c6 minLightness 3fd3333333333333 lightness 3fdf56a936cf6e08
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012168969634277 minLightness 3fd3333333333333 lightness 3fdadfaaf7cf079a
+dark pair error surface min 4008000000000000 contrast 4020c8fbf83f911a minLightness none lightness 3fe2594c22152f06
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40247b356f6b139b minLightness none lightness 3fe3e159678e4960
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40232265e3581d47 minLightness none lightness 3fe2995fa25adddf
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40224356e50b124d minLightness none lightness 3fe292e7a62e0f85
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+
+## pure-yellow
+input {"primary":"#ffff00"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #ffff00 given
+seed secondary #f7fac0 derived
+seed neutral #f9faeb derived
+light surface #f9faeb
+light surfaceContainerLow #f2f3e4
+light surfaceContainer #ecedde
+light surfaceContainerHigh #e5e6d7
+light onSurface #1b1b11
+light onSurfaceVariant #48493d
+light outline #78796b
+light outlineVariant #c3c4b6
+light inverseSurface #313126
+light onInverseSurface #f2f3e4
+light primary #969500
+light onPrimary #111000
+light primaryContainer #ffff00
+light onPrimaryContainer #1d1c00
+light secondary #92945e
+light onSecondary #111000
+light secondaryContainer #f7fac0
+light onSecondaryContainer #1d1c00
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e8d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc8
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf2
+light onInfoContainer #101c28
+dark surface #16170c
+dark surfaceContainerLow #1d1e13
+dark surfaceContainer #24251a
+dark surfaceContainerHigh #2c2c21
+dark onSurface #e2e3d4
+dark onSurfaceVariant #c8c9ba
+dark outline #939386
+dark outlineVariant #48493d
+dark inverseSurface #e2e3d4
+dark onInverseSurface #313126
+dark primary #ffff00
+dark onPrimary #333300
+dark primaryContainer #4c4b00
+dark onPrimaryContainer #e4e7a9
+dark secondary #f7fac0
+dark onSecondary #333300
+dark secondaryContainer #4a4b14
+dark onSecondaryContainer #e4e6ad
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40306d86794c80f5 minLightness 3fd3333333333333 lightness 3fe85f0f4889227c
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402ee5e0f1da6c08 minLightness 3fd3333333333333 lightness 3fe7b341bff3193b
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d474e8fed9704 minLightness 3fd3333333333333 lightness 3fe71f3f96da89ec
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b74f5f557645e minLightness 3fd3333333333333 lightness 3fe671ab933731e1
+light pair onSurfaceVariant surface min 4012000000000000 contrast 4021562486bf7a1e minLightness 3fd3333333333333 lightness 3fe28cc5545334eb
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40204db23d2f783b minLightness 3fd3333333333333 lightness 3fe1e0f7cbbd2baa
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401ee5e3c6e9667c minLightness 3fd3333333333333 lightness 3fe14cf5a2a49c5b
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cf9bfbb9a07bf minLightness 3fd3333333333333 lightness 3fe09f619f014450
+light pair outline surface min 4008000000000000 contrast 4010c625b6e9e85f minLightness none lightness 3fda31466476d4c4
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f8c8fca6918da minLightness none lightness 3fd8d9ab534ac242
+light pair outline surfaceContainer min 4008000000000000 contrast 400de540f2a5de11 minLightness none lightness 3fd7b1a70119a3a4
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c091494a46376 minLightness none lightness 3fd6567ef9d2f38e
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40276cf4fca07065 minLightness 3fd3333333333333 lightness 3fe4cb2f95b13320
+light pair primary surface min 4008000000000000 contrast 4008238ae886bc32 minLightness none lightness 3fd52f7116f4692e
+light pair onPrimary primary min 4012000000000000 contrast 4018078975e901c9 minLightness 3fd3333333333333 lightness 3fdec0bf824a922a
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40300d21fb3485aa minLightness 3fd3333333333333 lightness 3fe7ec5fa3cd7d37
+light pair secondary surface min 4008000000000000 contrast 40080d22085f8572 minLightness none lightness 3fd508586330e860
+light pair onSecondary secondary min 4012000000000000 contrast 40181ded1f459fec minLightness 3fd3333333333333 lightness 3fdee7d8360e12f8
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 402fd499e881387b minLightness 3fd3333333333333 lightness 3fe7f34681244bdc
+light pair error surface min 4008000000000000 contrast 401913ef97876f40 minLightness none lightness 3fdeba8853f2b158
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 40108de7aaf44318 minLightness none lightness 3fd98d9797bbaa72
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027faa85c915f3f minLightness 3fd3333333333333 lightness 3fe50fa3e4eee2f6
+light pair success surface min 4008000000000000 contrast 4015536f0bd156c0 minLightness none lightness 3fdebc45ec34e5e2
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028552f6273caca minLightness 3fd3333333333333 lightness 3fe52584687416b1
+light pair info surface min 4008000000000000 contrast 401697fe2d8ae01f minLightness none lightness 3fde82ea55ce75f0
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 40280db107d0b962 minLightness 3fd3333333333333 lightness 3fe50f7cc3d61acb
+light adjustment primary primaryContainer exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402bd5d86295ab6f minLightness 3fd3333333333333 lightness 3fe6c1fd6c69668a
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029ee213569e8c6 minLightness 3fd3333333333333 lightness 3fe5c8986d02f568
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027e0c6ad1ad627 minLightness 3fd3333333333333 lightness 3fe4d6ef9bfa2e46
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025b79f4b8467d7 minLightness 3fd3333333333333 lightness 3fe3e33c7892e5ee
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40258c737bc1434a minLightness 3fd3333333333333 lightness 3fe4327a1d3233bc
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402412e33be62494 minLightness 3fd3333333333333 lightness 3fe339151dcbc29a
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40227c2fcdadc820 minLightness 3fd3333333333333 lightness 3fe2476c4cc2fb78
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020cff6e2eafd82 minLightness 3fd3333333333333 lightness 3fe153b9295bb320
+dark pair outline surface min 4008000000000000 contrast 401743cf12d915ec minLightness none lightness 3fdd6b5a9739c814
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015ac2ca301f8ca minLightness none lightness 3fdb7890986ce5d0
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f514eea7ce72 minLightness none lightness 3fd9953ef65b578c
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 401226c0f02cc07c minLightness none lightness 3fd7add8af8cc6db
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40243dd80d9040fd minLightness 3fd3333333333333 lightness 3fe33ee7515ef5cb
+dark pair primary surface min 4008000000000000 contrast 4030d4720ed048fc minLightness none lightness 3fe89525192f2672
+dark pair onPrimary primary min 4012000000000000 contrast 40283a840e0b3db6 minLightness 3fd3333333333333 lightness 3fe5078ae2a7cd47
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401c2ee55290437a minLightness 3fd3333333333333 lightness 3fe05396d977e23c
+dark pair secondary surface min 4008000000000000 contrast 4030afec83049b10 minLightness none lightness 3fe89c0bf685f517
+dark pair onSecondary secondary min 4012000000000000 contrast 402805f047a39767 minLightness 3fd3333333333333 lightness 3fe50e71bffe9bec
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401c1dbf3d40e587 minLightness 3fd3333333333333 lightness 3fe04eb0e55571b8
+dark pair error surface min 4008000000000000 contrast 4020b0a42ac93592 minLightness none lightness 3fe255117f8df7da
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40245d81592b5d76 minLightness none lightness 3fe3dd1ec5071234
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 402306a5defc210c minLightness none lightness 3fe29524ffd3a6b3
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 402228da5fa4fdd2 minLightness none lightness 3fe28ead03a6d859
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact true shift 0000000000000000
+
+## material-yellow
+input {"primary":"#ffeb3b"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #ffeb3b given
+seed secondary #efeab9 derived
+seed neutral #fbf9ea derived
+light surface #fbf9ea
+light surfaceContainerLow #f4f2e3
+light surfaceContainer #eeecdd
+light surfaceContainerHigh #e7e5d6
+light onSurface #1d1b10
+light onSurfaceVariant #4a483c
+light outline #7a786b
+light outlineVariant #c5c3b5
+light inverseSurface #323125
+light onInverseSurface #f4f2e4
+light primary #a29100
+light onPrimary #130f00
+light primaryContainer #ffeb3b
+light onPrimaryContainer #211b00
+light secondary #969163
+light onSecondary #120d00
+light secondaryContainer #efeab9
+light onSecondaryContainer #211b00
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc8
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #18160c
+dark surfaceContainerLow #1f1d12
+dark surfaceContainer #262419
+dark surfaceContainerHigh #2d2c20
+dark onSurface #e4e2d3
+dark onSurfaceVariant #cac8b9
+dark outline #959385
+dark outlineVariant #4a483c
+dark inverseSurface #e4e2d3
+dark onInverseSurface #323125
+dark primary #ffeb3b
+dark onPrimary #383100
+dark primaryContainer #534900
+dark onPrimaryContainer #ebe4a6
+dark secondary #efeab9
+dark onSecondary #373101
+dark secondaryContainer #4e491d
+dark onSecondaryContainer #e9e4b3
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40304f2e421577c8 minLightness 3fd3333333333333 lightness 3fe848a2013cd91f
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402eac3b97c32bdd minLightness 3fd3333333333333 lightness 3fe79ccdd71af31c
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d1032f040b06e minLightness 3fd3333333333333 lightness 3fe708c5da191012
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b40bb70e576ea minLightness 3fd3333333333333 lightness 3fe65b2adce4c21e
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402160c8b7cf2a5a minLightness 3fd3333333333333 lightness 3fe28dda10f929fa
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40205765f9c61311 minLightness 3fd3333333333333 lightness 3fe1e205e6d743f7
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401ef7c30df74145 minLightness 3fd3333333333333 lightness 3fe14dfde9d560ed
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401d09ec7abf9709 minLightness 3fd3333333333333 lightness 3fe0a062eca112f9
+light pair outline surface min 4008000000000000 contrast 4010ca7b21950851 minLightness none lightness 3fda2e075a9f00a8
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f941f6d17d97f minLightness none lightness 3fd8d65f065b34a2
+light pair outline surfaceContainer min 4008000000000000 contrast 400debebbf074bc4 minLightness none lightness 3fd7ae4f0c576e8e
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c0ec4622f24d1 minLightness none lightness 3fd6531911eed2a6
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40274f7c8dd0ed49 minLightness 3fd3333333333333 lightness 3fe4c17712b12247
+light pair primary surface min 4008000000000000 contrast 40081928c9854bb4 minLightness none lightness 3fd4ff1f9a05f014
+light pair onPrimary primary min 4012000000000000 contrast 401809a4de928fb5 minLightness 3fd3333333333333 lightness 3fdeeca8ab456e64
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 402c293797ba3ec5 minLightness 3fd3333333333333 lightness 3fe6974535fc9be0
+light pair secondary surface min 4008000000000000 contrast 40085134f8f17471 minLightness none lightness 3fd521a77d5aaac8
+light pair onSecondary secondary min 4012000000000000 contrast 401819e6bd7fde34 minLightness 3fd3333333333333 lightness 3fdf44fd0ce914de
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 402c10a11d055fc7 minLightness 3fd3333333333333 lightness 3fe69adec160bf3b
+light pair error surface min 4008000000000000 contrast 4019001092abad83 minLightness none lightness 3fdeaf4aed7df47c
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 401080c9a4a5da4f minLightness none lightness 3fd9825a3146ed96
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 401542891bbf9db5 minLightness none lightness 3fdeb10885c02906
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028552f6273caca minLightness 3fd3333333333333 lightness 3fe52584687416b1
+light pair info surface min 4008000000000000 contrast 401686171104e318 minLightness none lightness 3fde77acef59b914
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primaryContainer exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402bd0d32c524d64 minLightness 3fd3333333333333 lightness 3fe6c158c079aafd
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029f07a8b52b4ad minLightness 3fd3333333333333 lightness 3fe5ca0b7e8093f8
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027e651bccf1647 minLightness 3fd3333333333333 lightness 3fe4d854634fabfc
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025987a4d860b07 minLightness 3fd3333333333333 lightness 3fe3d723bc0f220d
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402586c12cb8b871 minLightness 3fd3333333333333 lightness 3fe431b95eb0c6b2
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40241304a5b3c868 minLightness 3fd3333333333333 lightness 3fe33a6c1cb7afac
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40227eec3c09ac6d minLightness 3fd3333333333333 lightness 3fe248b50186c7b1
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020b672ded1b7f6 minLightness 3fd3333333333333 lightness 3fe147845a463dc2
+dark pair outline surface min 4008000000000000 contrast 40176fa531d5dfa7 minLightness none lightness 3fdd8cf018fc3668
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015daee13425253 minLightness none lightness 3fdb9e55950a085d
+dark pair outline surfaceContainer min 4008000000000000 contrast 401422fc28ce093c minLightness none lightness 3fd9bae75ea83866
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123203b5015c9d minLightness none lightness 3fd7b88610272488
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 4024206660172afd minLightness 3fd3333333333333 lightness 3fe332fdd0b126de
+dark pair primary surface min 4008000000000000 contrast 402dae30f28ecdb5 minLightness none lightness 3fe75678b106f35e
+dark pair onPrimary primary min 4012000000000000 contrast 402565ebbfbe76ab minLightness 3fd3333333333333 lightness 3fe3c1f2163f7cdb
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401be331007db5d4 minLightness 3fd3333333333333 lightness 3fe037332cc0ff78
+dark pair secondary surface min 4008000000000000 contrast 402d9446d9517b81 minLightness none lightness 3fe75a123c6b16b9
+dark pair onSecondary secondary min 4012000000000000 contrast 4025652f6e4101b7 minLightness 3fd3333333333333 lightness 3fe3ce5a2a4969da
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401c42fe708b9cfa minLightness 3fd3333333333333 lightness 3fe05822ea650fde
+dark pair error surface min 4008000000000000 contrast 4020bbf6eaf1f941 minLightness none lightness 3fe25a2202802638
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40246b526c4f0832 minLightness none lightness 3fe3e22f47f94092
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 4023138e5608ef47 minLightness none lightness 3fe29a3582c5d511
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 4022352c5cf2bc6f minLightness none lightness 3fe293bd869906b7
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact true shift 0000000000000000
+
+## pale-yellow
+input {"primary":"#fffde7"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #fffde7 given
+seed secondary #fdfcf4 derived
+seed neutral #fbf9ea derived
+light surface #fbf9ea
+light surfaceContainerLow #f4f2e3
+light surfaceContainer #eeecdd
+light surfaceContainerHigh #e7e5d6
+light onSurface #1d1b10
+light onSurfaceVariant #4a483c
+light outline #7a786b
+light outlineVariant #c5c3b5
+light inverseSurface #323125
+light onInverseSurface #f4f2e4
+light primary #93917d
+light onPrimary #110f02
+light primaryContainer #dad8c3
+light onPrimaryContainer #1d1b0b
+light secondary #919089
+light onSecondary #0f0e09
+light secondaryContainer #d8d7cf
+light onSecondaryContainer #1c1b15
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc8
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #18160c
+dark surfaceContainerLow #1f1d12
+dark surfaceContainer #262419
+dark surfaceContainerHigh #2d2c20
+dark onSurface #e4e2d3
+dark onSurfaceVariant #cac8b9
+dark outline #959385
+dark outlineVariant #4a483c
+dark inverseSurface #e4e2d3
+dark onInverseSurface #323125
+dark primary #fffde7
+dark onPrimary #333120
+dark primaryContainer #4a4937
+dark onPrimaryContainer #e4e2cd
+dark secondary #fdfcf4
+dark onSecondary #31312a
+dark secondaryContainer #494841
+dark onSecondaryContainer #e3e2da
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40304f2e421577c8 minLightness 3fd3333333333333 lightness 3fe848a2013cd91f
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402eac3b97c32bdd minLightness 3fd3333333333333 lightness 3fe79ccdd71af31c
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d1032f040b06e minLightness 3fd3333333333333 lightness 3fe708c5da191012
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b40bb70e576ea minLightness 3fd3333333333333 lightness 3fe65b2adce4c21e
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402160c8b7cf2a5a minLightness 3fd3333333333333 lightness 3fe28dda10f929fa
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40205765f9c61311 minLightness 3fd3333333333333 lightness 3fe1e205e6d743f7
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401ef7c30df74145 minLightness 3fd3333333333333 lightness 3fe14dfde9d560ed
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401d09ec7abf9709 minLightness 3fd3333333333333 lightness 3fe0a062eca112f9
+light pair outline surface min 4008000000000000 contrast 4010ca7b21950851 minLightness none lightness 3fda2e075a9f00a8
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f941f6d17d97f minLightness none lightness 3fd8d65f065b34a2
+light pair outline surfaceContainer min 4008000000000000 contrast 400debebbf074bc4 minLightness none lightness 3fd7ae4f0c576e8e
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c0ec4622f24d1 minLightness none lightness 3fd6531911eed2a6
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40274f7c8dd0ed49 minLightness 3fd3333333333333 lightness 3fe4c17712b12247
+light pair primary surface min 4008000000000000 contrast 400818b90a3e0bcc minLightness none lightness 3fd4ec657c93dee2
+light pair onPrimary primary min 4012000000000000 contrast 40181ad9aa802f85 minLightness 3fd3333333333333 lightness 3fdf211e281e37da
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40280aaa52888953 minLightness 3fd3333333333333 lightness 3fe51306723a4b32
+light pair secondary surface min 4008000000000000 contrast 4008373c77d3bfe7 minLightness none lightness 3fd4f61a1ea45cc6
+light pair onSecondary secondary min 4012000000000000 contrast 40181e313ca2227a minLightness 3fd3333333333333 lightness 3fdf4c9c8a2ca72c
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027e59816fa31f1 minLightness 3fd3333333333333 lightness 3fe503479c404c9e
+light pair error surface min 4008000000000000 contrast 4019001092abad83 minLightness none lightness 3fdeaf4aed7df47c
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 401080c9a4a5da4f minLightness none lightness 3fd9825a3146ed96
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 401542891bbf9db5 minLightness none lightness 3fdeb10885c02906
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028552f6273caca minLightness 3fd3333333333333 lightness 3fe52584687416b1
+light pair info surface min 4008000000000000 contrast 401686171104e318 minLightness none lightness 3fde77acef59b914
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primaryContainer exact false shift bfbc93d3c5ba1678
+dark pair onSurface surface min 401c000000000000 contrast 402bd0d32c524d64 minLightness 3fd3333333333333 lightness 3fe6c158c079aafd
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029f07a8b52b4ad minLightness 3fd3333333333333 lightness 3fe5ca0b7e8093f8
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027e651bccf1647 minLightness 3fd3333333333333 lightness 3fe4d854634fabfc
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025987a4d860b07 minLightness 3fd3333333333333 lightness 3fe3d723bc0f220d
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402586c12cb8b871 minLightness 3fd3333333333333 lightness 3fe431b95eb0c6b2
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40241304a5b3c868 minLightness 3fd3333333333333 lightness 3fe33a6c1cb7afac
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40227eec3c09ac6d minLightness 3fd3333333333333 lightness 3fe248b50186c7b1
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020b672ded1b7f6 minLightness 3fd3333333333333 lightness 3fe147845a463dc2
+dark pair outline surface min 4008000000000000 contrast 40176fa531d5dfa7 minLightness none lightness 3fdd8cf018fc3668
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015daee13425253 minLightness none lightness 3fdb9e55950a085d
+dark pair outline surfaceContainer min 4008000000000000 contrast 401422fc28ce093c minLightness none lightness 3fd9bae75ea83866
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123203b5015c9d minLightness none lightness 3fd7b88610272488
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 4024206660172afd minLightness 3fd3333333333333 lightness 3fe332fdd0b126de
+dark pair primary surface min 4008000000000000 contrast 4031a6acb57a032d minLightness none lightness 3fe94cc43876a64d
+dark pair onPrimary primary min 4012000000000000 contrast 40298e11487368db minLightness 3fd3333333333333 lightness 3fe5c06f70c2c566
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401befb563ecf3f8 minLightness 3fd3333333333333 lightness 3fe03fe4e4037cb0
+dark pair secondary surface min 4008000000000000 contrast 40319bda1311e8b3 minLightness none lightness 3fe94bab250aaf41
+dark pair onSecondary secondary min 4012000000000000 contrast 40297498182b7972 minLightness 3fd3333333333333 lightness 3fe5b9872d36aaf6
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401c43ad467a1c54 minLightness 3fd3333333333333 lightness 3fe05a5846b96ebf
+dark pair error surface min 4008000000000000 contrast 4020bbf6eaf1f941 minLightness none lightness 3fe25a2202802638
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40246b526c4f0832 minLightness none lightness 3fe3e22f47f94092
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 4023138e5608ef47 minLightness none lightness 3fe29a3582c5d511
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 4022352c5cf2bc6f minLightness none lightness 3fe293bd869906b7
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact true shift 0000000000000000
+
+## dark-blue
+input {"primary":"#000033"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #000033 given
+seed secondary #040919 derived
+seed neutral #f2f9ff derived
+light surface #f2f9ff
+light surfaceContainerLow #ebf2f8
+light surfaceContainer #e5ecf2
+light surfaceContainerHigh #dee5eb
+light onSurface #161b1f
+light onSurfaceVariant #43484d
+light outline #72787d
+light outlineVariant #bcc3c9
+light inverseSurface #2c3136
+light onInverseSurface #ecf3f9
+light primary #000033
+light onPrimary #ffffff
+light primaryContainer #bcd7ff
+light onPrimaryContainer #07173f
+light secondary #040919
+light onSecondary #ffffff
+light secondaryContainer #cbd7f0
+light onSecondaryContainer #121a2c
+light error #b71a18
+light onError #ffffff
+light errorContainer #f0cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c7dec7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #12171b
+dark surfaceContainerLow #191e22
+dark surfaceContainer #202529
+dark surfaceContainerHigh #272c30
+dark onSurface #dbe2e8
+dark onSurfaceVariant #c2c8ce
+dark outline #8d9399
+dark outlineVariant #43494e
+dark inverseSurface #dbe2e8
+dark onInverseSurface #2c3136
+dark primary #6b89c7
+dark onPrimary #000008
+dark primaryContainer #010f43
+dark onPrimaryContainer #cce2ff
+dark secondary #7f8aa1
+dark onSecondary #000108
+dark secondaryContainer #2a3346
+dark onSecondaryContainer #d6e2fa
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 4030545b942fea4c minLightness 3fd3333333333333 lightness 3fe85097f1a121c8
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402eb54691460cc7 minLightness 3fd3333333333333 lightness 3fe7a4b4ab081692
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d182e3caadb9b minLightness 3fd3333333333333 lightness 3fe7109f3d4b5a60
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b478c3a1dd57c minLightness 3fd3333333333333 lightness 3fe662f3f5edfd65
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402165a44eb16044 minLightness 3fd3333333333333 lightness 3fe28cc64268d7c8
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40205b98cdc7ca2b minLightness 3fd3333333333333 lightness 3fe1e0e2fbcfcc92
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401eff17e3ede816 minLightness 3fd3333333333333 lightness 3fe14ccd8e131060
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401d1015fa6b90f5 minLightness 3fd3333333333333 lightness 3fe09f2246b5b365
+light pair outline surface min 4008000000000000 contrast 4010d4ec2d23c81b minLightness none lightness 3fda32a75be5f168
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400fa70b98a30d2e minLightness none lightness 3fd8dae0ceb3dafc
+light pair outline surfaceContainer min 4008000000000000 contrast 400dfd3ee7b728ba minLightness none lightness 3fd7b2b5f33a6298
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c1e52c4fcd3ea minLightness none lightness 3fd6575f647fa8a2
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 402772ae64f4e2f3 minLightness 3fd3333333333333 lightness 3fe4cf2df75ca956
+light pair primary surface min 4008000000000000 contrast 4032de26d411d78d minLightness none lightness 3feaab8cf6bc5bcb
+light pair onPrimary primary min 4012000000000000 contrast 40340abbebdcddf7 minLightness 3fd3333333333333 lightness 3feb5b071400dcc8
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027c54b44e7101c minLightness 3fd3333333333333 lightness 3fe4dd1ace77716a
+light pair secondary surface min 4008000000000000 contrast 4032ae5bc02fa7be minLightness none lightness 3feab3e056ca36e6
+light pair onSecondary secondary min 4012000000000000 contrast 4033d7f773179008 minLightness 3fd3333333333333 lightness 3feb635a740eb7e3
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027ffd0d40ebe91 minLightness 3fd3333333333333 lightness 3fe50ea48ee42c0a
+light pair error surface min 4008000000000000 contrast 4018e952b02fcc5a minLightness none lightness 3fde9e4a066944ac
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027e734a187e70a minLightness 3fd3333333333333 lightness 3fe5158e0dfd70c6
+light pair warning surface min 4008000000000000 contrast 401071c685881da7 minLightness none lightness 3fd971594a323dc6
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 40152f323ffbc25d minLightness none lightness 3fdea0079eab7936
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028190a814177ee minLightness 3fd3333333333333 lightness 3fe50c6559ff5888
+light pair info surface min 4008000000000000 contrast 40167199e221819b minLightness none lightness 3fde66ac08450944
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402b95b588d249cc minLightness 3fd3333333333333 lightness 3fe6a7b40181130a
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029afb42fdc8545 minLightness 3fd3333333333333 lightness 3fe5ae6a7d3a50b6
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027a529b32abd1c minLightness 3fd3333333333333 lightness 3fe4bce28586da44
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025900ca2d47ff4 minLightness 3fd3333333333333 lightness 3fe3d1e0fc1ceb00
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402562666ea32402 minLightness 3fd3333333333333 lightness 3fe41e16e1a959b4
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023e9a33a8f33d8 minLightness 3fd3333333333333 lightness 3fe324cd5d629760
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4022548d415d6c04 minLightness 3fd3333333333333 lightness 3fe2334565af20f0
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020b74514c19e25 minLightness 3fd3333333333333 lightness 3fe14843dc4531ac
+dark pair outline surface min 4008000000000000 contrast 40173fb274b12378 minLightness none lightness 3fdd6054a5cc1679
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015a615f4192dbe minLightness none lightness 3fdb6dc19d3e91d1
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013edae81fad1ee minLightness none lightness 3fd98ab1add7a4ef
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40122c5decd45314 minLightness none lightness 3fd7b4ae9b03c667
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 402412db4bd2a8b1 minLightness 3fd3333333333333 lightness 3fe32a141ba9e958
+dark pair primary surface min 4008000000000000 contrast 4014b69ea55c9896 minLightness none lightness 3fdba32dac81f251
+dark pair onPrimary primary min 4012000000000000 contrast 4018073c2af53be6 minLightness 3fd3333333333333 lightness 3fe250544cc30f37
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 402b9e64f2f25a53 minLightness 3fd3333333333333 lightness 3fe67b7358ad963d
+dark pair secondary surface min 4008000000000000 contrast 4014cc010e8cad17 minLightness none lightness 3fdb99b1477ecfb7
+dark pair onSecondary secondary min 4012000000000000 contrast 4018056fb38e65b5 minLightness 3fd3333333333333 lightness 3fe1d6d92c5c7be1
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 40236a24dc9090fe minLightness 3fd3333333333333 lightness 3fe2df333c7ff542
+dark pair error surface min 4008000000000000 contrast 4020a8d9d71839ab minLightness none lightness 3fe24931bfffa92a
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 402453ffdb7c3ac1 minLightness none lightness 3fe3d13f0578c384
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 4022fdc46a1bd342 minLightness none lightness 3fe2894540455804
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222060718cde80 minLightness none lightness 3fe282cd441889aa
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact false shift 3fadafa7d4faedcc
+
+## black
+input {"primary":"#000000"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #000000 given
+seed secondary #000000 derived
+seed neutral #f8f8f8 derived
+light surface #f8f8f8
+light surfaceContainerLow #f1f1f1
+light surfaceContainer #ebebeb
+light surfaceContainerHigh #e4e4e4
+light onSurface #1b1b1b
+light onSurfaceVariant #484848
+light outline #777777
+light outlineVariant #c2c2c2
+light inverseSurface #303030
+light onInverseSurface #f2f2f2
+light primary #000000
+light onPrimary #ffffff
+light primaryContainer #d7d7d7
+light onPrimaryContainer #1b1b1b
+light secondary #000000
+light onSecondary #ffffff
+light secondaryContainer #d7d7d7
+light onSecondaryContainer #1b1b1b
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #161616
+dark surfaceContainerLow #1d1d1d
+dark surfaceContainer #242424
+dark surfaceContainerHigh #2b2b2b
+dark onSurface #e1e1e1
+dark onSurfaceVariant #c7c7c7
+dark outline #929292
+dark outlineVariant #484848
+dark inverseSurface #e1e1e1
+dark onInverseSurface #303030
+dark primary #eeeeee
+dark onPrimary #303030
+dark primaryContainer #484848
+dark onPrimaryContainer #e1e1e1
+dark secondary #636363
+dark onSecondary #ffffff
+dark secondaryContainer #363636
+dark onSecondaryContainer #e1e1e1
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 403037f464b4cebb minLightness 3fd3333333333333 lightness 3fe8395956a3305f
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402e7fd71192207b minLightness 3fd3333333333333 lightness 3fe78d75e973b0d0
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402ce587e6ba672c minLightness 3fd3333333333333 lightness 3fe6f9602cd9a3c9
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b18076824bf04 minLightness 3fd3333333333333 lightness 3fe64bb44da1fe6c
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402139580f207571 minLightness 3fd3333333333333 lightness 3fe27a9355b45a3e
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402031eee1d4e2b6 minLightness 3fd3333333333333 lightness 3fe1ceafe884dab0
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401eb01ef98f82ad minLightness 3fd3333333333333 lightness 3fe13a9a2beacda8
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cc6026db76268 minLightness 3fd3333333333333 lightness 3fe08cee4cb3284c
+light pair outline surface min 4008000000000000 contrast 4010ddcaad153f5c minLightness none lightness 3fda3b42967017fa
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400fb7b342d8c54c minLightness none lightness 3fd8e37bbc1118dc
+light pair outline surfaceContainer min 4008000000000000 contrast 400e0d00a0b2716b minLightness none lightness 3fd7bb5042dcfece
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c2d11371c7b4a minLightness none lightness 3fd65ff8846db414
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 402794254637bfb6 minLightness 3fd3333333333333 lightness 3fe4dce73b5451f0
+light pair primary surface min 4008000000000000 contrast 4033c6122872f8a6 minLightness none lightness 3fef550712e57867
+light pair onPrimary primary min 4012000000000000 contrast 4035000000000000 minLightness 3fd3333333333333 lightness 3feffffffc7f02d2
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair secondary surface min 4008000000000000 contrast 4033c6122872f8a6 minLightness none lightness 3fef550712e57867
+light pair onSecondary secondary min 4012000000000000 contrast 4035000000000000 minLightness 3fd3333333333333 lightness 3feffffffc7f02d2
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair error surface min 4008000000000000 contrast 4018ea9c69d7e7e8 minLightness none lightness 3fdea74c6dbf31d0
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 401072a02dbae442 minLightness none lightness 3fd97a5bb1882aea
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 4015304aa4e844d5 minLightness none lightness 3fdea90a0601665a
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 40285146029ee8b4 minLightness 3fd3333333333333 lightness 3fe52365c2a5cc0d
+light pair info surface min 4008000000000000 contrast 401672c2f260042a minLightness none lightness 3fde6fae6f9af668
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402bad355a710e31 minLightness 3fd3333333333333 lightness 3fe6b4aa08286d60
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029c84015441cec minLightness 3fd3333333333333 lightness 3fe5ba568fd569f6
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027bdaf11632b99 minLightness 3fd3333333333333 lightness 3fe4c810aa51c454
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025a7aee0beb8aa minLightness 3fd3333333333333 lightness 3fe3dc808fa33892
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402568d75fada761 minLightness 3fd3333333333333 lightness 3fe424c0a0f60153
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f1b2554747a1 minLightness 3fd3333333333333 lightness 3fe32a6d28a2fde8
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40225d75a4da09cf minLightness 3fd3333333333333 lightness 3fe23827431f5846
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c0609b37186d minLightness 3fd3333333333333 lightness 3fe14c972870cc84
+dark pair outline surface min 4008000000000000 contrast 40174331df3025d3 minLightness none lightness 3fdd6cc8e5569c44
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015ab950ef9f965 minLightness none lightness 3fdb7821f4b0956f
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f45c054ec838 minLightness none lightness 3fd9939629a94a2b
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123386a91ecc97 minLightness none lightness 3fd7bc75f44c32a7
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40242f74a69cfac9 minLightness 3fd3333333333333 lightness 3fe337cc1951f1f5
+dark pair primary surface min 4008000000000000 contrast 402f31b4fa88b73d minLightness none lightness 3fe7f7340275f0b0
+dark pair onPrimary primary min 4012000000000000 contrast 4026c03762477a6f minLightness 3fd3333333333333 lightness 3fe47a56139f7545
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401bf9edca5b2888 minLightness 3fd3333333333333 lightness 3fe04231a0361d30
+dark pair secondary surface min 4008000000000000 contrast 400818c94feb8bd2 minLightness none lightness 3fd32b0c74525ff3
+dark pair onSecondary secondary min 4012000000000000 contrast 4018080588d00d22 minLightness 3fd3333333333333 lightness 3fe0027e6d1704e0
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 40227b5f88869dea minLightness 3fd3333333333333 lightness 3fe2759c79420913
+dark pair error surface min 4008000000000000 contrast 4020b63b0e41b8e1 minLightness none lightness 3fe251a7f6fcb4ec
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024645353fa70f0 minLightness none lightness 3fe3d9b53c75cf46
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40230d050784374b minLightness none lightness 3fe291bb774263c5
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222eef40f99819 minLightness none lightness 3fe28b437b15956b
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact false shift 3fee5f2f57b4bea9
+
+## gray
+input {"primary":"#808080"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #808080 given
+seed secondary #808080 derived
+seed neutral #f8f8f8 derived
+light surface #f8f8f8
+light surfaceContainerLow #f1f1f1
+light surfaceContainer #ebebeb
+light surfaceContainerHigh #e4e4e4
+light onSurface #1b1b1b
+light onSurfaceVariant #484848
+light outline #777777
+light outlineVariant #c2c2c2
+light inverseSurface #303030
+light onInverseSurface #f2f2f2
+light primary #1b1b1b
+light onPrimary #ffffff
+light primaryContainer #d7d7d7
+light onPrimaryContainer #1b1b1b
+light secondary #636363
+light onSecondary #ffffff
+light secondaryContainer #808080
+light onSecondaryContainer #171717
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #161616
+dark surfaceContainerLow #1d1d1d
+dark surfaceContainer #242424
+dark surfaceContainerHigh #2b2b2b
+dark onSurface #e1e1e1
+dark onSurfaceVariant #c7c7c7
+dark outline #929292
+dark outlineVariant #484848
+dark inverseSurface #e1e1e1
+dark onInverseSurface #303030
+dark primary #eeeeee
+dark onPrimary #303030
+dark primaryContainer #484848
+dark onPrimaryContainer #e1e1e1
+dark secondary #9e9e9e
+dark onSecondary #212121
+dark secondaryContainer #808080
+dark onSecondaryContainer #171717
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 403037f464b4cebb minLightness 3fd3333333333333 lightness 3fe8395956a3305f
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402e7fd71192207b minLightness 3fd3333333333333 lightness 3fe78d75e973b0d0
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402ce587e6ba672c minLightness 3fd3333333333333 lightness 3fe6f9602cd9a3c9
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b18076824bf04 minLightness 3fd3333333333333 lightness 3fe64bb44da1fe6c
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402139580f207571 minLightness 3fd3333333333333 lightness 3fe27a9355b45a3e
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402031eee1d4e2b6 minLightness 3fd3333333333333 lightness 3fe1ceafe884dab0
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401eb01ef98f82ad minLightness 3fd3333333333333 lightness 3fe13a9a2beacda8
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cc6026db76268 minLightness 3fd3333333333333 lightness 3fe08cee4cb3284c
+light pair outline surface min 4008000000000000 contrast 4010ddcaad153f5c minLightness none lightness 3fda3b42967017fa
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400fb7b342d8c54c minLightness none lightness 3fd8e37bbc1118dc
+light pair outline surfaceContainer min 4008000000000000 contrast 400e0d00a0b2716b minLightness none lightness 3fd7bb5042dcfece
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c2d11371c7b4a minLightness none lightness 3fd65ff8846db414
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 402794254637bfb6 minLightness 3fd3333333333333 lightness 3fe4dce73b5451f0
+light pair primary surface min 4008000000000000 contrast 403037f464b4cebb minLightness none lightness 3fe8395956a3305f
+light pair onPrimary primary min 4012000000000000 contrast 403139712829c7cf minLightness 3fd3333333333333 lightness 3fe8e452403cbaca
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair secondary surface min 4008000000000000 contrast 4016a0c6f15195ca minLightness none lightness 3fdeaf0b06faf4e9
+light pair onSecondary secondary min 4012000000000000 contrast 4018080588d00d22 minLightness 3fd3333333333333 lightness 3fe0027e6d1704e0
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012284823c2b8f2 minLightness 3fd3333333333333 lightness 3fd94baea1a24a1a
+light pair error surface min 4008000000000000 contrast 4018ea9c69d7e7e8 minLightness none lightness 3fdea74c6dbf31d0
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 401072a02dbae442 minLightness none lightness 3fd97a5bb1882aea
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 4015304aa4e844d5 minLightness none lightness 3fdea90a0601665a
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 40285146029ee8b4 minLightness 3fd3333333333333 lightness 3fe52365c2a5cc0d
+light pair info surface min 4008000000000000 contrast 401672c2f260042a minLightness none lightness 3fde6fae6f9af668
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact false shift bfd82ced0845824c
+dark pair onSurface surface min 401c000000000000 contrast 402bad355a710e31 minLightness 3fd3333333333333 lightness 3fe6b4aa08286d60
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029c84015441cec minLightness 3fd3333333333333 lightness 3fe5ba568fd569f6
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027bdaf11632b99 minLightness 3fd3333333333333 lightness 3fe4c810aa51c454
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025a7aee0beb8aa minLightness 3fd3333333333333 lightness 3fe3dc808fa33892
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402568d75fada761 minLightness 3fd3333333333333 lightness 3fe424c0a0f60153
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f1b2554747a1 minLightness 3fd3333333333333 lightness 3fe32a6d28a2fde8
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40225d75a4da09cf minLightness 3fd3333333333333 lightness 3fe23827431f5846
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c0609b37186d minLightness 3fd3333333333333 lightness 3fe14c972870cc84
+dark pair outline surface min 4008000000000000 contrast 40174331df3025d3 minLightness none lightness 3fdd6cc8e5569c44
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015ab950ef9f965 minLightness none lightness 3fdb7821f4b0956f
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f45c054ec838 minLightness none lightness 3fd9939629a94a2b
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123386a91ecc97 minLightness none lightness 3fd7bc75f44c32a7
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40242f74a69cfac9 minLightness 3fd3333333333333 lightness 3fe337cc1951f1f5
+dark pair primary surface min 4008000000000000 contrast 402f31b4fa88b73d minLightness none lightness 3fe7f7340275f0b0
+dark pair onPrimary primary min 4012000000000000 contrast 4026c03762477a6f minLightness 3fd3333333333333 lightness 3fe47a56139f7545
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401bf9edca5b2888 minLightness 3fd3333333333333 lightness 3fe04231a0361d30
+dark pair secondary surface min 4008000000000000 contrast 401b048d0babb0d5 minLightness none lightness 3fdff0b967998884
+dark pair onSecondary secondary min 4012000000000000 contrast 40180a6aadd0e06d minLightness 3fd3333333333333 lightness 3fdce568ba842614
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012284823c2b8f2 minLightness 3fd3333333333333 lightness 3fd94baea1a24a1a
+dark pair error surface min 4008000000000000 contrast 4020b63b0e41b8e1 minLightness none lightness 3fe251a7f6fcb4ec
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024645353fa70f0 minLightness none lightness 3fe3d9b53c75cf46
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40230d050784374b minLightness none lightness 3fe291bb774263c5
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222eef40f99819 minLightness none lightness 3fe28b437b15956b
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact false shift 3fd65a162e9f6af6
+
+## white
+input {"primary":"#ffffff"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #ffffff given
+seed secondary #ffffff derived
+seed neutral #f8f8f8 derived
+light surface #f8f8f8
+light surfaceContainerLow #f1f1f1
+light surfaceContainer #ebebeb
+light surfaceContainerHigh #e4e4e4
+light onSurface #1b1b1b
+light onSurfaceVariant #484848
+light outline #777777
+light outlineVariant #c2c2c2
+light inverseSurface #303030
+light onInverseSurface #f2f2f2
+light primary #1b1b1b
+light onPrimary #ffffff
+light primaryContainer #d7d7d7
+light onPrimaryContainer #1b1b1b
+light secondary #909090
+light onSecondary #0e0e0e
+light secondaryContainer #d6d6d6
+light onSecondaryContainer #1b1b1b
+light error #b71a18
+light onError #ffffff
+light errorContainer #f1cec9
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c8dfc7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #161616
+dark surfaceContainerLow #1d1d1d
+dark surfaceContainer #242424
+dark surfaceContainerHigh #2b2b2b
+dark onSurface #e1e1e1
+dark onSurfaceVariant #c7c7c7
+dark outline #929292
+dark outlineVariant #484848
+dark inverseSurface #e1e1e1
+dark onInverseSurface #303030
+dark primary #ffffff
+dark onPrimary #303030
+dark primaryContainer #484848
+dark onPrimaryContainer #e1e1e1
+dark secondary #ffffff
+dark onSecondary #303030
+dark secondaryContainer #484848
+dark onSecondaryContainer #e1e1e1
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 403037f464b4cebb minLightness 3fd3333333333333 lightness 3fe8395956a3305f
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402e7fd71192207b minLightness 3fd3333333333333 lightness 3fe78d75e973b0d0
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402ce587e6ba672c minLightness 3fd3333333333333 lightness 3fe6f9602cd9a3c9
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b18076824bf04 minLightness 3fd3333333333333 lightness 3fe64bb44da1fe6c
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402139580f207571 minLightness 3fd3333333333333 lightness 3fe27a9355b45a3e
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402031eee1d4e2b6 minLightness 3fd3333333333333 lightness 3fe1ceafe884dab0
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401eb01ef98f82ad minLightness 3fd3333333333333 lightness 3fe13a9a2beacda8
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cc6026db76268 minLightness 3fd3333333333333 lightness 3fe08cee4cb3284c
+light pair outline surface min 4008000000000000 contrast 4010ddcaad153f5c minLightness none lightness 3fda3b42967017fa
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400fb7b342d8c54c minLightness none lightness 3fd8e37bbc1118dc
+light pair outline surfaceContainer min 4008000000000000 contrast 400e0d00a0b2716b minLightness none lightness 3fd7bb5042dcfece
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c2d11371c7b4a minLightness none lightness 3fd65ff8846db414
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 402794254637bfb6 minLightness 3fd3333333333333 lightness 3fe4dce73b5451f0
+light pair primary surface min 4008000000000000 contrast 403037f464b4cebb minLightness none lightness 3fe8395956a3305f
+light pair onPrimary primary min 4012000000000000 contrast 403139712829c7cf minLightness 3fd3333333333333 lightness 3fe8e452403cbaca
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair secondary surface min 4008000000000000 contrast 40080c78de859c40 minLightness none lightness 3fd4d98da93d9798
+light pair onSecondary secondary min 4012000000000000 contrast 40182fecc80e58a2 minLightness 3fd3333333333333 lightness 3fdf557de10556a2
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027b3c1336b59f2 minLightness 3fd3333333333333 lightness 3fe4ed4d6aa0da85
+light pair error surface min 4008000000000000 contrast 4018ea9c69d7e7e8 minLightness none lightness 3fdea74c6dbf31d0
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027f62548ead86e minLightness 3fd3333333333333 lightness 3fe51ceecdcd59e2
+light pair warning surface min 4008000000000000 contrast 401072a02dbae442 minLightness none lightness 3fd97a5bb1882aea
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 4015304aa4e844d5 minLightness none lightness 3fdea90a0601665a
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 40285146029ee8b4 minLightness 3fd3333333333333 lightness 3fe52365c2a5cc0d
+light pair info surface min 4008000000000000 contrast 401672c2f260042a minLightness none lightness 3fde6fae6f9af668
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact false shift bfe8e452403cbaca
+dark pair onSurface surface min 401c000000000000 contrast 402bad355a710e31 minLightness 3fd3333333333333 lightness 3fe6b4aa08286d60
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029c84015441cec minLightness 3fd3333333333333 lightness 3fe5ba568fd569f6
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027bdaf11632b99 minLightness 3fd3333333333333 lightness 3fe4c810aa51c454
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025a7aee0beb8aa minLightness 3fd3333333333333 lightness 3fe3dc808fa33892
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402568d75fada761 minLightness 3fd3333333333333 lightness 3fe424c0a0f60153
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f1b2554747a1 minLightness 3fd3333333333333 lightness 3fe32a6d28a2fde8
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40225d75a4da09cf minLightness 3fd3333333333333 lightness 3fe23827431f5846
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c0609b37186d minLightness 3fd3333333333333 lightness 3fe14c972870cc84
+dark pair outline surface min 4008000000000000 contrast 40174331df3025d3 minLightness none lightness 3fdd6cc8e5569c44
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015ab950ef9f965 minLightness none lightness 3fdb7821f4b0956f
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f45c054ec838 minLightness none lightness 3fd9939629a94a2b
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123386a91ecc97 minLightness none lightness 3fd7bc75f44c32a7
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40242f74a69cfac9 minLightness 3fd3333333333333 lightness 3fe337cc1951f1f5
+dark pair primary surface min 4008000000000000 contrast 403218a1592a1ad1 minLightness none lightness 3fe99804a74034d9
+dark pair onPrimary primary min 4012000000000000 contrast 402a656eeae06e7e minLightness 3fd3333333333333 lightness 3fe61b26b869b96e
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401bf9edca5b2888 minLightness 3fd3333333333333 lightness 3fe04231a0361d30
+dark pair secondary surface min 4008000000000000 contrast 403218a1592a1ad1 minLightness none lightness 3fe99804a74034d9
+dark pair onSecondary secondary min 4012000000000000 contrast 402a656eeae06e7e minLightness 3fd3333333333333 lightness 3fe61b26b869b96e
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401bf9edca5b2888 minLightness 3fd3333333333333 lightness 3fe04231a0361d30
+dark pair error surface min 4008000000000000 contrast 4020b63b0e41b8e1 minLightness none lightness 3fe251a7f6fcb4ec
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024645353fa70f0 minLightness none lightness 3fe3d9b53c75cf46
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40230d050784374b minLightness none lightness 3fe291bb774263c5
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222eef40f99819 minLightness none lightness 3fe28b437b15956b
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact true shift 0000000000000000
+
+## given-secondary
+input {"primary":"#6750a4","secondary":"#f0f0f0"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #6750a4 given
+seed secondary #f0f0f0 given
+seed neutral #f9f6ff derived
+light surface #f9f6ff
+light surfaceContainerLow #f2eff8
+light surfaceContainer #ece9f2
+light surfaceContainerHigh #e5e2eb
+light onSurface #1b191f
+light onSurfaceVariant #49464d
+light outline #78767e
+light outlineVariant #c3c0c9
+light inverseSurface #312f36
+light onInverseSurface #f3f0f9
+light primary #6750a4
+light onPrimary #ffffff
+light primaryContainer #d9ccff
+light onPrimaryContainer #1e103b
+light secondary #8f8f8f
+light onSecondary #0d0d0d
+light secondaryContainer #d7d7d7
+light onSecondaryContainer #1b1b1b
+light error #b71a18
+light onError #ffffff
+light errorContainer #f0cec8
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4ba
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c7dec7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #17151b
+dark surfaceContainerLow #1e1c22
+dark surfaceContainer #252329
+dark surfaceContainerHigh #2c2a31
+dark onSurface #e2dfe8
+dark onSurfaceVariant #c8c6ce
+dark outline #939199
+dark outlineVariant #49464e
+dark inverseSurface #e2dfe8
+dark onInverseSurface #312f36
+dark primary #917cd4
+dark onPrimary #010009
+dark primaryContainer #6750a4
+dark onPrimaryContainer #e3d9ff
+dark secondary #f0f0f0
+dark onSecondary #303030
+dark secondaryContainer #484848
+dark onSecondaryContainer #e1e1e1
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40304dfbeafaa1b5 minLightness 3fd3333333333333 lightness 3fe84f2cbd1563d9
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402ea8284cc91327 minLightness 3fd3333333333333 lightness 3fe7a33ff7e5ee85
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d0acb522a5ba9 minLightness 3fd3333333333333 lightness 3fe70f2211837e2a
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b39e7ccc22791 minLightness 3fd3333333333333 lightness 3fe6616c7d1e4ac2
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402157d56a6575f2 minLightness 3fd3333333333333 lightness 3fe281f7f973a053
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40204e02e65f912a minLightness 3fd3333333333333 lightness 3fe1d60b34442aff
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401ee454dda0fe22 minLightness 3fd3333333333333 lightness 3fe141ed4de1baa4
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cf5d541c2df56 minLightness 3fd3333333333333 lightness 3fe09437b97c873c
+light pair outline surface min 4008000000000000 contrast 4010c218dd077e5c minLightness none lightness 3fda18d7eb183a16
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f827acc88ff99 minLightness none lightness 3fd8c0fe60b94f6e
+light pair outline surfaceContainer min 4008000000000000 contrast 400dd99e0fe3fae8 minLightness none lightness 3fd798c293f46eb8
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400bfbcbd845a0b3 minLightness none lightness 3fd63d576b2a07e8
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40277179f7254077 minLightness 3fd3333333333333 lightness 3fe4ccbfa06a5d78
+light pair primary surface min 4008000000000000 contrast 40181d24b4866cfa minLightness none lightness 3fdee11157a1dac1
+light pair onPrimary primary min 4012000000000000 contrast 4019c3d30f9ac77d minLightness 3fd3333333333333 lightness 3fe024b16d7d1d8c
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027888dec199ccf minLightness 3fd3333333333333 lightness 3fe4d7ccd3fd0ef5
+light pair secondary surface min 4008000000000000 contrast 400836c1b1b9173f minLightness none lightness 3fd4fd67c81cc734
+light pair onSecondary secondary min 4012000000000000 contrast 40180a06e9e5b985 minLightness 3fd3333333333333 lightness 3fdf6c21d906a4bf
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair error surface min 4008000000000000 contrast 4018c4135096f876 minLightness none lightness 3fde94ecbd99e650
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027e336401ada34 minLightness 3fd3333333333333 lightness 3fe51365d8e887ae
+light pair warning surface min 4008000000000000 contrast 4010593010b57121 minLightness none lightness 3fd967fc0162df6a
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027e8fe75af2f05 minLightness 3fd3333333333333 lightness 3fe506a8a22034f0
+light pair success surface min 4008000000000000 contrast 40150f857c9da883 minLightness none lightness 3fde96aa55dc1ada
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028190a814177ee minLightness 3fd3333333333333 lightness 3fe50c6559ff5888
+light pair info surface min 4008000000000000 contrast 4016500b0f7bb901 minLightness none lightness 3fde5d4ebf75aae8
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact true shift 0000000000000000
+light adjustment secondary secondaryContainer exact false shift bfb372dc4f2da910
+dark pair onSurface surface min 401c000000000000 contrast 402b84ae716ecd02 minLightness 3fd3333333333333 lightness 3fe6a6769da1c010
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029a42b46a777e1 minLightness 3fd3333333333333 lightness 3fe5acad63fd5092
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 40279dd27fc824e0 minLightness 3fd3333333333333 lightness 3fe4baca8a8fec70
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025857334c9f8a2 minLightness 3fd3333333333333 lightness 3fe3cbfee3c28187
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40256e475595f7a7 minLightness 3fd3333333333333 lightness 3fe426e24cc7fea2
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f81051c9420d minLightness 3fd3333333333333 lightness 3fe32d1913238f24
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4022646250d23d46 minLightness 3fd3333333333333 lightness 3fe23b3639b62b02
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c2aa9adb53de minLightness 3fd3333333333333 lightness 3fe14c6a92e8c019
+dark pair outline surface min 4008000000000000 contrast 401749ba6086e96d minLightness none lightness 3fdd7232e228c11c
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015b3154584731a minLightness none lightness 3fdb7ea06edfe220
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013fc6b7d736e11 minLightness none lightness 3fd99adabc0519dd
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 4012368090b76ae6 minLightness none lightness 3fd7bd436e6a440a
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40240fe56efaaf28 minLightness 3fd3333333333333 lightness 3fe3278d0ddc6902
+dark pair primary surface min 4008000000000000 contrast 4014d405553ecdb1 minLightness none lightness 3fdc44b1059967de
+dark pair onPrimary primary min 4012000000000000 contrast 401806688ac3d1b9 minLightness 3fd3333333333333 lightness 3fe256e7aae4587f
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40132ed95615de54 minLightness 3fd3333333333333 lightness 3fda366236ca045b
+dark pair secondary surface min 4008000000000000 contrast 402fc8c8ffff106a minLightness none lightness 3fe823a262a3c12f
+dark pair onSecondary secondary min 4012000000000000 contrast 40272998d38620a3 minLightness 3fd3333333333333 lightness 3fe4aba8967037c8
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401bf9edca5b2888 minLightness 3fd3333333333333 lightness 3fe04231a0361d30
+dark pair error surface min 4008000000000000 contrast 4020b9b29c1d4766 minLightness none lightness 3fe24cc3d459c2e8
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024688e53d629d7 minLightness none lightness 3fe3d4d119d2dd42
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 402310f8cea3b625 minLightness none lightness 3fe28cd7549f71c1
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 402232b4f55097db minLightness none lightness 3fe2865f5872a367
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+dark adjustment secondary secondary exact true shift 0000000000000000
+
+## neutral-cream
+input {"primary":"#6750a4","neutral":"#fff8e1"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #6750a4 given
+seed secondary #635d7a derived
+seed neutral #fff8e1 given
+light surface #fff8e1
+light surfaceContainerLow #f8f1da
+light surfaceContainer #f2ebd4
+light surfaceContainerHigh #ebe4cd
+light onSurface #201a09
+light onSurfaceVariant #4d4735
+light outline #7e7763
+light outlineVariant #c9c2ac
+light inverseSurface #36301e
+light onInverseSurface #f9f2db
+light primary #6750a4
+light onPrimary #ffffff
+light primaryContainer #d9ccff
+light onPrimaryContainer #1e103b
+light secondary #635d7a
+light onSecondary #ffffff
+light secondaryContainer #d8d2f3
+light onSecondaryContainer #1c162e
+light error #b71a18
+light onError #ffffff
+light errorContainer #f0cec8
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e7d4bb
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c7dec7
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c4daf1
+light onInfoContainer #101c28
+dark surface #1b1605
+dark surfaceContainerLow #221d0b
+dark surfaceContainer #292412
+dark surfaceContainerHigh #312b19
+dark onSurface #e8e1cb
+dark onSurfaceVariant #cec7b1
+dark outline #99927d
+dark outlineVariant #4e4835
+dark inverseSurface #e8e1cb
+dark onInverseSurface #36301e
+dark primary #917cd4
+dark onPrimary #010009
+dark primaryContainer #6750a4
+dark onPrimaryContainer #e3d9ff
+dark secondary #8c85a4
+dark onSecondary #000000
+dark secondaryContainer #635d7a
+dark onSecondaryContainer #e2dcfe
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40304b31c5415d65 minLightness 3fd3333333333333 lightness 3fe844e95dc7e9ac
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402ea431b76c8134 minLightness 3fd3333333333333 lightness 3fe7991ad5dda692
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402d0821e7436166 minLightness 3fd3333333333333 lightness 3fe7051850607b86
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402b38aa67146d8c minLightness 3fd3333333333333 lightness 3fe6578486bed940
+light pair onSurfaceVariant surface min 4012000000000000 contrast 40216db3c0769475 minLightness 3fd3333333333333 lightness 3fe28f470a8cdbd6
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402063419422fa3b minLightness 3fd3333333333333 lightness 3fe1e37882a298ba
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401f0dc0857ba217 minLightness 3fd3333333333333 lightness 3fe14f75fd256db0
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401d1e01ad0f49ec minLightness 3fd3333333333333 lightness 3fe0a1e23383cb6a
+light pair outline surface min 4008000000000000 contrast 4010ccff374928c0 minLightness none lightness 3fda27c09a9f00ee
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f984bc8de2946 minLightness none lightness 3fd8d0238aca7ab8
+light pair outline surfaceContainer min 4008000000000000 contrast 400def6951864a9c minLightness none lightness 3fd7a81e7fd024a2
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400c1185a6b0ab3e minLightness none lightness 3fd64cf6ec8ce016
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 4027769d6746c3f2 minLightness 3fd3333333333333 lightness 3fe4cf09b88169e7
+light pair primary surface min 4008000000000000 contrast 4018404e950cf799 minLightness none lightness 3fdee95b97e17077
+light pair onPrimary primary min 4012000000000000 contrast 4019c3d30f9ac77d minLightness 3fd3333333333333 lightness 3fe024b16d7d1d8c
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4027888dec199ccf minLightness 3fd3333333333333 lightness 3fe4d7ccd3fd0ef5
+light pair secondary surface min 4008000000000000 contrast 401769221ba1b28a minLightness none lightness 3fdef0ca673038d5
+light pair onSecondary secondary min 4012000000000000 contrast 4018df384224592e minLightness 3fd3333333333333 lightness 3fe02868d52481ba
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4027fb8e29dc571b minLightness 3fd3333333333333 lightness 3fe50f9a2dbfc7ff
+light pair error surface min 4008000000000000 contrast 4018e8309e1a6f33 minLightness none lightness 3fde9d36fdd97c06
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027e336401ada34 minLightness 3fd3333333333333 lightness 3fe51365d8e887ae
+light pair warning surface min 4008000000000000 contrast 401071070a8da417 minLightness none lightness 3fd9704641a27520
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027ec97819ea1fd minLightness 3fd3333333333333 lightness 3fe5089d4cef5d7a
+light pair success surface min 4008000000000000 contrast 40152e3b93d4d4fa minLightness none lightness 3fde9ef4961bb090
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4028190a814177ee minLightness 3fd3333333333333 lightness 3fe50c6559ff5888
+light pair info surface min 4008000000000000 contrast 401670948bdebf47 minLightness none lightness 3fde6598ffb5409e
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 402808a7faeacfdd minLightness 3fd3333333333333 lightness 3fe50cc046a4b9b9
+light adjustment primary primary exact true shift 0000000000000000
+light adjustment neutral surface exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402b9c7724b3d0ed minLightness 3fd3333333333333 lightness 3fe6a8a7fc172348
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029bb0f20df4e2e minLightness 3fd3333333333333 lightness 3fe5b2318e68f9b4
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027b42409f8b471 minLightness 3fd3333333333333 lightness 3fe4c2a4bd1bb0c6
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 40258f2b75a261da minLightness 3fd3333333333333 lightness 3fe3cf8c10f6218c
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40255cf3fcebcb1d minLightness 3fd3333333333333 lightness 3fe419318bffa1bc
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023e87bc4ee1ccc minLightness 3fd3333333333333 lightness 3fe322bb1e517828
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 402256fd8a8dbe3c minLightness 3fd3333333333333 lightness 3fe2332e4d042f3a
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020ae3ec57a52e1 minLightness 3fd3333333333333 lightness 3fe14015a0dea000
+dark pair outline surface min 4008000000000000 contrast 40173f17fb155667 minLightness none lightness 3fdd5cd09343e89b
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015a9c98cfa0ae8 minLightness none lightness 3fdb6fe3b7e79572
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f4e615b422ef minLightness none lightness 3fd990ca154d0397
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 401226b54db23791 minLightness none lightness 3fd7aa98bd01e521
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 4024198e579a7c38 minLightness 3fd3333333333333 lightness 3fe32c3004228014
+dark pair primary surface min 4008000000000000 contrast 4014c189ba85a0d0 minLightness none lightness 3fdc3be426f6cea1
+dark pair onPrimary primary min 4012000000000000 contrast 401806688ac3d1b9 minLightness 3fd3333333333333 lightness 3fe256e7aae4587f
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40132ed95615de54 minLightness 3fd3333333333333 lightness 3fda366236ca045b
+dark pair secondary surface min 4008000000000000 contrast 4014a5c950086fef minLightness none lightness 3fdbaaf57f64a5ab
+dark pair onSecondary secondary min 4012000000000000 contrast 401806510b49329c minLightness 3fd3333333333333 lightness 3fe446c0a6e55f71
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012d58e6edf6734 minLightness 3fd3333333333333 lightness 3fda89b9f26065c9
+dark pair error surface min 4008000000000000 contrast 4020aadb0e5c86ee minLightness none lightness 3fe2485d6508764a
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024567216385836 minLightness none lightness 3fe3d06aaa8190a4
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 4023000d76044f27 minLightness none lightness 3fe28870e54e2522
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 4022228ed949d20e minLightness none lightness 3fe281f8e92156c8
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+dark adjustment neutral surface exact false shift bfe8deb673bf90e6
+
+## neutral-gray
+input {"primary":"#6750a4","neutral":"#dedede"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #6750a4 given
+seed secondary #635d7a derived
+seed neutral #dedede given
+light surface #dedede
+light surfaceContainerLow #d7d7d7
+light surfaceContainer #d1d1d1
+light surfaceContainerHigh #cbcbcb
+light onSurface #1b1b1b
+light onSurfaceVariant #484848
+light outline #717171
+light outlineVariant #afafaf
+light inverseSurface #303030
+light onInverseSurface #f2f2f2
+light primary #6750a4
+light onPrimary #ffffff
+light primaryContainer #c2adff
+light onPrimaryContainer #1e103b
+light secondary #635d7a
+light onSecondary #ffffff
+light secondaryContainer #bfb9d9
+light onSecondaryContainer #1c162e
+light error #b71a18
+light onError #ffffff
+light errorContainer #d7b5b0
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #cdbba2
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #afc5ae
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #abc1d7
+light onInfoContainer #101c28
+dark surface #161616
+dark surfaceContainerLow #1d1d1d
+dark surfaceContainer #242424
+dark surfaceContainerHigh #2b2b2b
+dark onSurface #e1e1e1
+dark onSurfaceVariant #c7c7c7
+dark outline #929292
+dark outlineVariant #484848
+dark inverseSurface #e1e1e1
+dark onInverseSurface #303030
+dark primary #917cd4
+dark onPrimary #010009
+dark primaryContainer #6750a4
+dark onPrimaryContainer #e3d9ff
+dark secondary #8c85a4
+dark onSecondary #000000
+dark secondaryContainer #635d7a
+dark onSecondaryContainer #e2dcfe
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 40299b0a6d137825 minLightness 3fd3333333333333 lightness 3fe5b60addff22d5
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 4027ef61a198cf98 minLightness 3fd3333333333333 lightness 3fe50678945d8402
+light pair onSurface surfaceContainer min 401c000000000000 contrast 40268f153c2a6b55 minLightness 3fd3333333333333 lightness 3fe46f20313d3f6a
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 40253bcea237c442 minLightness 3fd3333333333333 lightness 3fe3d6f6bfb58dd0
+light pair onSurfaceVariant surface min 4012000000000000 contrast 401b316726d54b7e minLightness 3fd3333333333333 lightness 3fdfee89ba209969
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 40196b3b634f81f5 minLightness 3fd3333333333333 lightness 3fde8f6526dd5bc3
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4017f51800e079d8 minLightness 3fd3333333333333 lightness 3fdd60b4609cd293
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 40168cc9155e135f minLightness 3fd3333333333333 lightness 3fdc30617d8d6f5f
+light pair outline surface min 4008000000000000 contrast 400d05c6280adb04 minLightness none lightness 3fd686bc68a4a796
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400b210bc3e352cd minLightness none lightness 3fd52797d56169f0
+light pair outline surfaceContainer min 4008000000000000 contrast 400991bc3c146712 minLightness none lightness 3fd3f8e70f20e0c0
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 4008112f600e420a minLightness none lightness 3fd2c8942c117d8c
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 402794254637bfb6 minLightness 3fd3333333333333 lightness 3fe4dce73b5451f0
+light pair primary surface min 4008000000000000 contrast 401326a649821fc0 minLightness none lightness 3fd9ecd4167f0b2d
+light pair onPrimary primary min 4012000000000000 contrast 4019c3d30f9ac77d minLightness 3fd3333333333333 lightness 3fe024b16d7d1d8c
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4021f8b6f153536e minLightness 3fd3333333333333 lightness 3fe26254c4f14b26
+light pair secondary surface min 4008000000000000 contrast 40127cba868126b2 minLightness none lightness 3fd9f442e5cdd38b
+light pair onSecondary secondary min 4012000000000000 contrast 4018df384224592e minLightness 3fd3333333333333 lightness 3fe02868d52481ba
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 40228a09ce487cfc minLightness 3fd3333333333333 lightness 3fe2916f6a47318b
+light pair error surface min 4008000000000000 contrast 4013ab39b142f73f minLightness none lightness 3fd9a0af7c7716bc
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 40227f745c5e8178 minLightness 3fd3333333333333 lightness 3fe29b827d6d5748
+light pair warning surface min 4008000000000000 contrast 4009f7ab6d44ca8e minLightness none lightness 3fd473bec0400fd6
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 40227ae1eded3974 minLightness 3fd3333333333333 lightness 3fe2868d02117c5a
+light pair success surface min 4008000000000000 contrast 4010b9e4a39cede5 minLightness none lightness 3fd9a26d14b94b46
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4022b8384ec04f24 minLightness 3fd3333333333333 lightness 3fe296f1057b1316
+light pair info surface min 4008000000000000 contrast 4011b872c716b8f5 minLightness none lightness 3fd969117e52db54
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 40229c383882656e minLightness 3fd3333333333333 lightness 3fe28f50375a5e2c
+light adjustment primary primary exact true shift 0000000000000000
+light adjustment neutral surface exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402bad355a710e31 minLightness 3fd3333333333333 lightness 3fe6b4aa08286d60
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029c84015441cec minLightness 3fd3333333333333 lightness 3fe5ba568fd569f6
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027bdaf11632b99 minLightness 3fd3333333333333 lightness 3fe4c810aa51c454
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025a7aee0beb8aa minLightness 3fd3333333333333 lightness 3fe3dc808fa33892
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402568d75fada761 minLightness 3fd3333333333333 lightness 3fe424c0a0f60153
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f1b2554747a1 minLightness 3fd3333333333333 lightness 3fe32a6d28a2fde8
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40225d75a4da09cf minLightness 3fd3333333333333 lightness 3fe23827431f5846
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c0609b37186d minLightness 3fd3333333333333 lightness 3fe14c972870cc84
+dark pair outline surface min 4008000000000000 contrast 40174331df3025d3 minLightness none lightness 3fdd6cc8e5569c44
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015ab950ef9f965 minLightness none lightness 3fdb7821f4b0956f
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013f45c054ec838 minLightness none lightness 3fd9939629a94a2b
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123386a91ecc97 minLightness none lightness 3fd7bc75f44c32a7
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40242f74a69cfac9 minLightness 3fd3333333333333 lightness 3fe337cc1951f1f5
+dark pair primary surface min 4008000000000000 contrast 4014cfb40e9fc9f3 minLightness none lightness 3fdc4e794adf4be6
+dark pair onPrimary primary min 4012000000000000 contrast 401806688ac3d1b9 minLightness 3fd3333333333333 lightness 3fe256e7aae4587f
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40132ed95615de54 minLightness 3fd3333333333333 lightness 3fda366236ca045b
+dark pair secondary surface min 4008000000000000 contrast 4014b3e0b39633c6 minLightness none lightness 3fdbbd8aa34d22f0
+dark pair onSecondary secondary min 4012000000000000 contrast 401806510b49329c minLightness 3fd3333333333333 lightness 3fe446c0a6e55f71
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012d58e6edf6734 minLightness 3fd3333333333333 lightness 3fda89b9f26065c9
+dark pair error surface min 4008000000000000 contrast 4020b63b0e41b8e1 minLightness none lightness 3fe251a7f6fcb4ec
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024645353fa70f0 minLightness none lightness 3fe3d9b53c75cf46
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40230d050784374b minLightness none lightness 3fe291bb774263c5
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222eef40f99819 minLightness none lightness 3fe28b437b15956b
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+dark adjustment neutral surface exact false shift bfe669bd45029ce4
+
+## neutral-above-cap
+input {"primary":"#6750a4","neutral":"#ffeb99"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #6750a4 given
+seed secondary #635d7a derived
+seed neutral #ffeb99 given
+light surface #f2ebcd
+light surfaceContainerLow #ece5c7
+light surfaceContainer #e5dec0
+light surfaceContainerHigh #ded7ba
+light onSurface #201a03
+light onSurfaceVariant #4e482f
+light outline #7e785d
+light outlineVariant #c0ba9d
+light inverseSurface #363018
+light onInverseSurface #f9f2d4
+light primary #6750a4
+light onPrimary #ffffff
+light primaryContainer #cdbcff
+light onPrimaryContainer #1e103b
+light secondary #635d7a
+light onSecondary #ffffff
+light secondaryContainer #cbc5e6
+light onSecondaryContainer #1c162e
+light error #b71a18
+light onError #ffffff
+light errorContainer #e3c1bb
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #dac7ae
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #bad1ba
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #b7cce4
+light onInfoContainer #101c28
+dark surface #1b1601
+dark surfaceContainerLow #221d05
+dark surfaceContainer #2a240b
+dark surfaceContainerHigh #312b13
+dark onSurface #e9e2c4
+dark onSurfaceVariant #cfc8ab
+dark outline #999377
+dark outlineVariant #4e482f
+dark inverseSurface #e9e2c4
+dark onInverseSurface #363018
+dark primary #917cd4
+dark onPrimary #010009
+dark primaryContainer #6750a4
+dark onPrimaryContainer #e3d9ff
+dark secondary #8c85a4
+dark onSecondary #000000
+dark secondaryContainer #635d7a
+dark onSecondaryContainer #e2dcfe
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 402cfb09124c5b90 minLightness 3fd3333333333333 lightness 3fe700d2b57c86dc
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402b6ce10d0b9792 minLightness 3fd3333333333333 lightness 3fe66c179a7231fb
+light pair onSurface surfaceContainer min 401c000000000000 contrast 4029ad7d320aacc2 minLightness 3fd3333333333333 lightness 3fe5bda62b37fe5b
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402803ec30515214 minLightness 3fd3333333333333 lightness 3fe5101ff6b6ae3b
+light pair onSurfaceVariant surface min 4012000000000000 contrast 401e9cbf955ebdbc minLightness 3fd3333333333333 lightness 3fe130762f4f9394
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 401cf82cb93b1464 minLightness 3fd3333333333333 lightness 3fe09bbb14453eb2
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401b1f98658cc2d4 minLightness 3fd3333333333333 lightness 3fdfda934a161625
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 40195e1179609015 minLightness 3fd3333333333333 lightness 3fde7f86e11375e5
+light pair outline surface min 4008000000000000 contrast 400da7c88279c56f minLightness none lightness 3fd77fb55fc941fe
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400c105b27f77b1d minLightness none lightness 3fd6563f29b4983c
+light pair outline surfaceContainer min 4008000000000000 contrast 400a468c7eae0679 minLightness none lightness 3fd4f95c4b4030fc
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 40089312c4cca539 minLightness none lightness 3fd39e4fe23d90bc
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 4027745d9112ba74 minLightness 3fd3333333333333 lightness 3fe4cb6732a5d54c
+light pair primary surface min 4008000000000000 contrast 4015853090c61c6a minLightness none lightness 3fdc4dfe7540c113
+light pair onPrimary primary min 4012000000000000 contrast 4019c3d30f9ac77d minLightness 3fd3333333333333 lightness 3fe024b16d7d1d8c
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40248467c125f171 minLightness 3fd3333333333333 lightness 3fe390f3ca1e7c03
+light pair secondary surface min 4008000000000000 contrast 4014c63f26f3bfd5 minLightness none lightness 3fdc556d448f8971
+light pair onSecondary secondary min 4012000000000000 contrast 4018df384224592e minLightness 3fd3333333333333 lightness 3fe02868d52481ba
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 40250d1367c5bd42 minLightness 3fd3333333333333 lightness 3fe3c70f5370524b
+light pair error surface min 4008000000000000 contrast 40161a2ad87da306 minLightness none lightness 3fdc01d9db38cca2
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4024f7df064d8049 minLightness 3fd3333333333333 lightness 3fe3cb71b4d183b0
+light pair warning surface min 4008000000000000 contrast 400d2e191cf7f19b minLightness none lightness 3fd6d4e91f01c5bc
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4025023129a0cc07 minLightness 3fd3333333333333 lightness 3fe3c04ba7ca486a
+light pair success surface min 4008000000000000 contrast 4012cba2a0dba0eb minLightness none lightness 3fdc0397737b012c
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 40252c321b61a39c minLightness 3fd3333333333333 lightness 3fe3c3cf32bea066
+light pair info surface min 4008000000000000 contrast 4013e9aee9dcd84c minLightness none lightness 3fdbca3bdd14913a
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 4024f4fabd7a02f7 minLightness 3fd3333333333333 lightness 3fe3b3ab95383201
+light adjustment primary primary exact true shift 0000000000000000
+light adjustment neutral surface exact false shift bf3d3e93844f6800
+dark pair onSurface surface min 401c000000000000 contrast 402bc8f69a0af16b minLightness 3fd3333333333333 lightness 3fe6b948fe7f822c
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029e891533f7bea minLightness 3fd3333333333333 lightness 3fe5c3e7b0c3e900
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027cff59fa68b30 minLightness 3fd3333333333333 lightness 3fe4cbcda584ef2e
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025bad8432b5a9e minLightness 3fd3333333333333 lightness 3fe3e2472e544f0b
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402585ed3012cff6 minLightness 3fd3333333333333 lightness 3fe42c4ebd21f6c6
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 402411cbff876a0d minLightness 3fd3333333333333 lightness 3fe336ed6f665d9a
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4022721f87a191df minLightness 3fd3333333333333 lightness 3fe23ed3642763c8
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020d527d883dc52 minLightness 3fd3333333333333 lightness 3fe1554cecf6c3a5
+dark pair outline surface min 4008000000000000 contrast 401764704749bd94 minLightness none lightness 3fdd775b1165c530
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015cffdbd79e867 minLightness none lightness 3fdb8c9875ee92d7
+dark pair outline surfaceContainer min 4008000000000000 contrast 40140c37d525633d minLightness none lightness 3fd99c645f709f33
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40124b62dfe1709d minLightness none lightness 3fd7c957710f5eee
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 4024442ff487c5b1 minLightness 3fd3333333333333 lightness 3fe33f68eda0a108
+dark pair primary surface min 4008000000000000 contrast 4014c98e61552247 minLightness none lightness 3fdc4b231a887430
+dark pair onPrimary primary min 4012000000000000 contrast 401806688ac3d1b9 minLightness 3fd3333333333333 lightness 3fe256e7aae4587f
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 40132ed95615de54 minLightness 3fd3333333333333 lightness 3fda366236ca045b
+dark pair secondary surface min 4008000000000000 contrast 4014adc33e5d7201 minLightness none lightness 3fdbba3472f64b3a
+dark pair onSecondary secondary min 4012000000000000 contrast 401806510b49329c minLightness 3fd3333333333333 lightness 3fe446c0a6e55f71
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4012d58e6edf6734 minLightness 3fd3333333333333 lightness 3fda89b9f26065c9
+dark pair error surface min 4008000000000000 contrast 4020b14b5e384b84 minLightness none lightness 3fe24ffcded14911
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40245e4d5e342b15 minLightness none lightness 3fe3d80a244a636b
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 402307647943f067 minLightness none lightness 3fe290105f16f7ea
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 402229904bfa495c minLightness none lightness 3fe2899862ea2990
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+dark adjustment neutral surface exact false shift bfe79c4f2ea895e9
+
+## short-hex
+input {"primary":"#F80"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #ff8800 given
+seed secondary #cca285 derived
+seed neutral #fff5ec derived
+light surface #fff5ec
+light surfaceContainerLow #f8eee5
+light surfaceContainer #f2e8df
+light surfaceContainerHigh #ebe1d8
+light onSurface #201913
+light onSurfaceVariant #4e463f
+light outline #7e766e
+light outlineVariant #c9c0b7
+light inverseSurface #362f28
+light onInverseSurface #faf0e7
+light primary #db6900
+light onPrimary #030000
+light primaryContainer #ff8800
+light onPrimaryContainer #330d00
+light secondary #ac8367
+light onSecondary #120100
+light secondaryContainer #cca285
+light onSecondaryContainer #301000
+light error #b71a18
+light onError #ffffff
+light errorContainer #efcdc8
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e6d3ba
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c6ddc6
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #c3d9f0
+light onInfoContainer #101c28
+dark surface #1b150e
+dark surfaceContainerLow #221b15
+dark surfaceContainer #2a231c
+dark surfaceContainerHigh #312a23
+dark onSurface #e9dfd6
+dark onSurfaceVariant #cfc5bd
+dark outline #999088
+dark outlineVariant #4e463f
+dark inverseSurface #e9dfd6
+dark onInverseSurface #362f28
+dark primary #ff8800
+dark onPrimary #471e00
+dark primaryContainer #753100
+dark onPrimaryContainer #ffd4ae
+dark secondary #cca285
+dark onSecondary #452408
+dark secondaryContainer #623e24
+dark onSecondaryContainer #ffd7b9
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 4030232d9186a18e minLightness 3fd3333333333333 lightness 3fe82ea7813f0d24
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402e56875b4a473f minLightness 3fd3333333333333 lightness 3fe782a81cfe93aa
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402cbc8151564bd5 minLightness 3fd3333333333333 lightness 3fe6ee7a08d7676c
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 402aef6cf9f5ad09 minLightness 3fd3333333333333 lightness 3fe640b154a49358
+light pair onSurfaceVariant surface min 4012000000000000 contrast 4021303e3dfaf0ac minLightness 3fd3333333333333 lightness 3fe26b11266d888d
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4020282ecb9c61d9 minLightness 3fd3333333333333 lightness 3fe1bf11c22d0f13
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401e9ba3134d4b8f minLightness 3fd3333333333333 lightness 3fe12ae3ae05e2d6
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401cb086fbec89c7 minLightness 3fd3333333333333 lightness 3fe07d1af9d30ec1
+light pair outline surface min 4008000000000000 contrast 40109a79a597ae70 minLightness none lightness 3fd9e98ae9963bf4
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400f36ce11a30bdd minLightness none lightness 3fd8918c21154900
+light pair outline surfaceContainer min 4008000000000000 contrast 400d90f0e579b448 minLightness none lightness 3fd7692ff8c6f086
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400bb68bfc965484 minLightness none lightness 3fd60d9e9061485c
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 4027709a3d5a7abf minLightness 3fd3333333333333 lightness 3fe4cdd18fa39fe8
+light pair primary surface min 4008000000000000 contrast 4009e431db246566 minLightness none lightness 3fd51107624662e0
+light pair onPrimary primary min 4012000000000000 contrast 4018099a182b3439 minLightness 3fd3333333333333 lightness 3fe2bc12f0e95d12
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401d494980108ac1 minLightness 3fd3333333333333 lightness 3fe0b80d2ef1c5e7
+light pair secondary surface min 4008000000000000 contrast 400934eadcd04f3b minLightness none lightness 3fd54e0a892ac32a
+light pair onSecondary secondary min 4012000000000000 contrast 4018100afa913841 minLightness 3fd3333333333333 lightness 3fe0bdf722848b5f
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401e40bdfa358e06 minLightness 3fd3333333333333 lightness 3fe0b7a0a73344fe
+light pair error surface min 4008000000000000 contrast 40189a1e716ec2fd minLightness none lightness 3fde6ba240660890
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 4027ab7f1b260ddd minLightness 3fd3333333333333 lightness 3fe4fc7577725502
+light pair warning surface min 4008000000000000 contrast 40103d7dd6f9b9f9 minLightness none lightness 3fd93eb1842f01aa
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4027b0ff2ad79e90 minLightness 3fd3333333333333 lightness 3fe4ef7dc0778f7e
+light pair success surface min 4008000000000000 contrast 4014ebd795361ad0 minLightness none lightness 3fde6d5fd8a83d1a
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4027dd43325885c7 minLightness 3fd3333333333333 lightness 3fe4f340c21232fa
+light pair info surface min 4008000000000000 contrast 40162a3e272e0072 minLightness none lightness 3fde34044241cd28
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 4027ccf8e9b59f2a minLightness 3fd3333333333333 lightness 3fe4f3a2bf322850
+light adjustment primary primaryContainer exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402b90bc32d7cb36 minLightness 3fd3333333333333 lightness 3fe6ab2d4c4bb9c8
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029e212289f9aec minLightness 3fd3333333333333 lightness 3fe5c8716173ef72
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027977ab46beefc minLightness 3fd3333333333333 lightness 3fe4b73b153559d4
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025856f9aa1df56 minLightness 3fd3333333333333 lightness 3fe3ccd321b61052
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 402554d1b3ae58f6 minLightness 3fd3333333333333 lightness 3fe41da30830b671
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4024078d42c07f9f minLightness 3fd3333333333333 lightness 3fe33ae71d58ec1b
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 4022419eedc2e73e minLightness 3fd3333333333333 lightness 3fe229b0d11a567d
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020a7730cd69baf minLightness 3fd3333333333333 lightness 3fe13f48dd9b0cfc
+dark pair outline surface min 4008000000000000 contrast 401718c707afc232 minLightness none lightness 3fdd51288a566d40
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015afed792f8548 minLightness none lightness 3fdb8bb0b4a6d894
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013c46d75cd5ad5 minLightness none lightness 3fd969441c29ad58
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 4012084f0eec7e42 minLightness none lightness 3fd79474352b1a55
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40240ffefe7bfdf7 minLightness 3fd3333333333333 lightness 3fe328c7d42ffbfa
+dark pair primary surface min 4008000000000000 contrast 401e3fa09af13712 minLightness none lightness 3fe164494feb5555
+dark pair onPrimary primary min 4012000000000000 contrast 4018248ee33e8f9b minLightness 3fd3333333333333 lightness 3fdd17e532963a94
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 401bd65402e28f96 minLightness 3fd3333333333333 lightness 3fdfc15cbbcb1858
+dark pair secondary surface min 4008000000000000 contrast 401f48f74d017d18 minLightness none lightness 3fe15db87a988987
+dark pair onSecondary secondary min 4012000000000000 contrast 40180e2fe6a516c9 minLightness 3fd3333333333333 lightness 3fdc70cafce6cdd1
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 401c105fc9681e6a minLightness 3fd3333333333333 lightness 3fe02e5d0c5e7531
+dark pair error surface min 4008000000000000 contrast 4020b72af6f10c65 minLightness none lightness 3fe24d6aea83bf9c
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 4024657811066d17 minLightness none lightness 3fe3d5782ffcd9f6
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 40230e1684314289 minLightness none lightness 3fe28d7e6ac96e75
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 40222ff4497b07cf minLightness none lightness 3fe287066e9ca01b
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primary exact true shift 0000000000000000
+
+## all-seeds
+input {"primary":"#1b6ef3","secondary":"#e8590c","neutral":"#f4f1ea"}
+schemaVersion 1
+algorithmVersion 2
+seed primary #1b6ef3 given
+seed secondary #e8590c given
+seed neutral #f4f1ea given
+light surface #f4f1ea
+light surfaceContainerLow #edeae3
+light surfaceContainer #e7e4dd
+light surfaceContainerHigh #e0ddd6
+light onSurface #1c1a15
+light onSurfaceVariant #4a4742
+light outline #7a7771
+light outlineVariant #c0bdb7
+light inverseSurface #32302b
+light onInverseSurface #f4f1ea
+light primary #004dd0
+light onPrimary #ffffff
+light primaryContainer #1b6ef3
+light onPrimaryContainer #000019
+light secondary #b83000
+light onSecondary #ffffff
+light secondaryContainer #e8590c
+light onSecondaryContainer #370700
+light error #b71a18
+light onError #ffffff
+light errorContainer #eac7c2
+light onErrorContainer #271513
+light warning #a66d00
+light onWarning #130900
+light warningContainer #e0cdb4
+light onWarningContainer #23190a
+light success #107823
+light onSuccess #ffffff
+light successContainer #c1d8c1
+light onSuccessContainer #121e12
+light info #0064b9
+light onInfo #ffffff
+light infoContainer #bdd3ea
+light onInfoContainer #101c28
+dark surface #181611
+dark surfaceContainerLow #1f1d18
+dark surfaceContainer #26241f
+dark surfaceContainerHigh #2d2b26
+dark onSurface #e4e1da
+dark onSurfaceVariant #cac7c0
+dark outline #95928c
+dark outlineVariant #4a4842
+dark inverseSurface #e4e1da
+dark onInverseSurface #32302b
+dark primary #4791ff
+dark onPrimary #000f36
+dark primaryContainer #1b6ef3
+dark onPrimaryContainer #f6ffff
+dark secondary #ff7c40
+dark onSecondary #451501
+dark secondaryContainer #e8590c
+dark onSecondaryContainer #401000
+dark error #ff9284
+dark onError #3e2b28
+dark errorContainer #683832
+dark onErrorContainer #f5dad6
+dark warning #f9b64f
+dark onWarning #392e1f
+dark warningContainer #5e4216
+dark onWarningContainer #eddfcc
+dark success #7acf7e
+dark onSuccess #273427
+dark successContainer #2e522f
+dark onSuccessContainer #d6e7d5
+dark info #7abdff
+dark onInfo #25323f
+dark infoContainer #284a6c
+dark onInfoContainer #d3e3f5
+light pair onSurface surface min 401c000000000000 contrast 402ed2d4fac80150 minLightness 3fd3333333333333 lightness 3fe7b0a76bebf632
+light pair onSurface surfaceContainerLow min 401c000000000000 contrast 402cf0a7e84cf8fa minLightness 3fd3333333333333 lightness 3fe703d986e72360
+light pair onSurface surfaceContainer min 401c000000000000 contrast 402b623afe0232c7 minLightness 3fd3333333333333 lightness 3fe66ef497782b82
+light pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4029a28f36546d23 minLightness 3fd3333333333333 lightness 3fe5c04f4a2e509a
+light pair onSurfaceVariant surface min 4012000000000000 contrast 402064f1b1c9f4e6 minLightness 3fd3333333333333 lightness 3fe1e645cb96b726
+light pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 401ec8f8f501e94e minLightness 3fd3333333333333 lightness 3fe13977e691e454
+light pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 401d212588f15928 minLightness 3fd3333333333333 lightness 3fe0a492f722ec78
+light pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 401b44ef89042e57 minLightness 3fd3333333333333 lightness 3fdfebdb53b2231d
+light pair outline surface min 4008000000000000 contrast 400fa8177b99be79 minLightness none lightness 3fd8dcc8df127d7a
+light pair outline surfaceContainerLow min 4008000000000000 contrast 400db8e25ddaca5f minLightness none lightness 3fd7832d1508d7d6
+light pair outline surfaceContainer min 4008000000000000 contrast 400c1fb0daddbc75 minLightness none lightness 3fd65963362ae81c
+light pair outline surfaceContainerHigh min 4008000000000000 contrast 400a53ebc30c9fc5 minLightness none lightness 3fd4fc189b97324a
+light pair onInverseSurface inverseSurface min 4012000000000000 contrast 40275e7dbaf9f4cc minLightness 3fd3333333333333 lightness 3fe4c4dd4251c99c
+light pair primary surface min 4008000000000000 contrast 40190da1588821e6 minLightness none lightness 3fdf000c9d31df89
+light pair onPrimary primary min 4012000000000000 contrast 401c42a52541415a minLightness 3fd3333333333333 lightness 3fe0d3bd84f19176
+light pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4012081903e91681 minLightness 3fd3333333333333 lightness 3fde6fc5c5acb58a
+light pair secondary surface min 4008000000000000 contrast 4015845ec187bfed minLightness none lightness 3fdc3937368c2070
+light pair onSecondary secondary min 4012000000000000 contrast 4018458074ea976e minLightness 3fd3333333333333 lightness 3fdee0a5a33d63d2
+light pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 4013ab37ad4ebd9d minLightness 3fd3333333333333 lightness 3fdb09f64c918374
+light pair error surface min 4008000000000000 contrast 4017756d1f67080d minLightness none lightness 3fdd55cfd4410344
+light pair onError error min 4012000000000000 contrast 401a762fc0206735 minLightness 3fd3333333333333 lightness 3fdffd3e40f246a6
+light pair onErrorContainer errorContainer min 4012000000000000 contrast 40265b5285e29939 minLightness 3fd3333333333333 lightness 3fe46ce2bdd73540
+light pair warning surface min 4008000000000000 contrast 400ef88f88997c27 minLightness none lightness 3fd828df1809fc5e
+light pair onWarning warning min 4012000000000000 contrast 40120813cf5265b6 minLightness 3fd3333333333333 lightness 3fdb890d2d842d70
+light pair onWarningContainer warningContainer min 4012000000000000 contrast 4026531528e70967 minLightness 3fd3333333333333 lightness 3fe4584b59b94b58
+light pair success surface min 4008000000000000 contrast 4013f2f09e844e84 minLightness none lightness 3fdd578d6c8337ce
+light pair onSuccess success min 4012000000000000 contrast 401680af214db82a minLightness 3fd3333333333333 lightness 3fdffefbd9347b30
+light pair onSuccessContainer successContainer min 4012000000000000 contrast 4026b7d47cff984c minLightness 3fd3333333333333 lightness 3fe47535bcdda154
+light pair info surface min 4008000000000000 contrast 4015228b2578878d minLightness none lightness 3fdd1e31d61cc7dc
+light pair onInfo info min 4012000000000000 contrast 4017d726fdb6f1d3 minLightness 3fd3333333333333 lightness 3fdfc5a042ce0b3e
+light pair onInfoContainer infoContainer min 4012000000000000 contrast 40266e82d62509ab minLightness 3fd3333333333333 lightness 3fe45c7cde1481ec
+light adjustment primary primaryContainer exact true shift 0000000000000000
+light adjustment secondary secondaryContainer exact true shift 0000000000000000
+light adjustment neutral surface exact true shift 0000000000000000
+dark pair onSurface surface min 401c000000000000 contrast 402baf942b363e41 minLightness 3fd3333333333333 lightness 3fe6b40e27863c81
+dark pair onSurface surfaceContainerLow min 401c000000000000 contrast 4029c9b1b41d863c minLightness 3fd3333333333333 lightness 3fe5ba3874641759
+dark pair onSurface surfaceContainer min 401c000000000000 contrast 4027be7bf8921908 minLightness 3fd3333333333333 lightness 3fe4c84c3768f2e6
+dark pair onSurface surfaceContainerHigh min 401c000000000000 contrast 4025a81599005f77 minLightness 3fd3333333333333 lightness 3fe3dcff48fc542d
+dark pair onSurfaceVariant surface min 4012000000000000 contrast 40256b8d2de4b8bf minLightness 3fd3333333333333 lightness 3fe424479f186a54
+dark pair onSurfaceVariant surfaceContainerLow min 4012000000000000 contrast 4023f3a1453c501d minLightness 3fd3333333333333 lightness 3fe32a71ebf6452c
+dark pair onSurfaceVariant surfaceContainer min 4012000000000000 contrast 40225ed498dfff3b minLightness 3fd3333333333333 lightness 3fe23885aefb20b8
+dark pair onSurfaceVariant surfaceContainerHigh min 4012000000000000 contrast 4020c15f98587a59 minLightness 3fd3333333333333 lightness 3fe14d38c08e8200
+dark pair outline surface min 4008000000000000 contrast 40174decf486af57 minLightness none lightness 3fdd71638b6fca6a
+dark pair outline surfaceContainerLow min 4008000000000000 contrast 4015b4ef6ada2645 minLightness none lightness 3fdb7db8252b801a
+dark pair outline surfaceContainer min 4008000000000000 contrast 4013fc86cad9dec8 minLightness none lightness 3fd999dfab353733
+dark pair outline surfaceContainerHigh min 4008000000000000 contrast 40123ab2dfaf9702 minLightness none lightness 3fd7c345ce5bf9c2
+dark pair onInverseSurface inverseSurface min 4012000000000000 contrast 40242fb0c5c30907 minLightness 3fd3333333333333 lightness 3fe338715c41c656
+dark pair primary surface min 4008000000000000 contrast 401748917a459931 minLightness none lightness 3fddac116657f526
+dark pair onPrimary primary min 4012000000000000 contrast 40181da9da184994 minLightness 3fd3333333333333 lightness 3fde8f2ad1ae037c
+dark pair onPrimaryContainer primaryContainer min 4012000000000000 contrast 4012158e16817255 minLightness 3fd3333333333333 lightness 3fdaf5d52e102a24
+dark pair secondary surface min 4008000000000000 contrast 401c4411a4f220d0 minLightness none lightness 3fe0e8267caec05e
+dark pair onSecondary secondary min 4012000000000000 contrast 4018219337eded23 minLightness 3fd3333333333333 lightness 3fdd5740a32ba384
+dark pair onSecondaryContainer secondaryContainer min 4012000000000000 contrast 40122858212591a9 minLightness 3fd3333333333333 lightness 3fd909e7799ea73d
+dark pair error surface min 4008000000000000 contrast 4020b1b174f15c83 minLightness none lightness 3fe24dd493ab618b
+dark pair onError error min 4012000000000000 contrast 4018886d0eb8f69c minLightness 3fd3333333333333 lightness 3fdd92fc545e6754
+dark pair onErrorContainer errorContainer min 4012000000000000 contrast 401cdf3e0129391e minLightness 3fd3333333333333 lightness 3fe052ddf9ceba6b
+dark pair warning surface min 4008000000000000 contrast 40245ec9eff75dd2 minLightness none lightness 3fe3d5e1d9247be5
+dark pair onWarning warning min 4012000000000000 contrast 401dde4ef207549e minLightness 3fd3333333333333 lightness 3fe05eb67427c39d
+dark pair onWarningContainer warningContainer min 4012000000000000 contrast 401c48638dfc1639 minLightness 3fd3333333333333 lightness 3fe04564a5796bf0
+dark pair success surface min 4008000000000000 contrast 402307d8d9da0abc minLightness none lightness 3fe28de813f11064
+dark pair onSuccess success min 4012000000000000 contrast 401b84bdbcd9077b minLightness 3fd3333333333333 lightness 3fde3043f2c90687
+dark pair onSuccessContainer successContainer min 4012000000000000 contrast 401b7eb33d319e17 minLightness 3fd3333333333333 lightness 3fe04ac12be8989c
+dark pair info surface min 4008000000000000 contrast 402229ff5fe5cf0d minLightness none lightness 3fe2877017c4420a
+dark pair onInfo info min 4012000000000000 contrast 401a4447aeead213 minLightness 3fd3333333333333 lightness 3fddfc3cc18450bf
+dark pair onInfoContainer infoContainer min 4012000000000000 contrast 401c203dff677ffe minLightness 3fd3333333333333 lightness 3fe04dd0cd54e839
+dark adjustment primary primaryContainer exact true shift 0000000000000000
+dark adjustment secondary secondaryContainer exact true shift 0000000000000000
+dark adjustment neutral surface exact false shift bfe8407a0d963fc7

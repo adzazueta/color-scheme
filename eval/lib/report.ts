@@ -1,5 +1,10 @@
 import Color from "colorjs.io";
-import type { ColorScheme, ColorExtractorResult, SeedAdjustment } from "@/index.js";
+import type {
+  ColorScheme,
+  ColorSchemeVariant,
+  ColorExtractorResult,
+  SeedAdjustment,
+} from "@/index.js";
 import { ACHROMATIC_CHROMA } from "@/scheme/derive.js";
 
 export const MODES: readonly ["light", "dark"] = ["light", "dark"];
@@ -58,6 +63,7 @@ export interface Summary {
 }
 
 export interface ReportHeader {
+  readonly variant: ColorSchemeVariant;
   readonly algorithmVersion: string;
   readonly packageVersion: string;
   readonly commit: string;
@@ -235,6 +241,7 @@ export function buildReport(
     if (cover.scheme.meta.algorithmVersion !== header.algorithmVersion) {
       throw new Error("Mixed algorithm versions.");
     }
+    if (cover.scheme.meta.variant !== header.variant) throw new Error("Mixed scheme variants.");
   }
   return { schemaVersion: 2, set, header, summary: summarize(sorted), covers: sorted };
 }

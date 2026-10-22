@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { createColorScheme } from "@/scheme/create.js";
-import type { ColorScheme, ModeReport, Role, Seeds } from "@/types.js";
+import type { ColorScheme, ColorSchemeVariant, ModeReport, Role, Seeds } from "@/types.js";
 import { Digest, toHex } from "./helpers.js";
 
 // The full result of `createColorScheme` for a set of reference seeds, stored as an exact-bit text
@@ -136,6 +136,7 @@ function describeCase(reference: ReferenceCase, scheme: ColorScheme, digest: Dig
   lines.push(
     `schemaVersion ${scheme.schemaVersion}`,
     `algorithmVersion ${scheme.meta.algorithmVersion}`,
+    `variant ${scheme.meta.variant}`,
   );
   for (const name of ["primary", "secondary", "neutral"] as const) {
     lines.push(`seed ${name} ${scheme.seeds[name].hex} ${scheme.seeds[name].source}`);
@@ -151,16 +152,21 @@ function describeCase(reference: ReferenceCase, scheme: ColorScheme, digest: Dig
   return lines.join("\n");
 }
 
+/** One variant's complete exact-bit references, also used by the version 2 regression. */
+export function renderSchemeSnapshots(variant: ColorSchemeVariant): string {
+  const digest = new Digest();
+  const blocks = REFERENCE_CASES.map((reference) =>
+    describeCase(reference, createColorScheme(reference.seeds, { variant }), digest),
+  );
+  return `digest ${digest.hex()}\ncases ${REFERENCE_CASES.length}\n\n${blocks.join("\n\n")}\n`;
+}
+
 export function registerSnapshotTests(): void {
-  describe("reference schemes", () => {
+  describe.each(["tonal", "fidelity"] as const)("reference schemes: %s", (variant) => {
     it("the full result for each reference seed set is identical in every environment", async () => {
-      const digest = new Digest();
-      const blocks = REFERENCE_CASES.map((reference) =>
-        describeCase(reference, createColorScheme(reference.seeds), digest),
+      await expect(renderSchemeSnapshots(variant)).toMatchFileSnapshot(
+        variant === "fidelity" ? SNAPSHOT : "../shared/__snapshots__/schemes-tonal.txt",
       );
-      await expect(
-        `digest ${digest.hex()}\ncases ${REFERENCE_CASES.length}\n\n${blocks.join("\n\n")}\n`,
-      ).toMatchFileSnapshot(SNAPSHOT);
     });
   });
 }

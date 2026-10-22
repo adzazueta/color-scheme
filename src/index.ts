@@ -3,6 +3,8 @@ export type { ColorSchemeErrorCode } from "@/errors.js";
 export type {
   ColorExtractorResult,
   ColorScheme,
+  ColorSchemeVariant,
+  CreateColorSchemeOptions,
   DesignTokens,
   ModeReport,
   PairReport,
