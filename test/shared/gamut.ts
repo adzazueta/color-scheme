@@ -61,7 +61,8 @@ export function registerGamutTests(): void {
       }
       // Measured: 3 points in every engine, where the JND branch decides differently.
       expect(differing).toBeLessThanOrEqual(10);
-    });
+      // 5.01 s under coverage on CI (Node 24 on x64), past the 5-second default.
+    }, 60_000);
 
     it("returns colors inside the gamut unchanged", () => {
       for (const color of SHORT_HEX_COLORS) {
