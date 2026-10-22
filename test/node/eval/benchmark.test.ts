@@ -9,7 +9,7 @@ test("benchmark reporter times normalize whole-set samples to one scheme", () =>
           {
             title: "whole set",
             status: "passed",
-            meta: { schemesPerSample: 11 },
+            meta: { schemesPerSample: 11, variant: "tonal" },
             benchmarks: [
               {
                 tasks: [
@@ -26,7 +26,15 @@ test("benchmark reporter times normalize whole-set samples to one scheme", () =>
     ],
   });
   expect(benchmarkRows(text)).toEqual([
-    { label: "whole set", seeds: "all 11 seeds", mean: 1, p99: 2, max: 3, samples: 100 },
+    {
+      variant: "tonal",
+      label: "whole set",
+      seeds: "all 11 seeds",
+      mean: 1,
+      p99: 2,
+      max: 3,
+      samples: 100,
+    },
   ]);
   expect(() => benchmarkRows(text.replace('"passed"', '"failed"'))).toThrow("Benchmark failed");
   expect(() => benchmarkRows('{"testResults":[]}')).toThrow("no results");

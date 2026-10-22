@@ -3,6 +3,7 @@ import { createColorScheme } from "@/index.js";
 import type { ColorScheme, Seeds } from "@/types.js";
 import {
   fidelityFailures,
+  tonalFailures,
   guaranteeFailures,
   newTally,
   seedFailures,
@@ -21,11 +22,20 @@ const SEEDS: readonly Seeds[] = Array.from({ length: 4096 }, (_, i) => ({
   primary: `#${(i >> 8).toString(16)}${((i >> 4) & 15).toString(16)}${(i & 15).toString(16)}`,
 }));
 
-let sweep: ReadonlyArray<{ readonly seeds: Seeds; readonly scheme: ColorScheme }> | undefined;
+const sweeps = new Map<
+  string,
+  ReadonlyArray<{ readonly seeds: Seeds; readonly scheme: ColorScheme }>
+>();
 
 /** The scheme of every seed, built once for all the tests of this file. */
-function schemes(): ReadonlyArray<{ readonly seeds: Seeds; readonly scheme: ColorScheme }> {
-  sweep ??= SEEDS.map((seeds) => ({ seeds, scheme: createColorScheme(seeds) }));
+function schemes(
+  variant: "tonal" | "fidelity",
+): ReadonlyArray<{ readonly seeds: Seeds; readonly scheme: ColorScheme }> {
+  let sweep = sweeps.get(variant);
+  if (sweep === undefined) {
+    sweep = SEEDS.map((seeds) => ({ seeds, scheme: createColorScheme(seeds, { variant }) }));
+    sweeps.set(variant, sweep);
+  }
   return sweep;
 }
 
@@ -34,52 +44,60 @@ function expectNone(failures: readonly string[]): void {
   expect({ count: failures.length, first: failures.slice(0, 10) }).toEqual({ count: 0, first: [] });
 }
 
-describe("the 4,096 #RGB primaries, each alone, in both modes", () => {
-  it(
-    "meet every guaranteed pair and the lightness rule, measured with Color.js without tolerance",
-    () => {
-      expectNone(schemes().flatMap(({ scheme }) => guaranteeFailures(scheme)));
-    },
-    TIMEOUT,
-  );
+describe.each(["tonal", "fidelity"] as const)(
+  "%s: the 4,096 #RGB primaries in both modes",
+  (variant) => {
+    it(
+      "meet every guaranteed pair and the lightness rule, measured with Color.js without tolerance",
+      () => {
+        expectNone(schemes(variant).flatMap(({ scheme }) => guaranteeFailures(scheme)));
+      },
+      TIMEOUT,
+    );
 
-  it(
-    "follow the fidelity rules, build each accent family, and exercise each rule a lone primary can reach",
-    () => {
-      const tally = newTally();
-      expectNone(schemes().flatMap(({ scheme }) => fidelityFailures(scheme, tally)));
-      // A derived neutral is always light and within the chroma cap, so no surface is capped.
-      for (const rule of [
-        "accent",
-        "container",
-        "moved",
-        "achromaticExact",
-        "achromaticGray",
-        "neutralExact",
-        "neutralSurface",
-      ] as const) {
-        expect(tally[rule], rule).toBeGreaterThan(0);
-      }
-      // Rules decided inside a band where Color.js cannot tell the package's side are accepted
-      // either way; they stay rare, so the checks keep their strength.
-      expect(tally.ambiguous).toBeLessThanOrEqual(20);
-    },
-    TIMEOUT,
-  );
+    it(
+      "follow the fidelity rules, build each accent family, and exercise each rule a lone primary can reach",
+      () => {
+        const tally = newTally();
+        expectNone(
+          schemes(variant).flatMap(({ scheme }) =>
+            (variant === "fidelity" ? fidelityFailures : tonalFailures)(scheme, tally),
+          ),
+        );
+        // A derived neutral is always light and within the chroma cap, so no surface is capped.
+        if (variant === "fidelity")
+          for (const rule of [
+            "accent",
+            "container",
+            "moved",
+            "achromaticExact",
+            "achromaticGray",
+            "neutralExact",
+            "neutralSurface",
+          ] as const) {
+            expect(tally[rule], rule).toBeGreaterThan(0);
+          }
+        // Rules decided inside a band where Color.js cannot tell the package's side are accepted
+        // either way; they stay rare, so the checks keep their strength.
+        expect(tally.ambiguous).toBeLessThanOrEqual(20);
+      },
+      TIMEOUT,
+    );
 
-  it(
-    "mark the primary as given, and derive the secondary and the neutral from it",
-    () => {
-      expectNone(schemes().flatMap(({ seeds, scheme }) => seedFailures(seeds, scheme)));
-    },
-    TIMEOUT,
-  );
+    it(
+      "mark the primary as given, and derive the secondary and the neutral from it",
+      () => {
+        expectNone(schemes(variant).flatMap(({ seeds, scheme }) => seedFailures(seeds, scheme)));
+      },
+      TIMEOUT,
+    );
 
-  it(
-    "keep the fixed hue of every status color, and build its container",
-    () => {
-      expectNone(schemes().flatMap(({ scheme }) => statusFailures(scheme)));
-    },
-    TIMEOUT,
-  );
-});
+    it(
+      "keep the fixed hue of every status color, and build its container",
+      () => {
+        expectNone(schemes(variant).flatMap(({ scheme }) => statusFailures(scheme)));
+      },
+      TIMEOUT,
+    );
+  },
+);

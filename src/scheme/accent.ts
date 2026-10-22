@@ -3,14 +3,53 @@ import { oklabToSrgb } from "@/color/gamut.js";
 import { parseHex } from "@/color/hex.js";
 import { srgbToOklab, type Oklab } from "@/color/oklab.js";
 import type { Srgb } from "@/color/types.js";
+import type { ColorSchemeVariant } from "@/types.js";
 import {
   ACHROMATIC_ACCENT_LIGHTNESS_DARK,
   ACHROMATIC_ACCENT_LIGHTNESS_LIGHT,
+  SECONDARY_CHROMA_RATIO,
   type SchemeSeeds,
 } from "@/scheme/derive.js";
 import { builtContainerLightness, type NeutralRole } from "@/scheme/neutral.js";
 import { requirementOf, type RoleRequirement, type SeedAdjustmentInput } from "@/scheme/report.js";
 import { CONTRAST_MARGIN, findOrThrow, LIGHTNESS_STEP, noColor } from "@/scheme/search.js";
+
+/**
+ * Starting Oklab lightness of tonal accents in light mode, 0 to 1: tone 40 of a neutral
+ * CIELAB D65 gray, (40 + 16) / 116. The fixed start makes the structure consistent across
+ * seeds: the 30 test covers ranged from 0.4816 to 0.4909 after gamut mapping and rounding,
+ * versus fidelity's 0.1579 to 0.6545. Only outward steps needed for surface or text contrast
+ * move this start. A parameter of specification 4.1; changing it changes `algorithmVersion`.
+ */
+export const TONAL_ACCENT_LIGHTNESS_LIGHT: number = 56 / 116;
+
+/**
+ * Starting Oklab lightness of tonal accents in dark mode, 0 to 1: tone 80 of a neutral
+ * CIELAB D65 gray, (80 + 16) / 116. On 54 dev covers, primary text's median contrast was
+ * 7.6645:1 versus fidelity's 6.0206:1, with no outward moves needed. Gamut mapping can lower
+ * the final lightness slightly. A parameter of specification 4.1; changing it changes
+ * `algorithmVersion`.
+ */
+export const TONAL_ACCENT_LIGHTNESS_DARK: number = 96 / 116;
+
+/**
+ * Highest requested Oklab chroma of tonal primary and primaryContainer, sqrt(a² + b²).
+ * 0.16 limits vivid seeds while leaving muted seeds alone: on 54 dev covers the light primary
+ * maximum fell from 0.2041 with uncapped seed chroma to 0.1607 after rounding, while the median
+ * stayed 0.1139. Gamut mapping can reduce it further. A parameter of specification 4.1;
+ * changing it changes `algorithmVersion`.
+ */
+export const TONAL_PRIMARY_CHROMA_CAP = 0.16;
+
+/**
+ * Highest requested Oklab chroma of tonal secondary and secondaryContainer, sqrt(a² + b²). 0.10
+ * gives the secondary a softer ceiling: the dev light maximum fell from 0.2041 uncapped to 0.1010
+ * after rounding. A derived secondary first takes 0.35 of primary chroma and keeps its hue; on the
+ * 13 evaluation covers with a derived secondary, rotating its hue separated the containers better,
+ * but the same hue was kept (decision of October 22, 2026), even where gamut mapping makes light
+ * containers similar. A parameter of specification 4.1; changing it changes `algorithmVersion`.
+ */
+export const TONAL_SECONDARY_CHROMA_CAP = 0.1;
 
 /**
  * Lowest Oklab distance, √(ΔL² + Δa² + Δb²) on the 8-bit colors, between a seed that is its
@@ -237,6 +276,13 @@ interface FamilyColors {
  * `Container`, and `onContainer` roles, from the seeds, given or derived (specification, sections
  * 3.1 and 4). Each family X is built from its seed S the same way, on the mode's surfaces.
  *
+ * **Tonal.** From tone 40 in light mode and tone 80 in dark mode, keep the seed hue and chroma
+ * capped at {@link TONAL_PRIMARY_CHROMA_CAP} or {@link TONAL_SECONDARY_CHROMA_CAP}. A derived
+ * secondary takes 0.35 of the primary chroma before the cap and uses the primary direction before
+ * rounding. Candidates move only outward by LIGHTNESS_STEP until they meet surface and
+ * possible-text requirements on their final 8-bit colors. Containers use builtContainerLightness,
+ * and given seeds are always reported on X. The text and achromatic-primary rules below are shared.
+ *
  * **Fidelity.** The seed appears in `X` or in `XContainer`, exactly unless it is too close to the
  * surfaces to be a container:
  *
@@ -291,6 +337,7 @@ interface FamilyColors {
  * @param mode - The mode to build.
  * @param surfaces - The mode's neutral colors, from `buildNeutralRoles` (its `colors`, as they
  *   are): `surface` and its three containers.
+ * @param variant - Accent construction, tonal by default; fidelity preserves algorithm 2.
  * @returns The eight colors, and how each given accent seed appears, for the report.
  * @throws {ColorSchemeError} `PROCESSING_FAILED`, naming the role, the mode, and the seeds, when no
  *   lightness meets a role's minimums. Near-black or near-white accents always permit 6:1 text
@@ -301,11 +348,13 @@ export function buildAccentRoles(
   seeds: SchemeSeeds,
   mode: "light" | "dark",
   surfaces: AccentSurfaces,
+  variant: ColorSchemeVariant = "tonal",
 ): AccentRoles {
   const surface = surfaces.surface;
   const surfaceLab = oklabOf(surface);
   const context: Context = {
     seeds,
+    variant,
     mode,
     parameters: mode === "light" ? LIGHT : DARK,
     surface,
@@ -344,6 +393,7 @@ type Surfaces = readonly [Oklab, Oklab, Oklab, Oklab];
 
 /** What every family of one call shares. */
 interface Context {
+  readonly variant: ColorSchemeVariant;
   readonly seeds: SchemeSeeds;
   readonly mode: "light" | "dark";
   readonly parameters: ModeParameters;
@@ -409,7 +459,11 @@ function buildFamily(family: Family, achromatic: boolean, context: Context): Fam
 
   let accent: Srgb;
   let container: Srgb;
-  if (inAccent || achromatic) {
+  if (context.variant === "tonal" && !achromatic) {
+    const tonal = buildTonalAccent(family, context, seed, allowsText);
+    accent = tonal.accent;
+    container = tonal.container;
+  } else if (inAccent || achromatic) {
     accent = inAccent ? seedColor : builtAccent(parameters.achromaticAccent);
     container = oklabToSrgb(context.builtLightness, a, b);
   } else {
@@ -437,9 +491,8 @@ function buildFamily(family: Family, achromatic: boolean, context: Context): Fam
     prefer: parameters.onContainerSide,
   }).color;
 
-  // The seed is carried by `X`, or by `XContainer` when it is the container; an achromatic
-  // primary is always reported on `X`.
-  const inContainer = !inAccent && !achromatic;
+  // Tonal and achromatic primary always report X; fidelity may carry a seed in its container.
+  const inContainer = context.variant === "fidelity" && !inAccent && !achromatic;
   return {
     accent,
     onAccent,
@@ -452,6 +505,41 @@ function buildFamily(family: Family, achromatic: boolean, context: Context): Fam
       roleColor: inContainer ? container : accent,
     },
   };
+}
+
+/**
+ * Builds a tonal accent from its fixed tone outward, testing each final 8-bit candidate for
+ * surface contrast and existence of 6:1 text with the lightness rule. The container shares its
+ * hue and requested chroma at builtContainerLightness. Derived secondary uses the primary
+ * direction before seed rounding; its reported seed stays the same as fidelity's. A gray
+ * derived secondary has no chroma. Text is built separately with the existing seed-based cap.
+ */
+function buildTonalAccent(
+  family: Family,
+  context: Context,
+  seed: Oklab,
+  allowsText: (color: Srgb) => boolean,
+): { readonly accent: Srgb; readonly container: Srgb } {
+  const { seeds, mode, surface } = context;
+  const derived = family.accent === "secondary" && seeds.secondary.source === "derived";
+  const direction = derived ? oklabOf(parseHex(seeds.primary.hex)) : seed;
+  const chroma = Math.sqrt(direction.a * direction.a + direction.b * direction.b);
+  const seedChroma = derived ? chroma * SECONDARY_CHROMA_RATIO : chroma;
+  const cap = family.accent === "primary" ? TONAL_PRIMARY_CHROMA_CAP : TONAL_SECONDARY_CHROMA_CAP;
+  const requested = derived && seeds.achromatic ? 0 : Math.min(seedChroma, cap);
+  const scale = chroma > 0 ? requested / chroma : 0;
+  const a = direction.a * scale;
+  const b = direction.b * scale;
+  const light = mode === "light";
+  const start = light ? TONAL_ACCENT_LIGHTNESS_LIGHT : TONAL_ACCENT_LIGHTNESS_DARK;
+  for (let step = 0; ; step++) {
+    const L = start + (light ? -step : step) * LIGHTNESS_STEP;
+    const accent = oklabToSrgb(L, a, b);
+    if (meets(accent, surface, family.accentRequirement) && allowsText(accent)) {
+      return { accent, container: oklabToSrgb(context.builtLightness, a, b) };
+    }
+    if (light ? L <= 0 : L >= 1) return noColor(family.accent, mode, seeds);
+  }
 }
 
 /**

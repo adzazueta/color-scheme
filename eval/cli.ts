@@ -4,7 +4,12 @@ import { resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { extractColors } from "@adzazueta/color-extractor/node";
 import sharp from "sharp";
-import { createColorScheme, seedsFromColorExtractor } from "@/index.js";
+import {
+  createColorScheme,
+  seedsFromColorExtractor,
+  type ColorScheme,
+  type ColorSchemeVariant,
+} from "@/index.js";
 import pkg from "../package.json" with { type: "json" };
 import { benchmarkRows, renderBenchmarks } from "./lib/benchmark.js";
 import { discover, parseIds, resolveEvalDir, sha256 } from "./lib/discover.js";
@@ -38,13 +43,14 @@ export async function main(argv: readonly string[]): Promise<number> {
   const generatedAt = new Date().toISOString();
   const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
   const reports: { report: Report; html: string }[] = [];
+  const variants: readonly ColorSchemeVariant[] = ["tonal", "fidelity"];
   const seen = new Set<string>();
   let algorithmVersion: string | undefined;
   let extractorVersion: string | undefined;
   for (const set of ["dev", "test"] as const satisfies readonly SetName[]) {
     const annotations = await readFile(resolve(annotationsDir, `${set}.json`), "utf8");
     const files = await discover(evalDir, set, parseIds(annotations, set));
-    const covers: CoverResult[] = [];
+    const covers: Record<ColorSchemeVariant, CoverResult[]> = { tonal: [], fidelity: [] };
     const images = new Map<string, string>();
     for (const file of files) {
       if (seen.has(file.sha256)) throw new Error("The same cover exists in both sets.");
@@ -53,43 +59,65 @@ export async function main(argv: readonly string[]): Promise<number> {
       if (sha256(bytes) !== file.sha256) throw new Error(`Cover changed during scan: ${file.id}.`);
       // Reference eval/config.ts REPORT_COUNT=5 and lib/analyze.ts default decode limits.
       const result = await extractColors(bytes, { mode: "perceptual", count: 5 });
-      const scheme = createColorScheme(seedsFromColorExtractor(result));
-      algorithmVersion ??= scheme.meta.algorithmVersion;
-      extractorVersion ??= result.meta.algorithmVersion;
-      if (
-        algorithmVersion !== scheme.meta.algorithmVersion ||
-        extractorVersion !== result.meta.algorithmVersion
-      ) {
-        throw new Error("Algorithm versions changed within the run.");
+      const seeds = seedsFromColorExtractor(result);
+      for (const variant of variants) {
+        const scheme = createColorScheme(seeds, { variant });
+        algorithmVersion ??= scheme.meta.algorithmVersion;
+        extractorVersion ??= result.meta.algorithmVersion;
+        if (
+          algorithmVersion !== scheme.meta.algorithmVersion ||
+          extractorVersion !== result.meta.algorithmVersion
+        )
+          throw new Error("Algorithm versions changed within the run.");
+        covers[variant].push(buildCover(file.id, result, scheme));
       }
-      covers.push(buildCover(file.id, result, scheme));
       images.set(file.id, pathToFileURL(file.path).href);
     }
     if (algorithmVersion === undefined || extractorVersion === undefined)
       throw new Error("No covers evaluated.");
-    const report = buildReport(
-      set,
-      {
-        algorithmVersion,
-        packageVersion: pkg.version,
-        commit,
-        generatedAt,
-        extractor: {
-          packageVersion: pkg.devDependencies["@adzazueta/color-extractor"],
-          algorithmVersion: extractorVersion,
-          mode: "perceptual",
-          count: 5,
-          limits: "defaults",
-        },
-        decoder: { sharp: sharp.versions.sharp, libvips: sharp.versions.vips },
-        annotationsSha256: sha256(annotations),
-      },
-      covers,
-    );
-    reports.push({ report, html: renderHtml(report, images) });
+    // Fidelity's colors, seeds and exact report numbers are frozen at algorithm 2; only meta changes.
+    const previous = JSON.parse(
+      await readFile(resolve(root, "eval/reports/2", `${set}.json`), "utf8"),
+    ) as { covers: { id: string; scheme: ColorScheme }[] };
+    for (const cover of covers.fidelity) {
+      const baseline = previous.covers.find((item) => item.id === cover.id);
+      const withoutMeta = ({ meta: _meta, ...scheme }: ColorScheme): Omit<ColorScheme, "meta"> =>
+        scheme;
+      if (
+        baseline === undefined ||
+        JSON.stringify(withoutMeta(cover.scheme)) !== JSON.stringify(withoutMeta(baseline.scheme))
+      )
+        throw new Error(`Fidelity changed from algorithm 2: ${cover.id}.`);
+    }
     console.info(
-      `${set}: ${report.summary.covers} covers, ${report.summary.neutralThemes} neutral themes, ${report.summary.verificationFailures} verification failures`,
+      `${set}: fidelity matches algorithm 2 on all ${covers.fidelity.length} covers (roles, seeds and reports).`,
     );
+    for (const variant of variants) {
+      const report = buildReport(
+        set,
+        {
+          algorithmVersion,
+          variant,
+          packageVersion: pkg.version,
+          commit,
+          generatedAt,
+          extractor: {
+            packageVersion: pkg.devDependencies["@adzazueta/color-extractor"],
+            algorithmVersion: extractorVersion,
+            mode: "perceptual",
+            count: 5,
+            limits: "defaults",
+          },
+          decoder: { sharp: sharp.versions.sharp, libvips: sharp.versions.vips },
+          annotationsSha256: sha256(annotations),
+        },
+        covers[variant],
+      );
+      reports.push({ report, html: renderHtml(report, images) });
+      console.info(
+        `${variant} ${set}: ${report.summary.covers} covers, ${report.summary.neutralThemes} neutral themes, ${report.summary.verificationFailures} verification failures`,
+      );
+    }
   }
   if (
     algorithmVersion === undefined ||
@@ -118,9 +146,11 @@ export async function main(argv: readonly string[]): Promise<number> {
   const destination = resolve(root, "eval", "reports", algorithmVersion);
   await mkdir(destination, { recursive: true });
   for (const { report, html } of reports) {
-    await writeFile(resolve(destination, `${report.set}.json`), renderJson(report));
-    await writeFile(resolve(destination, `${report.set}.md`), renderMarkdown(report));
-    await writeFile(resolve(out, `${report.set}.html`), html);
+    const folder = resolve(destination, report.header.variant);
+    await mkdir(folder, { recursive: true });
+    await writeFile(resolve(folder, `${report.set}.json`), renderJson(report));
+    await writeFile(resolve(folder, `${report.set}.md`), renderMarkdown(report));
+    await writeFile(resolve(out, `${report.set}-${report.header.variant}.html`), html);
   }
   await writeFile(
     resolve(destination, "bench.md"),
@@ -129,5 +159,12 @@ export async function main(argv: readonly string[]): Promise<number> {
   console.info(
     `Evaluation completed in ${((performance.now() - started) / 1000).toFixed(2)} s. Visual reports: ${out}`,
   );
-  return reports.some(({ report }) => report.summary.verificationFailures > 0) ? 1 : 0;
+  const slow = rows.filter((row) => row.mean >= 5);
+  if (slow.length)
+    console.error(
+      `Benchmark target exceeded: ${slow.map((row) => `${row.variant} ${row.label}`).join(", ")}.`,
+    );
+  return reports.some(({ report }) => report.summary.verificationFailures > 0) || slow.length > 0
+    ? 1
+    : 0;
 }

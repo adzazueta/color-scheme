@@ -1,7 +1,9 @@
+import type { ColorSchemeVariant } from "@/index.js";
 import { arch, cpus, platform, release, totalmem } from "node:os";
 import { table } from "./render.js";
 
 export interface BenchmarkRow {
+  readonly variant: ColorSchemeVariant;
   readonly label: string;
   readonly seeds: string;
   readonly mean: number;
@@ -16,7 +18,7 @@ interface BenchmarkJson {
     readonly assertionResults: readonly {
       readonly title: string;
       readonly status: string;
-      readonly meta?: { readonly schemesPerSample?: number };
+      readonly meta?: { readonly variant?: ColorSchemeVariant; readonly schemesPerSample?: number };
       readonly benchmarks?: readonly {
         readonly tasks: readonly {
           readonly name: string;
@@ -39,6 +41,9 @@ export function benchmarkRows(text: string): BenchmarkRow[] {
   for (const file of report.testResults) {
     for (const test of file.assertionResults) {
       if (test.status !== "passed") throw new Error(`Benchmark failed: ${test.title}.`);
+      const variant = test.meta?.variant;
+      if (variant !== "tonal" && variant !== "fidelity")
+        throw new Error("Invalid benchmark variant.");
       const schemes = test.meta?.schemesPerSample ?? 1;
       if (!Number.isInteger(schemes) || schemes < 1) throw new Error("Invalid schemes per sample.");
       for (const benchmark of test.benchmarks ?? []) {
@@ -50,6 +55,7 @@ export function benchmarkRows(text: string): BenchmarkRow[] {
             throw new Error("Invalid benchmark measurement.");
           }
           rows.push({
+            variant,
             label: test.title,
             seeds: task.name,
             mean: mean / schemes,
@@ -95,8 +101,9 @@ export function renderBenchmarks(
       "## Results",
       "Times are milliseconds per complete light-and-dark scheme, measured on `dist/index.js`. Decoding and color extraction are outside the timed work. Whole-set samples compute every benchmark seed; their times are divided by 11. Timing measurements vary with machine load.",
       table(
-        ["Case", "Seeds", "Mean (ms)", "p99 (ms)", "Max (ms)", "Samples"],
+        ["Variant", "Case", "Seeds", "Mean (ms)", "p99 (ms)", "Max (ms)", "Samples"],
         rows.map((row) => [
+          row.variant,
           row.label,
           row.seeds,
           row.mean.toFixed(6),
@@ -105,7 +112,10 @@ export function renderBenchmarks(
           String(row.samples),
         ]),
       ),
-      `Cases with mean below 5 ms: ${rows.filter((row) => row.mean < 5).length} / ${rows.length}.`,
+      ...["tonal", "fidelity"].map((variant) => {
+        const own = rows.filter((row) => row.variant === variant);
+        return `${variant} cases with mean below 5 ms: ${own.filter((row) => row.mean < 5).length} / ${own.length}.`;
+      }),
     ].join("\n\n") + "\n"
   );
 }

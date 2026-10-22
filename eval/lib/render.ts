@@ -98,6 +98,7 @@ export function renderMarkdown(report: Report): string {
       ["Field", "Value"],
       [
         ["Algorithm version", h.algorithmVersion],
+        ["Variant", h.variant],
         ["Package version", h.packageVersion],
         ["Commit", h.commit],
         ["Date", h.generatedAt],
@@ -188,9 +189,9 @@ function coverHtml(cover: CoverResult, image: string): string {
 export function renderHtml(report: Report, images: ReadonlyMap<string, string>): string {
   const s = report.summary;
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Color scheme evaluation · ${report.set} · ${escapeHtml(report.header.algorithmVersion)}</title><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Color scheme evaluation · ${report.header.variant} · ${report.set} · ${escapeHtml(report.header.algorithmVersion)}</title><style>
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,sans-serif;background:#f0f1f3;color:#19202b}header,main{max-width:1600px;margin:auto;padding:24px}header{background:white}h1,h2,h3,h4{line-height:1.25}article{background:white;margin:24px 0;padding:24px;border-radius:12px}table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}th,td{text-align:left;padding:6px;border-bottom:1px solid #ccd0d6}code{font:12px/1.4 ui-monospace,monospace;overflow-wrap:anywhere}.overview{display:grid;grid-template-columns:180px 1fr;gap:24px}.overview img{width:100%;max-height:260px;object-fit:contain}.swatches{display:flex;flex-wrap:wrap;gap:10px}.swatch{display:flex;align-items:center;gap:8px;min-width:145px}.swatch>span{width:40px;height:40px;border:1px solid #8c929a;border-radius:5px;flex-shrink:0}.modes{display:grid;grid-template-columns:1fr 1fr;gap:24px}.sample{padding:20px;border:1px solid;border-radius:10px;margin-bottom:20px}.sample h4{margin-top:0;font-size:22px}.sample button{font:inherit;padding:10px 18px;border:1px solid;border-radius:6px}.container{padding:16px;margin-top:18px;border:1px solid;border-radius:6px}.container span{display:block}.status{padding:12px;border-radius:6px}.roles{padding:12px 0}.roles .swatch{width:calc(50% - 10px)}@media(max-width:900px){.modes{grid-template-columns:1fr}.overview{grid-template-columns:120px 1fr}}@media(max-width:500px){header,main,article{padding:12px}.overview{grid-template-columns:1fr}.overview img{width:140px}.roles .swatch{width:100%}}
-</style></head><body><header><h1>Color scheme evaluation · ${report.set}</h1><p>Algorithm ${escapeHtml(report.header.algorithmVersion)} · ${s.covers} covers · ${s.neutralThemes} neutral themes · ${s.verificationFailures} verification failures</p><p>Fidelity measures given seeds only. Derived seeds are excluded; shifts measure absolute Oklab lightness differences, not chroma changes.</p><table><thead><tr><th>Seed</th><th>Mode</th><th>Exact / given</th><th>Mean |lightnessShift|</th></tr></thead><tbody>${summaryRows(
+</style></head><body><header><h1>Color scheme evaluation · ${report.header.variant} · ${report.set}</h1><p>${report.header.variant} · Algorithm ${escapeHtml(report.header.algorithmVersion)} · ${s.covers} covers · ${s.neutralThemes} neutral themes · ${s.verificationFailures} verification failures</p><p>Fidelity measures given seeds only. Derived seeds are excluded; shifts measure absolute Oklab lightness differences, not chroma changes.</p><table><thead><tr><th>Seed</th><th>Mode</th><th>Exact / given</th><th>Mean |lightnessShift|</th></tr></thead><tbody>${summaryRows(
     s,
   )
     .map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`)

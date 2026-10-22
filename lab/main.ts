@@ -7,6 +7,7 @@ import {
   toDesignTokens,
   type ColorScheme,
   type Seeds,
+  type ColorSchemeVariant,
 } from "@/index.js";
 import { colorChip, element, required } from "./ui/dom.js";
 import { renderMode, renderSeeds } from "./ui/render.js";
@@ -56,11 +57,12 @@ function generate(): void {
       ...(secondary ? { secondary } : {}),
       ...(neutral ? { neutral } : {}),
     };
-    const next = createColorScheme(seeds);
+    const variant = required("variant", "select").value as ColorSchemeVariant;
+    const next = createColorScheme(seeds, { variant });
     required("modes", "div").replaceChildren(renderMode(next, "light"), renderMode(next, "dark"));
     required("used-seeds", "ul").replaceChildren(...renderSeeds(next));
     required("algorithm", "p").textContent =
-      `Algorithm ${next.meta.algorithmVersion} · Seeds used below include any derived colors.`;
+      `Algorithm ${next.meta.algorithmVersion} · ${next.meta.variant} · Seeds used below include any derived colors.`;
     for (const field of fields) {
       syncPicker(field.text, field.picker);
       if (field.text.value.trim() === "") field.picker.value = next.seeds[field.name].hex;
@@ -80,6 +82,8 @@ function manualChange(): void {
   extracted.replaceChildren();
   generate();
 }
+
+required("variant", "select").addEventListener("change", generate);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();

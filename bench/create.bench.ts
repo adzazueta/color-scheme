@@ -43,25 +43,25 @@ function describeSeeds(seeds: Seeds): string {
 // Keeps every result reachable, so the engine cannot drop a call whose result is unused.
 let last: ColorScheme | undefined;
 
-describe("createColorScheme", () => {
+describe.each(["tonal", "fidelity"] as const)("createColorScheme: %s", (variant) => {
   for (const { label, seeds } of BENCH_SEEDS) {
-    test(label, async ({ bench, task }) => {
-      Object.assign(task.meta, { schemesPerSample: 1 });
+    test(`${variant}: ${label}`, async ({ bench, task }) => {
+      Object.assign(task.meta, { schemesPerSample: 1, variant });
       await bench(describeSeeds(seeds), () => {
-        last = createColorScheme(seeds);
+        last = createColorScheme(seeds, { variant });
       }).run(OPTIONS);
     });
   }
 
   // Every sample computes the whole set, in order, so the seeds also run after one another as they
   // would when an app builds several themes.
-  test("whole set", async ({ bench, task }) => {
-    Object.assign(task.meta, { schemesPerSample: BENCH_SEEDS.length });
+  test(`${variant}: whole set`, async ({ bench, task }) => {
+    Object.assign(task.meta, { schemesPerSample: BENCH_SEEDS.length, variant });
     await bench(`all ${BENCH_SEEDS.length} seeds in each sample`, () => {
       for (const { seeds } of BENCH_SEEDS) {
-        last = createColorScheme(seeds);
+        last = createColorScheme(seeds, { variant });
       }
     }).run(OPTIONS);
-    console.info(`Benchmark: algorithm ${last?.meta.algorithmVersion ?? "unknown"}`);
+    console.info(`Benchmark: ${variant}, algorithm ${last?.meta.algorithmVersion ?? "unknown"}`);
   });
 });
