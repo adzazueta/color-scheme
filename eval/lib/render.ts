@@ -1,4 +1,12 @@
-import { MODES, SEEDS, type CoverResult, type Report, type Summary } from "./report.js";
+import {
+  ACCENT_SEEDS,
+  MODES,
+  SEEDS,
+  SOURCES,
+  type CoverResult,
+  type Report,
+  type Summary,
+} from "./report.js";
 
 /** Pad generated Markdown tables like the reference evaluation, without a formatter pass. */
 export function table(headers: readonly string[], rows: readonly (readonly string[])[]): string {
@@ -29,11 +37,43 @@ export function summaryRows(summary: Summary): string[][] {
   );
 }
 
+export function placementRows(summary: Summary): string[][] {
+  return ACCENT_SEEDS.flatMap((seed) =>
+    MODES.flatMap((mode) =>
+      SOURCES.map((source) => {
+        const item = summary.placement[seed][mode][source];
+        return [
+          seed,
+          mode,
+          source,
+          String(item.total),
+          String(item.exactX),
+          String(item.exactContainer),
+          String(item.moved),
+        ];
+      }),
+    ),
+  );
+}
+
+const PLACEMENT_HEADERS = [
+  "Seed",
+  "Mode",
+  "Source",
+  "Total",
+  "Exact X",
+  "Exact container",
+  "Moved",
+];
+const PLACEMENT_LABELS = { exactX: "exact X", exactContainer: "exact container", moved: "moved" };
+
 export function renderSummary(summary: Summary): string {
   return [
     `Covers: ${summary.covers}. Neutral themes: ${summary.neutralThemes}. Verification failures: ${summary.verificationFailures}.`,
     "Fidelity measures given seeds only, using ModeReport.adjustments. Derived seeds are excluded. The denominator is the number of covers where that seed was given; an empty mean is n/a. Shifts are absolute Oklab lightness differences (0 to 1); they do not measure chroma changes.",
     table(["Seed", "Mode", "Exact / given", "Mean |lightnessShift|"], summaryRows(summary)),
+    "Placement compares each accent seed's hex with X first, then its container: exact X, exact container, or moved. Counts include given and derived seeds separately, per mode; each seed appears exactly once. Fidelity counts an exact seed in either role and therefore can stay unchanged when placement changes.",
+    table(PLACEMENT_HEADERS, placementRows(summary)),
     table(
       ["Seed", "Given", "Derived"],
       SEEDS.map((seed) => [
@@ -134,7 +174,7 @@ function coverHtml(cover: CoverResult, image: string): string {
 <div class="overview"><img src="${escapeHtml(image)}" alt="Cover ${cover.id}" loading="lazy"><div><h3>Extracted colors</h3><div class="swatches">${cover.colors.map((c) => swatch(c.hex, `${(c.coverage * 100).toFixed(2)}%`)).join("")}</div><h3>Seeds</h3><div class="swatches">${SEEDS.map((seed) => swatch(scheme.seeds[seed].hex, `${seed} (${scheme.seeds[seed].source})`)).join("")}</div></div></div>
 <div class="modes">${MODES.map((mode) => {
     const r = scheme[mode];
-    return `<section><h3>${mode}</h3><div class="sample" style="background:${r.surface};color:${r.onSurface};border-color:${r.outline}"><h4>Your reading shelf</h4><p style="color:${r.onSurfaceVariant}">A theme inspired by this cover.</p><button type="button" style="background:${r.primary};color:${r.onPrimary};border-color:${r.primary}">Continue reading</button> <button type="button" style="background:${r.secondary};color:${r.onSecondary};border-color:${r.secondary}">Save</button><div class="container" style="background:${r.surfaceContainer};border-color:${r.outline}">Chapter one <span style="color:${r.onSurfaceVariant}">Ready to read</span></div><p class="status" style="background:${r.successContainer};color:${r.onSuccessContainer}">Your place has been saved.</p></div><details open><summary>34 roles</summary><div class="swatches roles">${Object.entries(
+    return `<section><h3>${mode}</h3><p class="placement">${ACCENT_SEEDS.map((seed) => `${seed} (${scheme.seeds[seed].source}): <strong>${PLACEMENT_LABELS[cover.placement[seed][mode]]}</strong>`).join(" · ")}</p><div class="sample" style="background:${r.surface};color:${r.onSurface};border-color:${r.outline}"><h4>Your reading shelf</h4><p style="color:${r.onSurfaceVariant}">A theme inspired by this cover.</p><button type="button" style="background:${r.primary};color:${r.onPrimary};border-color:${r.primary}">Continue reading</button> <button type="button" style="background:${r.secondary};color:${r.onSecondary};border-color:${r.secondary}">Save</button><div class="container" style="background:${r.surfaceContainer};border-color:${r.outline}">Chapter one <span style="color:${r.onSurfaceVariant}">Ready to read</span></div><p class="status" style="background:${r.successContainer};color:${r.onSuccessContainer}">Your place has been saved.</p></div><details open><summary>34 roles</summary><div class="swatches roles">${Object.entries(
       r,
     )
       .map(([role, hex]) => swatch(hex, role))
@@ -156,7 +196,11 @@ export function renderHtml(report: Report, images: ReadonlyMap<string, string>):
     .map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`)
     .join(
       "",
-    )}</tbody></table><p>${SEEDS.map((seed) => `${seed}: ${s.sources[seed].given} given, ${s.sources[seed].derived} derived`).join(" · ")}</p></header><main>${report.covers
+    )}</tbody></table><p>${SEEDS.map((seed) => `${seed}: ${s.sources[seed].given} given, ${s.sources[seed].derived} derived`).join(" · ")}</p><p>Accent seed placement, counted separately for given and derived seeds. Exact X, exact container, or moved; each seed appears once per mode.</p><table class="placement-summary"><thead><tr>${PLACEMENT_HEADERS.map((label) => `<th>${label}</th>`).join("")}</tr></thead><tbody>${placementRows(
+    s,
+  )
+    .map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`)
+    .join("")}</tbody></table></header><main>${report.covers
     .map((cover) => {
       const image = images.get(cover.id);
       if (image === undefined) throw new Error(`Missing local image for ${cover.id}.`);

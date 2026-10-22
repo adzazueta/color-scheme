@@ -13,10 +13,12 @@ export const ACHROMATIC_CHROMA = 0.02;
 
 /**
  * Fraction of the `primary` chroma that a derived `secondary` keeps. Unit: ratio from 0 to 1.
- * 0.6 is clearly more muted than the primary, so the two stay distinguishable, and still carries
- * its hue visibly. The derived color scales Oklab's a and b, so its hue is the primary's.
+ * 0.35 keeps the primary's hue visibly with a softer chroma. On the evaluation covers, version
+ * 1's 0.6 left the primary and derived-secondary containers almost identical (deltaEOK below 0.04
+ * in 11 of 13 derived cases in light mode and 8 in dark mode). The derived color scales Oklab's
+ * a and b, so its hue is the primary's. Changing this value changes `algorithmVersion`.
  */
-export const SECONDARY_CHROMA_RATIO = 0.6;
+export const SECONDARY_CHROMA_RATIO = 0.35;
 
 /**
  * Oklab chroma of a derived `neutral`, capped at the `primary` chroma so it never gains chroma.

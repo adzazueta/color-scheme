@@ -4,6 +4,16 @@ import { createColorScheme } from "@/index.js";
 import type { ColorScheme, Seeds } from "@/types.js";
 import {
   fidelityFailures,
+  contrast,
+  allowsAccentText,
+  measure,
+  MODES,
+  ON_ACCENT_TARGET_CONTRAST,
+  ACCENT_CONTAINER_GAP,
+  ACHROMATIC_CHROMA,
+  OKLAB_TOLERANCE,
+  colorJsMapped,
+  searchOracle,
   guaranteeFailures,
   newTally,
   seedFailures,
@@ -151,6 +161,94 @@ describe("random combinations of seeds (fast-check, fixed seed)", () => {
         }),
         { seed: SEED, numRuns: NUM_RUNS },
       );
+    },
+    TIMEOUT,
+  );
+
+  it(
+    "reach 6:1 on both accents, and every exact accent seed permits that text",
+    () => {
+      let exact = 0;
+      fc.assert(
+        fc.property(seedsArbitrary, (seeds) => {
+          const scheme = schemeOf(seeds);
+          for (const mode of MODES) {
+            for (const [accent, text] of [
+              ["primary", "onPrimary"],
+              ["secondary", "onSecondary"],
+            ] as const) {
+              expect(contrast(scheme[mode][accent], scheme[mode][text])).toBeGreaterThanOrEqual(
+                ON_ACCENT_TARGET_CONTRAST,
+              );
+              if (scheme[mode][accent] === scheme.seeds[accent].hex) {
+                exact++;
+                expect(allowsAccentText(scheme.seeds[accent].hex)).not.toBe("no");
+                expect(
+                  contrast(scheme.seeds[accent].hex, scheme[mode][text]),
+                ).toBeGreaterThanOrEqual(ON_ACCENT_TARGET_CONTRAST);
+              }
+            }
+          }
+        }),
+        { seed: SEED, numRuns: NUM_RUNS },
+      );
+      expect(exact).toBeGreaterThan(0);
+    },
+    TIMEOUT,
+  );
+
+  it(
+    "build accents on the outward side of the original 3:1 start, including extra moves for text",
+    () => {
+      let farther = 0;
+      fc.assert(
+        fc.property(seedsArbitrary, (seeds) => {
+          const scheme = schemeOf(seeds);
+          for (const mode of MODES) {
+            for (const accent of ["primary", "secondary"] as const) {
+              if (scheme[mode][accent] === scheme.seeds[accent].hex) continue;
+              const seed = measure(scheme.seeds[accent].hex);
+              const achromatic =
+                accent === "primary" && seed.chroma < ACHROMATIC_CHROMA - OKLAB_TOLERANCE;
+              if (
+                accent === "primary" &&
+                Math.abs(seed.chroma - ACHROMATIC_CHROMA) <= OKLAB_TOLERANCE
+              )
+                continue;
+              const start = achromatic
+                ? mode === "light"
+                  ? 0.22
+                  : 0.95
+                : measure(scheme[mode][`${accent}Container`]).L +
+                  (mode === "light" ? -ACCENT_CONTAINER_GAP : ACCENT_CONTAINER_GAP);
+              const a = achromatic ? 0 : seed.a;
+              const b = achromatic ? 0 : seed.b;
+              const original = searchOracle({
+                start,
+                a,
+                b,
+                backgrounds: [scheme[mode].surface],
+                minContrast: 3.005,
+                prefer: mode === "light" ? "darker" : "lighter",
+              });
+              const L = measure(scheme[mode][accent]).L;
+              const direction = mode === "light" ? -1 : 1;
+              // Compare final 8-bit colors with final 8-bit start candidates, avoiding a tolerance
+              // for gamut mapping's shift in nominal candidate lightness.
+              const startL = measure(colorJsMapped(Math.max(0, Math.min(1, start)), a, b)).L;
+              expect(direction * (L - startL)).toBeGreaterThanOrEqual(-OKLAB_TOLERANCE);
+              const first = original.matches.map((match) => measure(match.hex).L);
+              expect(first.some((value) => direction * (L - value) >= -OKLAB_TOLERANCE)).toBe(true);
+              if (original.matches.every((match) => allowsAccentText(match.hex) === "no")) {
+                farther++;
+                expect(first.every((value) => direction * (L - value) > 0)).toBe(true);
+              }
+            }
+          }
+        }),
+        { seed: SEED, numRuns: NUM_RUNS },
+      );
+      expect(farther).toBeGreaterThan(0);
     },
     TIMEOUT,
   );

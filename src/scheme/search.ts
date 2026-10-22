@@ -212,6 +212,16 @@ export function findOrThrow(
 ): LightnessMatch {
   const match = findLightness(search);
   if (match !== null) return match;
+  return noColor(role, mode, seeds);
+}
+
+/**
+ * Reports an impossible construction search with the same internal invariant error in every
+ * role builder. The role, mode, and input seeds identify the failure for reproduction.
+ *
+ * @throws {ColorSchemeError} `PROCESSING_FAILED`, naming the role, mode, and seeds.
+ */
+export function noColor(role: Role, mode: "light" | "dark", seeds: SchemeSeeds): never {
   throw new ColorSchemeError(
     "PROCESSING_FAILED",
     `No ${role} color meets its minimums in ${mode} mode. ${formatSeeds({

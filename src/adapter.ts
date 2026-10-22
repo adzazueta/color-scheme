@@ -3,6 +3,7 @@ import { parseHex } from "@/color/hex.js";
 import { srgbToOklab } from "@/color/oklab.js";
 import { inputError, isArray, isRecord, kindOf, readInput, readOwn } from "@/input.js";
 import { ACHROMATIC_CHROMA } from "@/scheme/derive.js";
+import { NEUTRAL_CHROMA_CAP } from "@/scheme/neutral.js";
 import type { ColorExtractorResult, Seeds } from "@/types.js";
 
 /**
@@ -76,7 +77,10 @@ function invalidInput(message: string): ColorSchemeError {
  * - `secondary`: the next color with enough chroma whose hue is at least 45° from the primary's
  *   (the angle between their Oklab a-b directions, which is their OKLCH hue difference). It is left
  *   out when there is none, so `createColorScheme` derives it from `primary`, with its hue.
- * - `neutral`: the color with the largest `coverage`; on a tie, the first one in the result.
+ * - `neutral`: the color with the largest `coverage`; on a tie, the first one in the result,
+ *   only when its Oklab chroma is at most {@link NEUTRAL_CHROMA_CAP} (0.04), measured with the
+ *   same conversion on the same 8-bit color as the surface cap. Otherwise it is left out, so
+ *   `createColorScheme` derives a faint tint from `primary`. No other color is tried.
  *
  * When no color has enough chroma, such as on a black-and-white cover, `primary` is the first color
  * and `secondary` is left out. That `primary` is achromatic for `createColorScheme`, which gives the
@@ -104,7 +108,7 @@ function invalidInput(message: string): ColorSchemeError {
  * echo a string from the input.
  *
  * @param result - A `color-extractor` result with `schemaVersion` 1.
- * @returns The seeds: `primary` and `neutral`, and `secondary` when a color qualifies.
+ * @returns The seeds: `primary`, and `secondary` and `neutral` only when they qualify.
  * @throws {ColorSchemeError} `INVALID_INPUT` when the result is not valid: a check above fails,
  *   other than the version number or an empty list. Also when it cannot be read, such as a getter
  *   or proxy that throws, including a caller's `ColorSchemeError`: the message is then "The
@@ -230,11 +234,13 @@ function selectSeeds(colors: readonly ResultColor[]): Seeds {
     if (color.coverage > neutral.coverage) neutral = color;
   }
 
-  if (primary === undefined) {
-    // No color has enough chroma: the first color is achromatic for `createColorScheme` too.
-    return { primary: colors[0]!.hex, neutral: neutral.hex };
-  }
-  return secondary === undefined
-    ? { primary: primary.hex, neutral: neutral.hex }
-    : { primary: primary.hex, secondary, neutral: neutral.hex };
+  const rgb = parseHex(neutral.hex);
+  const { a, b } = srgbToOklab(rgb.r, rgb.g, rgb.b);
+  const withinCap = Math.sqrt(a * a + b * b) <= NEUTRAL_CHROMA_CAP;
+  // Add keys in public order, omitting those that do not qualify.
+  return {
+    primary: primary?.hex ?? colors[0]!.hex,
+    ...(secondary === undefined ? {} : { secondary }),
+    ...(withinCap ? { neutral: neutral.hex } : {}),
+  };
 }

@@ -17,6 +17,7 @@ import {
   guaranteeFailures,
   measure,
   MODES,
+  NEUTRAL_CHROMA_CAP,
   OKLAB_TOLERANCE,
 } from "./scheme-checks.js";
 
@@ -246,7 +247,7 @@ export function registerAdapterTests(): void {
             [JUST_ABOVE_MIN_CHROMA, 0.2],
           ]),
         ),
-      ).toEqual({ primary: HUE_PRIMARY, secondary: JUST_ABOVE_MIN_CHROMA, neutral: HUE_PRIMARY });
+      ).toEqual({ primary: HUE_PRIMARY, secondary: JUST_ABOVE_MIN_CHROMA });
     });
 
     it("takes a secondary at the hue distance and skips one just short of it, measured with Color.js", () => {
@@ -278,7 +279,7 @@ export function registerAdapterTests(): void {
               [short, 0.5],
             ]),
           ),
-        ).toEqual({ primary: HUE_PRIMARY, neutral: HUE_PRIMARY });
+        ).toEqual({ primary: HUE_PRIMARY });
       }
     });
 
@@ -293,7 +294,7 @@ export function registerAdapterTests(): void {
             ["#2e9e3e", 0.3],
           ]),
         ),
-      ).toEqual({ primary: RED, secondary: BLUE, neutral: RED });
+      ).toEqual({ primary: RED, secondary: BLUE });
     });
 
     it("leaves the secondary out when no other color has enough chroma and a different hue", () => {
@@ -309,7 +310,7 @@ export function registerAdapterTests(): void {
       expect(Object.keys(seeds)).toEqual(["primary", "neutral"]);
     });
 
-    it("takes the largest coverage as the neutral, and the first one in the result on a tie", () => {
+    it("checks only the largest coverage for neutral, with the first result winning ties", () => {
       expect(
         seedsFromColorExtractor(
           extractorResult([
@@ -319,7 +320,7 @@ export function registerAdapterTests(): void {
             [INK, 0.1],
           ]),
         ).neutral,
-      ).toBe(RED);
+      ).toBeUndefined();
       expect(
         seedsFromColorExtractor(
           extractorResult([
@@ -336,7 +337,50 @@ export function registerAdapterTests(): void {
             [INK, 0],
           ]),
         ),
-      ).toEqual({ primary: RED, neutral: RED });
+      ).toEqual({ primary: RED });
+    });
+
+    it("omits a vivid largest color so the scheme derives its neutral from primary", () => {
+      const seeds = seedsFromColorExtractor(
+        extractorResult([
+          [RED, 0.7],
+          [PAPER, 0.3],
+        ]),
+      );
+      expect(measure(RED).chroma).toBeGreaterThan(NEUTRAL_CHROMA_CAP);
+      expect(seeds).toEqual({ primary: RED });
+      expect(Object.keys(seeds)).toEqual(["primary"]);
+      expect(createColorScheme(seeds).seeds.neutral.source).toBe("derived");
+    });
+
+    it("passes a largest color below the cap, including one with visible chroma", () => {
+      const neutral = "#516754";
+      expect(measure(neutral).chroma).toBeGreaterThan(MIN_CHROMA);
+      expect(measure(neutral).chroma).toBeLessThan(NEUTRAL_CHROMA_CAP);
+      expect(
+        seedsFromColorExtractor(
+          extractorResult([
+            [RED, 0.3],
+            [neutral, 0.7],
+          ]),
+        ).neutral,
+      ).toBe(neutral);
+    });
+
+    it("brackets the neutral cap on final 8-bit colors, measured with Color.js", () => {
+      // Within 1.1e-6 of 0.04 on either side, beyond the conversions' uncertainty band.
+      for (const [hex, accepted] of [
+        ["#516754", true],
+        ["#785f6f", false],
+      ] as const) {
+        const chroma = measure(hex).chroma;
+        expect(Math.abs(chroma - NEUTRAL_CHROMA_CAP)).toBeGreaterThan(OKLAB_TOLERANCE);
+        expect(Math.abs(chroma - NEUTRAL_CHROMA_CAP)).toBeLessThan(1.1e-6);
+        expect(chroma <= NEUTRAL_CHROMA_CAP).toBe(accepted);
+        expect(seedsFromColorExtractor(extractorResult([[hex, 1]])).neutral).toBe(
+          accepted ? hex : undefined,
+        );
+      }
     });
 
     it("gives the neutral theme for a black-and-white cover", () => {
@@ -444,7 +488,7 @@ export function registerAdapterTests(): void {
           ];
         },
       };
-      expect(seedsFromColorExtractor(withGetters)).toEqual({ primary: BLUE, neutral: BLUE });
+      expect(seedsFromColorExtractor(withGetters)).toEqual({ primary: BLUE });
     });
 
     it("gives equal, new seeds for the same result, and does not change it", () => {
@@ -616,7 +660,7 @@ export function registerAdapterTests(): void {
             { hex: BLUE, coverage: 1 },
           ],
         }),
-      ).toEqual({ primary: RED, secondary: BLUE, neutral: BLUE });
+      ).toEqual({ primary: RED, secondary: BLUE });
     });
 
     it("runs the checks in a fixed order", () => {
