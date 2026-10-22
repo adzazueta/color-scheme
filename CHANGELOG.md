@@ -1,5 +1,16 @@
 # @adzazueta/color-scheme
 
+## 0.1.0-next.1
+
+### Minor Changes
+
+- e168c80: Use algorithm 2 for generated schemes. Text on `primary` and `secondary` now reaches at least 6:1 contrast; a seed that cannot carry that text becomes its container. `seedsFromColorExtractor` leaves out a vivid `neutral`, so the scheme derives a faint tint from `primary`, and a derived `secondary` has less chroma.
+- 1ddb254: Add the `variant` option to `createColorScheme` and report the chosen variant in `meta.variant`.
+  
+  The default is now `tonal`: accents use fixed lightnesses per role, with the seed's hue and capped Oklab chroma. Choose `variant: "fidelity"` to keep the previous construction and seed placement behavior.
+  
+  Both variants report algorithm version `3`.
+
 ## 0.1.0-next.0
 
 ### Minor Changes
